@@ -20,6 +20,18 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
+    trips: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Trip'
+      }
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ]
   },
   {
     toJSON: {
