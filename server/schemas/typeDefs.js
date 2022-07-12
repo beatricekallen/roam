@@ -14,11 +14,12 @@ const typeDefs = gql`
     _id: ID
     creator: User
     members: [User]
+    name: String
     createdAt: String
     location: String
-    date: String
     attractions: [Attraction]
     expenses: [Expense]
+    dates: String
   }
 
   type Attraction {
@@ -39,6 +40,10 @@ const typeDefs = gql`
     user: User
   }
 
+  input EmailInput {
+    email: String
+  }
+
   type Query {
     me: User
     users: [User]
@@ -51,6 +56,14 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addTrip(
+      name: String, 
+      location: String, 
+      dates: String,
+      transportation: String,
+      members: [EmailInput],
+      budget: String
+    ): Trip
   }
 `;
 

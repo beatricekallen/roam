@@ -62,6 +62,24 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addTrip: async (parent, args, context) => {
+      if (context.user) {
+        // context.user._id for creator User
+        const creatorData = await User.findOne({ _id: context.user._id })
+          .select('-__v -password');
+        // look up members by looping through args.members, which contains user emails
+        const membersData = await Promise.all(args.members.map(async email => {
+          return await User.findOne({ email })
+            .select('-__v -password');
+        }));
+        
+        const updatedArgs = [{creator: creatorData}, {members: membersData}, ...args];
+
+        return await Trip.create(updatedArgs);
+      }
+
+      throw new AuthenticationError('Not logged in');
+    }
   }
 };
 

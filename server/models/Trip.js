@@ -16,6 +16,10 @@ const tripSchema = new Schema(
         ref: 'User'
       }
     ],
+    name: {
+      type: String,
+      trim: true
+    },
     createdAt: {
       type: Date,
       default: new Date,
@@ -25,11 +29,9 @@ const tripSchema = new Schema(
       type: String,
       trim: true,
     },
-    dateStart: {
-      type: Date,
-    },
-    dateEnd: {
-      type: Date,
+    dates: {
+      type: String,
+      trim: true
     },
     attractions: [attractionSchema],
     expenses: [expenseSchema],
@@ -41,10 +43,6 @@ const tripSchema = new Schema(
     },
   }
 );
-
-tripSchema.virtual('date').get(function() {
-  return `${this.dateStart} - ${this.dateEnd}`;
-})
 
 const Trip = model("Trip", tripSchema);
 
