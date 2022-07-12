@@ -6,8 +6,32 @@ const typeDefs = gql`
     username: String
     email: String
     friendCount: Int
-    thoughts: [Thought]
+    trips: [Trip]
     friends: [User]
+  }
+
+  type Trip {
+    _id: ID
+    creator: User
+    members: [User]
+    createdAt: String
+    location: String
+    date: String
+    attractions: [Attraction]
+    expenses: [Expense]
+  }
+
+  type Attraction {
+    _id: ID
+    name: String
+    address: String
+    date: String
+  }
+
+  type Expense {
+    _id: ID
+    item: String
+    price: String
   }
 
   type Auth {
@@ -19,6 +43,9 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(username: String!): User
+    trip(_id: ID!): Trip
+    trips(username: String): [Trip]
+    expenses(_id: ID!): [Expense]
   }
 
   type Mutation {

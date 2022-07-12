@@ -43,7 +43,7 @@ const tripSchema = new Schema(
 );
 
 tripSchema.virtual('date').get(function() {
-  return `${getFormattedDate(this.dateStart)} - ${getFormattedDate(this.dateEnd)}`;
+  return `${this.dateStart} - ${this.dateEnd}`;
 })
 
 const Trip = model("Trip", tripSchema);

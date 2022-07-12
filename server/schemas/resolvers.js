@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { User, Trip } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -22,6 +22,21 @@ const resolvers = {
       return User.findOne({ username })
         .select('-__v -password')
     },
+    trip: async (parent, { _id }) => {
+      return Trip.findOne({ _id })
+        .populate('members');
+
+    },
+    trips: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Trip.find(params).sort({ createdAt: -1 })
+        .populate('members');
+
+    },
+    expenses: async (parent, { _id }) => {
+      return Trip.findOne({ _id })
+        .select('expenses');
+    }
   },
 
   Mutation: {
