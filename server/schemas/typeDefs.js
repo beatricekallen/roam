@@ -30,12 +30,6 @@ const typeDefs = gql`
     date: String
   }
 
-  type Expense {
-    _id: ID
-    item: String
-    price: String
-  }
-
   type Auth {
     token: ID!
     user: User
@@ -51,7 +45,6 @@ const typeDefs = gql`
     user(username: String!): User
     trip(_id: ID!): Trip
     trips(username: String): [Trip]
-    expenses(_id: ID!): [Expense]
   }
 
   type Mutation {
