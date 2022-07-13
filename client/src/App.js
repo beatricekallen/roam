@@ -8,12 +8,14 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import './css/style.css';
+
+import Navigation from "./components/Navigation/Navigation.js";
+import Footer from "./components/Footer/Footer.js";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import NoMatch from "./pages/NoMatch";
+import NoMatch from "./pages/NoMatch"; 
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 
@@ -41,7 +43,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
+          <Navigation />
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />

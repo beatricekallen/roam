@@ -7,6 +7,7 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
+  margin: 0;
 }
 
 :root {
@@ -33,6 +34,16 @@
   --mb-1: 16px;
   --mb-2: 32px;
   --mb-3: 48px;
+
+  /* Spacing */
+  --md-spacing: 16px;
+  --lg-spacing: 32px;
+
+  /* Border Radius */
+  --br-reg: 12px;
+
+  /* Header Height */
+  --header-height: 100px;
 }
 
 html {
