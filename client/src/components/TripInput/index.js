@@ -5,6 +5,9 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 // import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { validateEmail } from "../../utils/helpers";
 
 //TODO: use date pickers for dates? https://mui.com/x/react-date-pickers/getting-started/. verify that this form works
@@ -13,7 +16,8 @@ const TripInput = () => {
   const [formState, setFormState] = useState({
     name: "",
     location: "",
-    dates: "",
+    startDate: "",
+    endDate: "",
     transportation: "",
     budget: "",
     friends: "",
@@ -51,6 +55,36 @@ const TripInput = () => {
     }
   };
 
+  const handleDateChange = (value, type) => {
+    if (type === "startDate") {
+      // TODO: validate start date is after date.now
+
+    } else {
+      // TODO: validate end date is after start date
+    }
+    if (!errorMessage) {
+      setFormState({ ...formState, [type]: value });
+    }
+  }
+
+  function datePicker(type) {
+    const [value, setValue] = React.useState<Date | null>(null);
+  
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label={type}
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+            handleDateChange(newValue, type);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
+    );
+  }
+
   return (
     <div>
       <h2>Enter in your trip information.</h2>
@@ -71,14 +105,10 @@ const TripInput = () => {
           onBlur={handleChange}
           defaultValue={location}
         />
-        <h3>When are you going?</h3>
-        <TextField
-          fullWidth
-          label="fullWidth"
-          name="dates"
-          onBlur={handleChange}
-          defaultValue={dates}
-        />
+        <h3>Pick a start date for your trip:</h3>
+        {datePicker('startDate')}
+        <h3>Pick an end date for your trip:</h3>
+        {datePicker('endDate')}
         <h3>How are you getting there?</h3>
         <TextField
           fullWidth
