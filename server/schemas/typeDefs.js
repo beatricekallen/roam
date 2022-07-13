@@ -16,7 +16,8 @@ const typeDefs = gql`
     members: [User]
     createdAt: String
     location: String
-    date: String
+    startDate: String
+    endDate: String
     attractions: [Attraction]
     expenses: [Expense]
   }

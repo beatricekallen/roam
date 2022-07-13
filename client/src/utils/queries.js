@@ -6,6 +6,17 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      friendCount
+      friends {
+        _id
+        username
+      }
+      trips {
+        _id
+        location
+        startDate
+        endDate
+      }
     }
   }
 `;
@@ -16,6 +27,16 @@ export const QUERY_ME = gql`
       _id
       username
       email
+    }
+    friends {
+      _id
+      username
+    }
+    trips {
+      _id
+      location
+      startDate
+      endDate
     }
   }
 `;
