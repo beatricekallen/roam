@@ -24,6 +24,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/material": "^5.9.0",
     "node-sass": "^7.0.1",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-slick": "^0.29.0"
   }
 }
