@@ -106,12 +106,29 @@ export const QUERY_MY_TRIPS = gql`
   }
 `;
 
-export const QUERY_MY_TRIPS_BASIC = gq;`
+export const QUERY_MY_TRIPS_BASIC = gql`
   query my_trips {
     my_trips {
       trips {
         _id
         name
+        dates
+        location
+      }
+    }
+  }
+`;
+
+export const QUERY_USER_TRIPS = gql`
+  query user_trips($id: ID!) {
+    user_trips(_id: $id) {
+      trips {
+          _id
+        name
+        creator
+        members
+        transportation
+        budget
         dates
         location
       }
