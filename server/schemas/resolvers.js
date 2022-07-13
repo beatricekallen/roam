@@ -113,6 +113,47 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in');
+    },
+    updateTrip: async (parent, args, context) => {
+      if (context.user) {
+        const _id = args._id;
+        let trip;
+
+        // check if members need to be updated
+        if (args.members[0]) {
+          trip = await Trip.findByIdAndUpdate(
+            { _id },
+            { $set:
+              {
+                // spread and short circuit operators to conditionally update elements
+                ...args.location && {location: args.location},
+                ...args.dates && {dates: args.dates},
+                ...args.transportation && {transportation: args.transportation},
+                ...args.budget && {budget: args.budget}
+              },
+              $addToSet: { members: { $each: args.members } }
+            },
+            { new: true }
+          );
+        } else {
+          trip = await Trip.findByIdAndUpdate(
+            { _id },
+            { $set:
+              {
+                ...args.location && {location: args.location},
+                ...args.dates && {dates: args.dates},
+                ...args.transportation && {transportation: args.transportation},
+                ...args.budget && {budget: args.budget}
+              }
+            },
+            { new: true }
+          );
+        }
+
+        return trip;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
     }
   }
 };

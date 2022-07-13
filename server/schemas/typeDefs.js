@@ -60,6 +60,7 @@ const typeDefs = gql`
     addFriend(friendId: ID!): User
     addTrip(name: String!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
     deleteTrip(_id: ID!): Trip
+    updateTrip(_id: ID!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
   }
 `;
 
