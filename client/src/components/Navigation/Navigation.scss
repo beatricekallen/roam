@@ -1,5 +1,3 @@
-@import './css/style.css';
-
 @mixin breakpoint($point) {
     @if $point == md {
         // 768px

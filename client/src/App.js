@@ -8,8 +8,6 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import './css/style.css';
-
 import Navigation from "./components/Navigation/Navigation.js";
 import Hero from './components/Hero/Hero.js';
 import Footer from "./components/Footer/Footer.js";
