@@ -48,6 +48,13 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not logged in');
+    },
+    user_trips: async (parent, { _id }) => {
+      const userData = await User.findOne({ _id })
+        .select('trips')
+        .populate('trips');
+
+      return userData;
     }
   },
 
