@@ -6,16 +6,13 @@ const getFormattedDate = require("../utils/dateFormat");
 const tripSchema = new Schema(
   {
     creator: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true
     },
-    members: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ],
+    members: [{
+      type: String,
+      trim: true
+    }],
     name: {
       type: String,
       trim: true
@@ -33,8 +30,15 @@ const tripSchema = new Schema(
       type: String,
       trim: true
     },
+    budget: {
+      type: String,
+      trim: true
+    },
+    transportation: {
+      type: String,
+      trim: true
+    },
     attractions: [attractionSchema],
-    expenses: [expenseSchema],
   },
   {
     toJSON: {

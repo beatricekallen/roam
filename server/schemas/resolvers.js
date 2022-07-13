@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Trip } = require('../models');
 const { signToken } = require('../utils/auth');
+const mongoose = require('mongoose');
 
 const resolvers = {
   Query: {
@@ -8,6 +9,8 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
+          .populate('trips')
+          .populate('friends');
 
         return userData;
       }
@@ -17,10 +20,14 @@ const resolvers = {
     users: async () => {
       return User.find()
         .select('-__v -password')
+        .populate('trips')
+        .populate('friends');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
         .select('-__v -password')
+        .populate('trips')
+        .populate('friends');
     },
     trip: async (parent, { _id }) => {
       return Trip.findOne({ _id })
@@ -31,11 +38,6 @@ const resolvers = {
       const params = username ? { username } : {};
       return Trip.find(params).sort({ createdAt: -1 })
         .populate('members');
-
-    },
-    expenses: async (parent, { _id }) => {
-      return Trip.findOne({ _id })
-        .select('expenses');
     }
   },
 
@@ -62,23 +64,55 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addTrip: async (parent, args, context) => {
+    addFriend: async (parent, { friendId }, context) => {
       if (context.user) {
-        // context.user._id for creator User
-        const creatorData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password');
-        // look up members by looping through args.members, which contains user emails
-        const membersData = await Promise.all(args.members.map(async email => {
-          return await User.findOne({ email })
-            .select('-__v -password');
-        }));
-        
-        const updatedArgs = [{creator: creatorData}, {members: membersData}, ...args];
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { friends: friendId } },
+          { new: true }
+        ).populate('friends');
 
-        return await Trip.create(updatedArgs);
+        return updatedUser;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError('You need to be logged in');
+    },
+    addTrip: async (parent, args, context) => {
+      if (context.user) {
+        // create trip
+        const trip = await Trip.create({...args, creator: context.user.username, members: [context.user.email, ...args.members] });
+
+        if (trip) {
+          // add trip to each members trip array
+          args.members.forEach(async member => {
+            return await User.findOneAndUpdate(
+              { email: member },
+              { $push: { trips: trip } }
+            );
+          })
+        }
+
+        return trip;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+    deleteTrip: async (parent, { _id }, context) => {
+      if (context.user) {
+        const trip = await Trip.findOne( { _id } )
+          .populate('members')
+
+        trip.members.forEach(async member => {
+          await User.findOneAndUpdate(
+            { email: member },
+            { $pull: { trips: mongoose.Types.ObjectId(_id) } }
+          );
+        });
+
+        return await Trip.findOneAndDelete( { _id } );
+      }
+
+      throw new AuthenticationError('You need to be logged in');
     }
   }
 };

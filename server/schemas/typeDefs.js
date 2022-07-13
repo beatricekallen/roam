@@ -12,13 +12,14 @@ const typeDefs = gql`
 
   type Trip {
     _id: ID
-    creator: User
-    members: [User]
+    creator: String
+    members: [String]
     name: String
     createdAt: String
     location: String
     attractions: [Attraction]
-    expenses: [Expense]
+    budget: String
+    transportation: String
     dates: String
   }
 
@@ -56,15 +57,12 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addTrip(
-      name: String, 
-      location: String, 
-      dates: String,
-      transportation: String,
-      members: [EmailInput],
-      budget: String
-    ): Trip
+    addFriend(friendId: ID!): User
+    addTrip(name: String!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
+    deleteTrip(_id: ID!): Trip
   }
 `;
 
 module.exports = typeDefs;
+
+// addTrip(name: String!, location: String, dates: String, transportation: String, budget: String): Trip
