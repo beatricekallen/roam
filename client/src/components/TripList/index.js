@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 //TODO: need to update to route to different components on click. need to confirm trip information being passed in here is correct with backend.
 
-const Profile = ({ trips }) => {
+const TripList = ({ trips }) => {
   return (
     <div>
       <h2>Plan a solo trip</h2>
@@ -40,4 +40,4 @@ const Profile = ({ trips }) => {
   );
 };
 
-export default Profile;
+export default TripList;

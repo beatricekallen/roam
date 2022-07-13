@@ -1,8 +1,16 @@
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
-
 import { useQuery, useMutation } from "@apollo/client";
+import TripList from "../components/TripList";
 import Auth from "../utils/auth";
+import { Link } from 'react-router-dom';
+
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import PersonIcon from '@mui/icons-material/Person';
+import Avatar from '@mui/material/Avatar';
 
 const Profile = (props) => {
   const { username: userParam } = useParams();
@@ -26,7 +34,50 @@ const Profile = (props) => {
     );
   }
 
-  return <div></div>;
+  return (
+    <div>
+      <div className="flex-row mb-3">
+        <h2 className="bg-dark text-secondary p-3 display-inline-block">
+          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+        </h2>
+
+        {userParam && (
+          <button className="btn ml-auto" onClick={handleClick}>
+            Add Friend
+          </button>
+        )}
+      </div>
+
+      <div className="flex-row justify-space-between mb-3">
+        <div className="col-12 col-lg-9 mb-3">
+          <TripList trips={user.trips} title={`${user.username}'s trips`} />
+        </div>
+
+        <div className="col-12 col-lg-3 mb-3">
+          {user.friends.map((friend) => (
+            <List dense={dense}>
+              {generate(
+                <Link to={`/profile/${friend.username}`}>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <PersonIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={friend.username}
+                      secondary={null}
+                    />
+                  </ListItem>
+                </Link>
+              )}
+            </List>
+          ))}
+        </div>
+      </div>
+      <div className="mb-3">{!userParam && <ThoughtForm />}</div>
+    </div>
+  );
 };
 
 export default Profile;
