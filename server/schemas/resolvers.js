@@ -32,12 +32,22 @@ const resolvers = {
     trip: async (parent, { _id }) => {
       return Trip.findOne({ _id })
         .populate('members');
-
     },
     trips: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Trip.find(params).sort({ createdAt: -1 })
         .populate('members');
+    },
+    my_trips: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select('trips')
+          .populate('trips');
+        
+        return userData;
+      }
+
+      throw new AuthenticationError('Not logged in');
     }
   },
 
