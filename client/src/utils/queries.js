@@ -10,11 +10,8 @@ export const QUERY_USER = gql`
         _id
         name
         location
-        createdAt
         dates
         members
-        budget
-        creator
       }
       friendCount
       friends {
@@ -47,6 +44,16 @@ export const QUERY_ME = gql`
       _id
       email
       username
+    }
+    friends {
+      _id
+      username
+    }
+    trips {
+      _id
+      location
+      startDate
+      endDate
     }
   }
 }

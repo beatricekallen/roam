@@ -60,5 +60,3 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
-
-// addTrip(name: String!, location: String, dates: String, transportation: String, budget: String): Trip
