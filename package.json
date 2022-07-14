@@ -15,5 +15,13 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.0",
+    "dotenv": "^16.0.1",
+    "splitwise": "^1.0.0",
+    "splitwise-node": "^0.3.3"
   }
 }
