@@ -45,10 +45,6 @@ export const QUERY_ME = gql`
       email
       username
     }
-    friends {
-      _id
-      username
-    }
     trips {
       _id
       location
