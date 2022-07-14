@@ -1,4 +1,4 @@
-//TODO: set up with Splitwise API functionality
+// //TODO: set up with Splitwise API functionality
 // import {useQuery} from "@apollo/client"
 // import { Route, Link } from "react-router-dom";
 // import Button from "@mui/material/Button";
@@ -13,7 +13,7 @@
 //     window.location.href = getUrl();
 //     return null;
 //   }}
-// />;
+// />
 
 // const Splitwise = () => {
 //   return (
@@ -25,7 +25,7 @@
 //           href="https://www.worldwildlife.org/"
 //           target="_blank"
 //           rel="noopener noreferrer"
-//           // onClick={goToUrl} this was already commented out - this specific line
+//           // onClick={goToUrl}
 //         >
 //           Learn More
 //         </Button>)}

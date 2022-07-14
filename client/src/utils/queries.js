@@ -30,39 +30,29 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_ME = gql`
-{
-  me {
-    _id
-    email
-    username
-    trips {
-      _id
-      name
-      location
-      createdAt
-      dates
-      members
-      budget
-      creator
-    }
-    friendCount
-    friends {
+  query me {
+    me {
       _id
       email
       username
-    }
-    friends {
-      _id
-      username
-    }
-    trips {
-      _id
-      location
-      startDate
-      endDate
+      trips {
+        _id
+        name
+        location
+        createdAt
+        dates
+        members
+        budget
+        creator
+      }
+      friendCount
+      friends {
+        _id
+        email
+        username
+      }
     }
   }
-}
 `;
 
 
