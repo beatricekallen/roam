@@ -30,10 +30,7 @@ const tripSchema = new Schema(
       type: String,
       trim: true
     },
-    budget: {
-      type: String,
-      trim: true
-    },
+    expenses: [expenseSchema],
     transportation: {
       type: String,
       trim: true
