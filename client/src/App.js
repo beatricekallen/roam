@@ -51,7 +51,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-      <Splitwise />
+      {/* <Splitwise /> */}
       </div>
           <Footer />
         </div>

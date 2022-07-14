@@ -1,40 +1,40 @@
-//TODO: set up with Splitwise API functionality
-import {useQuery} from "@apollo/client"
-import { Route, Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { getUrl } from "../../utils/API";
-import { LOGIN_AUTH } from "../../utils/queries";
+// //TODO: set up with Splitwise API functionality
+// import {useQuery} from "@apollo/client"
+// import { Route, Link } from "react-router-dom";
+// import Button from "@mui/material/Button";
+// import { getUrl } from "../../utils/API";
+// import { LOGIN_AUTH } from "../../utils/queries";
 
-const [loginAuth, {data}] = useQuery(LOGIN_AUTH)
+// const [loginAuth, {data}] = useQuery(LOGIN_AUTH)
 
-<Route
-  path="/splitwise"
-  component={() => {
-    window.location.href = getUrl();
-    return null;
-  }}
-/>;
+// <Route
+//   path="/splitwise"
+//   component={() => {
+//     window.location.href = getUrl();
+//     return null;
+//   }}
+// />
 
-const Splitwise = () => {
-  return (
-    <div>
-      <Link to={`/splitwise`}>
-        {data && 
-        (<Button
-          size="small"
-          href="https://www.worldwildlife.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          // onClick={goToUrl}
-        >
-          Learn More
-        </Button>)}
-      </Link>
-    </div>
-  );
-};
+// const Splitwise = () => {
+//   return (
+//     <div>
+//       <Link to={`/splitwise`}>
+//         {data && 
+//         (<Button
+//           size="small"
+//           href="https://www.worldwildlife.org/"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//           // onClick={goToUrl}
+//         >
+//           Learn More
+//         </Button>)}
+//       </Link>
+//     </div>
+//   );
+// };
 
-export default Splitwise;
+// export default Splitwise;
 
 // keep track of token and secret associated with the user/user account, if you had that url, want to have one route that can be queried to get the url to nav to get oauth token, once authorized use same tokena nd secret to create instance of splitwise associated with each individual account
 // on server side, great authapi, have route that whenever the user wants to get info from splitwise: whenever you need to get info about the expenses in a particular route, after you've verified the token, you'll want to have stored in a dv store the token and secret and try to when you need to get expense data as part of the , call the get expenses method from that, way of handling it when they aren't valid or generating ones when they aren't valid, like a try catch block, api will throw exception if the token and secret you're trying to use haven't been authorized by the any user account, use that exception to show error message, try using authapi instance to generate another token and secret and get the url
