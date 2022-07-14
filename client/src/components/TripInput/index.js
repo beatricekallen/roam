@@ -24,7 +24,7 @@ const TripInput = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-  const { name, location, dates, transportation, budget, friends } = formState;
+  const { name, location, startDate, endDate, transportation, budget, friends } = formState;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,9 +67,9 @@ const TripInput = () => {
     }
   }
 
+  const [value, setValue] = useState("");
+
   function datePicker(type) {
-    const [value, setValue] = React.useState<Date | null>(null);
-  
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker

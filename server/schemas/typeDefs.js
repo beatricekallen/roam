@@ -12,13 +12,15 @@ const typeDefs = gql`
 
   type Trip {
     _id: ID
-    creator: User
-    members: [User]
+    creator: String
+    members: [String]
+    name: String
     createdAt: String
     location: String
-    date: String
     attractions: [Attraction]
-    expenses: [Expense]
+    budget: String
+    transportation: String
+    dates: String
   }
 
   type Attraction {
@@ -28,15 +30,13 @@ const typeDefs = gql`
     date: String
   }
 
-  type Expense {
-    _id: ID
-    item: String
-    price: String
-  }
-
   type Auth {
     token: ID!
     user: User
+  }
+
+  input EmailInput {
+    email: String
   }
 
   type Query {
@@ -45,12 +45,17 @@ const typeDefs = gql`
     user(username: String!): User
     trip(_id: ID!): Trip
     trips(username: String): [Trip]
-    expenses(_id: ID!): [Expense]
+    my_trips: User
+    user_trips(_id: ID!): User
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addFriend(friendId: ID!): User
+    addTrip(name: String!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
+    deleteTrip(_id: ID!): Trip
+    updateTrip(_id: ID!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
   }
 `;
 
