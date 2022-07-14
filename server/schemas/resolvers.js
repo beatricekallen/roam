@@ -134,38 +134,22 @@ const resolvers = {
     updateTrip: async (parent, args, context) => {
       if (context.user) {
         const _id = args._id;
-        let trip;
 
-        // check if members need to be updated
-        if (args.members[0]) {
-          trip = await Trip.findByIdAndUpdate(
-            { _id },
-            { $set:
-              {
-                // spread and short circuit operators to conditionally update elements
-                ...args.location && {location: args.location},
-                ...args.dates && {dates: args.dates},
-                ...args.transportation && {transportation: args.transportation},
-                ...args.budget && {budget: args.budget}
-              },
-              $addToSet: { members: { $each: args.members } }
+        const trip = await Trip.findByIdAndUpdate(
+          { _id },
+          { $set:
+            {
+              // spread and short circuit operators to conditionally update elements
+              ...args.location && {location: args.location},
+              ...args.dates && {dates: args.dates},
+              ...args.transportation && {transportation: args.transportation},
+              ...args.budget && {budget: args.budget}
             },
-            { new: true }
-          );
-        } else {
-          trip = await Trip.findByIdAndUpdate(
-            { _id },
-            { $set:
-              {
-                ...args.location && {location: args.location},
-                ...args.dates && {dates: args.dates},
-                ...args.transportation && {transportation: args.transportation},
-                ...args.budget && {budget: args.budget}
-              }
-            },
-            { new: true }
-          );
-        }
+            // update members conditionally
+            ...args.members[0] && {$addToSet: { members: { $each: args.members } } }
+          },
+          { new: true }
+        );
 
         return trip;
       }
