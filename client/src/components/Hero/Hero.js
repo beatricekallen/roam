@@ -1,5 +1,5 @@
 import React from 'react';
-import { link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Hero.js';
 import './css/style.css';
 
@@ -26,9 +26,9 @@ function Hero ({
                                 <h1 className={lightText ? 'heading' : 'heading dark'}>{headline}</h1>
                                 <p className={lightTextDesc ? 'home__hero-subtitle' : 'home__hero-subtitle dark'}>
                                     {description}</p>
-                                <link to="/">
+                                <Link to="/">
                                     <button>{buttonLabel}</button>
-                                </link>
+                                </Link>
                             </div>
                         </div>
                         <div className="col">
