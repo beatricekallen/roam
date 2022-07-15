@@ -1,0 +1,7 @@
+.footer {
+  background-color: var(--clr-blue);
+  color: white;
+  padding: 30px;
+  text-align: center;
+  font-family: var(--ff-secondary);
+}
