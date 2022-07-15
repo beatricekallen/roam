@@ -1,9 +1,9 @@
-.home__hero-section {
-  color: #fff;
+.home__carbon-section {
+  color: var(--clr-blue);
   padding: 160px 0;
 }
 
-.home__hero-row {
+.home__carbon-row {
   align-items: center;
 }
 
@@ -25,10 +25,16 @@
   flex-basis: 50%;
 }
 
-.home__hero-text-wrapper {
+.home__carbon-text-wrapper {
   max-width: 540px;
   padding-top: 0;
   padding-bottom: 60px;
+}
+
+.carbon__content {
+  background-color: #fff;
+  border-radius: 10px;
+  opacity: 0.8;
 }
 
 .top-line {
@@ -57,27 +63,27 @@
   background-color: var(--clr-blue);
 }
 
-.home__hero-subtitle {
+.home__carbon-subtitle {
   max-width: 440px;
   margin-bottom: 35px;
   font-size: 18px;
   line-height: 24px;
 }
 
-.home__hero-img-wrapper {
+.home__carbon-img-wrapper {
   max-width: 555px;
 }
 
-.home__hero-img {
+.home__carbon-img {
   max-width: 95%;
   padding-right: 0;
   margin: 0 0 0 10px;
 }
 
-.hero__img {
-  background-image: url(/public/images/dino-reichmuth-A5rCN8626Ck-unsplash.jpg);
+.carbon__img {
+  background-image: url(/public/images/carbon-img.jpg);
+  background-position: 80%;
   background-size: cover;
-  background-position: 60%;
 }
 
 button {
