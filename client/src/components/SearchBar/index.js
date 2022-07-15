@@ -80,8 +80,7 @@ const SearchBar = () => {
                 </SearchIconWrapper>
                 <StyledInputBase
                     placeholder="Find a Friend"
-                    value={value}
-                    // inputProps={{ 'aria-label': 'search' }}
+                    inputProps={{ 'aria-label': 'search' }}
                     onChange={(newValue) => {
                         setValue(newValue);
                         searchUser();
