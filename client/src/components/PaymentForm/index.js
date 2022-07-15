@@ -13,7 +13,7 @@ const PaymentForm = function() {
       const payment = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `http://localhost:3000/stripe`
+          return_url: `http://localhost:3000/stripe-success`
         }
       });
       console.log(payment);
