@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import CreateTrip from './pages/CreateTrip';
 import Splitwise from "./components/Splitwise";
+import StripeTest from "./pages/StripeTest";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -51,6 +52,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path='/createtrip' element={<CreateTrip/>} />
+              <Route path='/stripe' element={<StripeTest />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
       {/* <Splitwise /> */}
