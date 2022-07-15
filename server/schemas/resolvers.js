@@ -115,7 +115,7 @@ const resolvers = {
 
         if (trip) {
           // add trip to each members trip array
-          args.members.forEach(async (member) => {
+          trip.members.forEach(async (member) => {
             return await User.findOneAndUpdate(
               { email: member },
               { $push: { trips: trip } }

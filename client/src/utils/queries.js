@@ -40,9 +40,7 @@ export const QUERY_ME = gql`
         name
         location
         createdAt
-        dates
         members
-        budget
         creator
       }
       friendCount
