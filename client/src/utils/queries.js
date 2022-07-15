@@ -85,7 +85,8 @@ export const QUERY_TRIP = gql`
       members
       transportation
       budget
-      dates
+      startDate
+      endDate
       location
       createdAt
     }
@@ -102,7 +103,8 @@ export const QUERY_MY_TRIPS = gql`
         members
         transportation
         budget
-        dates
+        startDate
+        endDate
         location
       }
     }
@@ -115,7 +117,8 @@ export const QUERY_MY_TRIPS_BASIC = gql`
       trips {
         _id
         name
-        dates
+        startDate
+        endDate
         location
       }
     }
@@ -132,7 +135,8 @@ export const QUERY_USER_TRIPS = gql`
         members
         transportation
         budget
-        dates
+        startDate
+        endDate
         location
       }
     }

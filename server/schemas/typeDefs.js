@@ -20,7 +20,8 @@ const typeDefs = gql`
     attractions: [Attraction]
     budget: String
     transportation: String
-    dates: String
+    startDate: String
+    endDate: String
   }
 
   type Attraction {
