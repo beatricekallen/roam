@@ -1,5 +1,3 @@
-//TODO: add functionality to button? or delete button if header is sufficient
-
 // import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
