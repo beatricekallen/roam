@@ -15,7 +15,7 @@ const TripList = ({ trips }) => {
       <h2>Upcoming Trips</h2>
       <h2>Previous Trips</h2>
       {trips.map((trip) => (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card key={trip._id} sx={{ maxWidth: 345 }}>
           <CardMedia
             component="img"
             height="140"
