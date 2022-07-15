@@ -10,7 +10,7 @@ function Carbon() {
           <p>
             Love traveling the world but want to do so sustainably? Offset the
             carbon emissions of your trip by donating to a conservation charity
-            through our app.{" "}
+            through our app.
           </p>
           <img className="carbon__img" src="/" alt=""></img>
         </div>

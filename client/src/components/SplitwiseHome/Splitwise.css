@@ -1,9 +1,9 @@
-.home__friends-section {
+.home__splitwise-section {
   color: var(--clr-blue);
   padding: 160px 0;
 }
 
-.home__friends-row {
+.home__splitwise-row {
   align-items: center;
 }
 
@@ -25,13 +25,13 @@
   flex-basis: 50%;
 }
 
-.home__friends-text-wrapper {
+.home__splitwise-text-wrapper {
   max-width: 540px;
   padding-top: 0;
   padding-bottom: 60px;
 }
 
-.friends__content {
+.splitwise__content {
   background-color: #fff;
   border-radius: 10px;
   opacity: 0.8;
@@ -63,26 +63,26 @@
   background-color: var(--clr-blue);
 }
 
-.home__friends-subtitle {
+.home__splitwise-subtitle {
   max-width: 440px;
   margin-bottom: 35px;
   font-size: 18px;
   line-height: 24px;
 }
 
-.home__friends-img-wrapper {
+.home__splitwise-img-wrapper {
   max-width: 555px;
 }
 
-.home__friends-img {
+.home__splitwise-img {
   max-width: 95%;
   padding-right: 0;
   margin: 0 0 0 10px;
 }
 
-.friends__img {
-  background-image: url(/public/images/friends-img.jpg);
-  background-position: 10% 40%;
+.splitwise__img {
+  background-image: url(/public/images/expenses-img.jpg);
+  background-position: 20% 90%;
   background-size: cover;
 }
 
@@ -106,7 +106,7 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
-  .home__friends-text-wrapper {
+  .home__splitwise-text-wrapper {
     padding-bottom: 65px;
   }
 

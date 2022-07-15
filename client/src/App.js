@@ -9,10 +9,10 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 import Navigation from "./components/Navigation/Navigation";
-import Hero from './components/Hero/Hero';
-import Friends from './components/Friends/Friends';
-import SplitwiseHome from './components/SplitwiseHome/Splitwise';
-import CarbonHome from './components/CarbonHome/Carbon';
+import Hero from "./components/Hero/Hero";
+import Friends from "./components/Friends/Friends";
+import SplitwiseHome from "./components/SplitwiseHome/Splitwise";
+import CarbonHome from "./components/CarbonHome/Carbon";
 import Footer from "./components/Footer/Footer";
 
 // import Home from "./pages/Home";
@@ -20,7 +20,7 @@ import Footer from "./components/Footer/Footer";
 // import NoMatch from "./pages/NoMatch";
 // import Profile from "./pages/Profile";
 // import Signup from "./pages/Signup";
-import Splitwise from "./components/Splitwise";
+// import Splitwise from "./components/Splitwise";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -45,24 +45,24 @@ function App() {
   return (
     <ApolloProvider client={client}>
       {/* <Router> */}
-        <div className="flex-column justify-flex-start min-100-vh">
-          <Navigation />
-          <div className="container">
-            {/* <Routes>
+      <div className="flex-column justify-flex-start min-100-vh">
+        <Navigation />
+        <div className="container">
+          {/* <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<NoMatch />} />
             </Routes> */}
-            {/* <Splitwise /> */}
-          </div>
-          <Hero />
-          <Friends />
-          <SplitwiseHome />
-          <CarbonHome />
-          <Footer />
+          {/* <Splitwise /> */}
         </div>
+        <Hero />
+        <Friends />
+        <CarbonHome />
+        <SplitwiseHome />
+        <Footer />
+      </div>
       {/* </Router> */}
     </ApolloProvider>
   );
