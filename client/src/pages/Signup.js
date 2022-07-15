@@ -87,10 +87,14 @@ const Signup = () => {
                 fullWidth={true}
               />
               <br></br>
-              <button type="submit">Submit</button>
+              <button type="submit">Sign Up</button>
             </form>
 
-            {error && <div>Signup failed</div>}
+            {error && (
+              <div>
+                <h3>Signup failed</h3>
+              </div>
+            )}
           </div>
         </div>
       </div>

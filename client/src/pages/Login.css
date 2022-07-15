@@ -6,7 +6,7 @@
   height: 95vh;
 }
 
-.signup {
+.login {
   padding: 50px;
   text-align: center;
 }
@@ -32,19 +32,4 @@ h2 {
 
 h3 {
   font-family: var(--ff-secondary);
-}
-
-button {
-  border: none;
-  background: var(--clr-blue);
-  border-radius: 4px;
-  color: #fff;
-  padding: 10px;
-  font-family: var(--ff-secondary);
-  margin: 20px;
-  font-size: 20px;
-}
-
-button:hover {
-  background: var(--clr-green);
 }
