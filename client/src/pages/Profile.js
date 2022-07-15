@@ -70,6 +70,15 @@ const Profile = (props) => {
           </button>
         )}
       </div>
+      <div className="mb-3">
+        {!userParam && 
+          <Link to={`/createtrip`}>
+            <Button variant="contained" endIcon={<FlightTakeoffRoundedIcon/>}>
+              Create a Trip!
+            </Button>
+          </Link>
+        }
+      </div>
 
       <div className="flex-row justify-space-between mb-3">
         <div className="col-12 col-lg-9 mb-3">
@@ -95,15 +104,6 @@ const Profile = (props) => {
             </List>
           ))}
         </div>
-      </div>
-      <div className="mb-3">
-        {!userParam && 
-          <Link to={`/createtrip`}>
-            <Button variant="contained" endIcon={<FlightTakeoffRoundedIcon/>}>
-              Create a Trip!
-            </Button>
-          </Link>
-        }
       </div>
     </div>
   );
