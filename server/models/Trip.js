@@ -26,7 +26,11 @@ const tripSchema = new Schema(
       type: String,
       trim: true,
     },
-    dates: {
+    startDate: {
+      type: String,
+      trim: true
+    },
+    endDate: {
       type: String,
       trim: true
     },

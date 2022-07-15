@@ -115,14 +115,13 @@ const resolvers = {
 
         if (trip) {
           // add trip to each members trip array
-          args.members.forEach(async (member) => {
-            return await User.findOneAndUpdate(
+          trip.members.forEach(async (member) => {
+            const user = await User.findOneAndUpdate(
               { email: member },
               { $push: { trips: trip } }
             );
           });
         }
-
         return trip;
       }
 
@@ -154,7 +153,8 @@ const resolvers = {
             {
               // spread and short circuit operators to conditionally update elements
               ...args.location && {location: args.location},
-              ...args.dates && {dates: args.dates},
+              ...args.startDate && {startDate: args.startDate},
+              ...args.endDate && {endDate: args.endDate},
               ...args.transportation && {transportation: args.transportation},
               ...args.budget && {budget: args.budget}
             },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import { Navigate } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
@@ -37,6 +38,9 @@ const Login = (props) => {
       email: '',
       password: '',
     });
+
+    // navigate to profile once logged in
+    return <Navigate to="/profile" />;
   };
 
   return (
