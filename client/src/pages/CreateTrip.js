@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ADD_TRIP } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
-import { Navigate } from "react-router-dom";
 import {getFormattedDate} from '../utils/dateFormat';
 
 // import Input from "@mui/material/Input";
@@ -58,7 +57,7 @@ const CreateTrip = () => {
         // setFormState({ ...formState, [e.target.name]: "" });
         console.log('done')
 
-        return <Navigate to="/profile" />;
+        return window.location.assign('/profile');
     };
 
     const handleChange = (e) => {
