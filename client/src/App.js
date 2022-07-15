@@ -1,5 +1,5 @@
 import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,18 +9,14 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 import Navigation from "./components/Navigation/Navigation";
-import Hero from "./components/Hero/Hero";
-import Friends from "./components/Friends/Friends";
-import SplitwiseHome from "./components/SplitwiseHome/Splitwise";
-import CarbonHome from "./components/CarbonHome/Carbon";
 import Footer from "./components/Footer/Footer";
 
-// import Home from "./pages/Home";
-// import Login from "./pages/Login";
-// import NoMatch from "./pages/NoMatch";
-// import Profile from "./pages/Profile";
-// import Signup from "./pages/Signup";
-// import CreateTrip from "./pages/CreateTrip";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import NoMatch from "./pages/NoMatch";
+import Profile from "./pages/Profile";
+import Signup from "./pages/Signup";
+import CreateTrip from "./pages/CreateTrip";
 // import Splitwise from "./components/Splitwise";
 
 const httpLink = createHttpLink({
@@ -45,27 +41,23 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      {/* <Router> */}
-      <div className="flex-column justify-flex-start min-100-vh">
-        <Navigation />
-        <div className="container">
-          {/* <Routes>
+      <Router>
+        <div className="flex-column justify-flex-start min-100-vh">
+          <Navigation />
+          <div className="container">
+            <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path='/createtrip' element={<CreateTrip/>} />
+              <Route path="/createtrip" element={<CreateTrip />} />
               <Route path="*" element={<NoMatch />} />
-            </Routes> */}
-          {/* <Splitwise /> */}
+            </Routes>
+            {/* <Splitwise /> */}
+          </div>
+          <Footer />
         </div>
-        <Hero />
-        <Friends />
-        <CarbonHome />
-        <SplitwiseHome />
-        <Footer />
-      </div>
-      {/* </Router> */}
+      </Router>
     </ApolloProvider>
   );
 }
