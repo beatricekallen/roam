@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import {QUERY_USER} from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -13,24 +13,24 @@ import AlertTitle from '@mui/material/AlertTitle';
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
+    const [alert, setAlert] = useState("");
 
-    useEffect(() => {
-        const [loading, data] = useQuery(QUERY_USER, {
-            variables: { username: value }
-        });
-        const user = data?.user || {};
-    
-        if (user.username) {
-            return window.location.assign(`/profile/${user.username}`);
-        } else {
-            return (
-                <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
-                    No user found with this username!
-                </Alert>
-            )
-        }
-    })
+    const [searchUser, { called, loading, data }] = useLazyQuery(
+        QUERY_USER,
+        {variables: { username: value }}
+    );
+
+    if (called && data.user) {
+        return window.location.assign(`/profile/${data.user.username}`);
+    } else if (called && !loading) {
+        setAlert('error');
+        return (
+            <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                No user found with this username!
+            </Alert>
+        )
+    }
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -73,19 +73,30 @@ const SearchBar = () => {
     }));
 
     return (
-        <Search>
-            <SearchIconWrapper>
-                <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-                placeholder="Find a Friend"
-                value={value}
-                // inputProps={{ 'aria-label': 'search' }}
-                onChange={(newValue) => {
-                    setValue(newValue);
-                }}
-            />
-        </Search>
+        <div>
+            <Search>
+                <SearchIconWrapper>
+                    <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                    placeholder="Find a Friend"
+                    value={value}
+                    // inputProps={{ 'aria-label': 'search' }}
+                    onChange={(newValue) => {
+                        setValue(newValue);
+                        searchUser();
+                    }}
+                />
+            </Search>
+            <div>
+                {alert &&
+                    <Alert severity="error">
+                    <AlertTitle>Error</AlertTitle>
+                    No user found with this username!
+                </Alert>
+                }
+            </div>
+        </div>
     )
 }
 
