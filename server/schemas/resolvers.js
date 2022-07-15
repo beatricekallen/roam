@@ -122,7 +122,6 @@ const resolvers = {
             );
           });
         }
-
         return trip;
       }
 
@@ -154,7 +153,8 @@ const resolvers = {
             {
               // spread and short circuit operators to conditionally update elements
               ...args.location && {location: args.location},
-              ...args.dates && {dates: args.dates},
+              ...args.startDate && {startDate: args.startDate},
+              ...args.endDate && {endDate: args.endDate},
               ...args.transportation && {transportation: args.transportation},
               ...args.budget && {budget: args.budget}
             },

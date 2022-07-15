@@ -5,16 +5,17 @@ import { useQuery, useMutation } from "@apollo/client";
 import { ADD_FRIEND } from '../utils/mutations';
 import { QUERY_ME, QUERY_USER } from '../utils/queries';
 
-import TripInput from '../components/TripInput';
 import TripList from "../components/TripList";
 import Auth from "../utils/auth";
 import { Link } from 'react-router-dom';
 
 import List from '@mui/material/List';
+import Button from "@mui/material/Button";
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
+import FlightTakeoffRoundedIcon from '@mui/icons-material/FlightTakeoffRounded';
 import Avatar from '@mui/material/Avatar';
 
 const Profile = (props) => {
@@ -96,7 +97,15 @@ const Profile = (props) => {
           ))}
         </div>
       </div>
-      <div className="mb-3">{!userParam && <TripInput />}</div>
+      <div className="mb-3">
+        {!userParam && 
+          <Link to={`/createtrip`}>
+            <Button variant="contained" endIcon={<FlightTakeoffRoundedIcon/>}>
+              Create a Trip!
+            </Button>
+          </Link>
+        }
+      </div>
     </div>
   );
 };

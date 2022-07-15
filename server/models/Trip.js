@@ -26,7 +26,11 @@ const tripSchema = new Schema(
       type: String,
       trim: true,
     },
-    dates: {
+    startDate: {
+      type: String,
+      trim: true
+    },
+    endDate: {
       type: String,
       trim: true
     },
@@ -36,6 +40,10 @@ const tripSchema = new Schema(
       trim: true
     },
     attractions: [attractionSchema],
+    budget: {
+      type: String,
+      trim: true
+    }
   },
   {
     toJSON: {
