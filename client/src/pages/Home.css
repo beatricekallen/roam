@@ -73,7 +73,7 @@ button:hover {
   padding-bottom: 60px;
   background-color: #fff;
   border-radius: 10px;
-  opacity: 0.9;
+  opacity: 0.95;
   padding: 50px;
   font-family: var(--ff-secondary);
   margin-left: 60%;
@@ -107,6 +107,8 @@ button:hover {
 .home__section {
   color: var(--clr-blue);
   padding: 160px 0;
+  margin: 30px;
+  border-radius: 10px;
 }
 
 .home__row {
