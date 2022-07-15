@@ -4,7 +4,6 @@ import SocialIcons from "./SocialIcons";
 import { Icons } from "./Menus";
 
 import './Footer.css';
-import './css/style.css';
 
 const Footer = () => {
   return (
