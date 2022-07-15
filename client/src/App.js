@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import Header from "./components/Header";
+import Header from "./components/Navigation";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
@@ -51,8 +51,8 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-      {/* <Splitwise /> */}
-      </div>
+            {/* <Splitwise /> */}
+          </div>
           <Footer />
         </div>
       </Router>
