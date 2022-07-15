@@ -55,7 +55,7 @@ const Carbon = () => {
   return (
     <>
       {showCheckout 
-      ? <StripeContainer clientSecret={clientSecret} amount={amount}/>  
+      ? <StripeContainer clientSecret={clientSecret} amount={amount} charity={charity}/>  
       : <div>
           <h2>
             Consider offsetting the carbon footprint of your trip by making a

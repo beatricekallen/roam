@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import CreateTrip from "./pages/CreateTrip";
 import StripeSuccess from "./components/StripeSuccess";
+import Carbon from "./components/Carbon";
 // import Splitwise from "./components/Splitwise";
 
 const httpLink = createHttpLink({
@@ -53,6 +54,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/createtrip" element={<CreateTrip />} />
               <Route path="/stripe-success" element={<StripeSuccess />} />
+              <Route path="/stripe-test" element={<Carbon />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
             {/* <Splitwise /> */}

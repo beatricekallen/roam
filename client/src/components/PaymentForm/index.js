@@ -2,7 +2,9 @@ import React from 'react';
 import Button from "@mui/material/Button";
 import { useElements, useStripe, PaymentElement } from '@stripe/react-stripe-js';
 
-const PaymentForm = function() {
+import { formatCharity } from '../../utils/helpers';
+
+const PaymentForm = function({ amount, charity }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -25,6 +27,7 @@ const PaymentForm = function() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>${amount} donation to the {formatCharity(charity)}</h2>
       <PaymentElement />
       <Button variant="contained" type="submit">
           Submit Payment
