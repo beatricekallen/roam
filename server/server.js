@@ -25,30 +25,28 @@ app.use(cors());
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
-app.post('/payment', cors(), async (req, res) => {
-  let { amount, id, description } = req.body;
+app.post('/create_payment', cors(), async (req, res) => {
+  let { amount, description } = req.body;
+  // convert dollar amount to pennies
+  amount = amount * 100;
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
       currency: 'USD',
-      description,
-      payment_method: id,
-      confirm: true
-    })
-    console.log(payment);
-    res.json({
-      message: 'Payment successful',
-      success: true
+      payment_method_types: ['card']
     });
+    
+    console.log(payment);
+    res.json(payment);
 
   } catch (error) {
     console.log('Error', error)
     res.json({
       message: 'Payment failed',
       success: false
-    })
+    });
   }
-})
+});
 
 // Serve up static assets
 // TEMPORARILY COMMENTED OUT TO RUN SERVER

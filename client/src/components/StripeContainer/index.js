@@ -7,10 +7,13 @@ const PUBLIC_KEY = 'pk_test_51LJNIPLD5VBzpbpSKwJbCNTloaOFuuSktJG2lDNJ6zKkAGYToFs
 
 const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
-const StripeContainer = function() {
+const StripeContainer = function({ clientSecret, amount }) {
+  const options = {
+    clientSecret
+  }
   return (
-    <Elements stripe={stripeTestPromise}>
-      <PaymentForm />
+    <Elements stripe={stripeTestPromise} options={options}>
+      <PaymentForm amount={amount} />
     </Elements>
   )
 };
