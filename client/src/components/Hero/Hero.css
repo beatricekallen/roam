@@ -29,6 +29,13 @@
   max-width: 540px;
   padding-top: 0;
   padding-bottom: 60px;
+  background-color: #fff;
+  border-radius: 10px;
+  opacity: 0.9;
+  padding: 50px;
+  font-family: var(--ff-secondary);
+  margin-left: 60%;
+  margin-right: 10%;
 }
 
 .top-line {
@@ -43,10 +50,11 @@
 
 .heading {
   margin-bottom: 24px;
-  font-size: 48px;
+  font-size: 60px !important;
   line-height: 1.1;
   font-weight: var(--font-bold);
   color: var(--clr-yellow);
+  font-family: var(--ff-primary);
 }
 
 .dark {
@@ -62,6 +70,7 @@
   margin-bottom: 35px;
   font-size: 18px;
   line-height: 24px;
+  color: var(--clr-blue);
 }
 
 .home__hero-img-wrapper {
@@ -86,6 +95,7 @@ button {
   border-radius: 4px;
   color: #fff;
   padding: 10px;
+  font-family: var(--ff-secondary);
 }
 
 button:hover {

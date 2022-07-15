@@ -29,12 +29,15 @@
   max-width: 540px;
   padding-top: 0;
   padding-bottom: 60px;
+  margin-left: 10%;
 }
 
 .carbon__content {
   background-color: #fff;
   border-radius: 10px;
   opacity: 0.8;
+  padding: 50px;
+  font-family: var(--ff-secondary);
 }
 
 .top-line {

@@ -6,7 +6,7 @@ function SplitwiseHome() {
     <div className="home__splitwise-section splitwise__img">
       <div className="home__splitwise-text-wrapper">
         <div className="splitwise__content">
-          <h1>Split Expenses Among Friends</h1>
+          <h2 className="top-line">Split Expenses Among Friends</h2>
           <p>
             Traveling with friends? Awesome. Trying to settle up expenses after
             the end of the trip with friends? Not so awesome. Our built-in

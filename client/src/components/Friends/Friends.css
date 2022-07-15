@@ -29,18 +29,21 @@
   max-width: 540px;
   padding-top: 0;
   padding-bottom: 60px;
+  margin-left: 60%;
+  margin-right: 10%;
 }
 
 .friends__content {
   background-color: #fff;
   border-radius: 10px;
   opacity: 0.8;
+  padding: 50px;
+  font-family: var(--ff-secondary);
 }
 
 .top-line {
   color: var(--clr-blue);
-  font-size: 16px;
-  line-height: 16px;
+  line-height: 36px;
   font-weight: 700;
   letter-spacing: 1.4px;
   text-transform: uppercase;

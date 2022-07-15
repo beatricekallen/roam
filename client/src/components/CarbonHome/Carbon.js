@@ -6,7 +6,7 @@ function Carbon() {
     <div className="home__carbon-section carbon__img">
       <div className="home__carbon-text-wrapper">
         <div className="carbon__content">
-          <h2>Carbon Offsetting</h2>
+          <h2 className="top-line">Carbon Offsetting</h2>
           <p>
             Love traveling the world but want to do so sustainably? Offset the
             carbon emissions of your trip by donating to a conservation charity
