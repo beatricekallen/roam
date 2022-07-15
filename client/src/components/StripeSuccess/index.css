@@ -1,0 +1,38 @@
+.container {
+  border-radius: 10px;
+  opacity: 0.8;
+
+  background-color: white;
+  margin: auto;
+  height: 95vh;
+}
+
+.stripe-success {
+  padding: 50px;
+  text-align: center;
+}
+
+h1 {
+  font-family: var(--ff-primary);
+  color: var(--clr-green);
+  font-size: 40px;
+}
+
+h2 {
+  font-family: var(--ff-secondary);
+}
+
+button {
+  border: none;
+  background: var(--clr-blue);
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+  font-family: var(--ff-secondary);
+  margin: 20px;
+  font-size: 20px;
+}
+
+button:hover {
+  background: var(--clr-green);
+}
