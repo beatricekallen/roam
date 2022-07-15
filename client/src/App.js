@@ -8,17 +8,16 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Navigation from "./components/Navigation/Navigation";
+import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
-import CreateTrip from './pages/CreateTrip';
-import Splitwise from "./components/Splitwise";
-import StripeTest from "./pages/StripeTest";
+import CreateTrip from "./pages/CreateTrip";
+// import Splitwise from "./components/Splitwise";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -44,19 +43,18 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
+          <Navigation />
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path='/createtrip' element={<CreateTrip/>} />
-              <Route path='/stripe' element={<StripeTest />} />
+              <Route path="/createtrip" element={<CreateTrip />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-      {/* <Splitwise /> */}
-      </div>
+            {/* <Splitwise /> */}
+          </div>
           <Footer />
         </div>
       </Router>
