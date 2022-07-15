@@ -8,15 +8,9 @@ const Home = () => {
 
   const loggedIn = Auth.loggedIn();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log('check')
-  }
-
   return (
 
     <main>
-      <button onClick={handleSubmit}>Submit</button>
     </main>
   );
 };
