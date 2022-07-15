@@ -14,10 +14,8 @@ const SearchBar = () => {
     
     const [value, setValue] = useState("");
 
-    const searchUser = useQuery(QUERY_USER);
-
-    const useEffect = () => {
-        const [loading, data] = searchUser({
+    useEffect(() => {
+        const [loading, data] = useQuery(QUERY_USER, {
             variables: { username: value }
         });
         const user = data?.user || {};
@@ -32,7 +30,7 @@ const SearchBar = () => {
                 </Alert>
             )
         }
-    }
+    })
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
