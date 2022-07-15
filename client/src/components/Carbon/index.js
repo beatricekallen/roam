@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -29,6 +29,10 @@ const Carbon = () => {
       setFormState({...formState, [e.target.name]: e.target.value });
     }
   };
+
+  useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'auto'})
+  }, [showCheckout]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
