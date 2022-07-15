@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
+
+import Input from "@mui/material/Input";
+import "./Signup.css";
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
   const [addUser, { error }] = useMutation(ADD_USER);
 
@@ -38,45 +41,60 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Sign Up</h4>
-          <div className="card-body">
-            <form onSubmit={handleFormSubmit}>
-              <input
-                className="form-input"
+    <main>
+      <div className="container">
+        <div className="signup">
+          <h1>Sign Up</h1>
+          <h2>
+            Ready to start planning your next trip with us? Enter in your
+            information below.
+          </h2>
+          <div>
+            <form className="form" onSubmit={handleFormSubmit}>
+              <Input
+                className="form-input padding"
                 placeholder="Your username"
                 name="username"
                 type="username"
                 id="username"
                 value={formState.username}
                 onChange={handleChange}
+                required={true}
+                fullWidth={true}
               />
-              <input
-                className="form-input"
+              <br></br>
+              <Input
+                className="form-input padding"
                 placeholder="Your email"
                 name="email"
                 type="email"
                 id="email"
                 value={formState.email}
                 onChange={handleChange}
+                required={true}
+                fullWidth={true}
               />
-              <input
-                className="form-input"
+              <br></br>
+              <Input
+                className="form-input padding"
                 placeholder="******"
                 name="password"
                 type="password"
                 id="password"
                 value={formState.password}
                 onChange={handleChange}
+                required={true}
+                fullWidth={true}
               />
-              <button className="btn d-block w-100" type="submit">
-                Submit
-              </button>
+              <br></br>
+              <button type="submit">Sign Up</button>
             </form>
 
-            {error && <div>Signup failed</div>}
+            {error && (
+              <div>
+                <h3>Signup failed</h3>
+              </div>
+            )}
           </div>
         </div>
       </div>
