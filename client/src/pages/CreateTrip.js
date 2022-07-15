@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ADD_TRIP } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 import { Navigate } from "react-router-dom";
+import {getFormattedDate} from '../utils/dateFormat';
 
 // import Input from "@mui/material/Input";
 // import InputLabel from "@mui/material/InputLabel";
@@ -25,7 +26,7 @@ const CreateTrip = () => {
         friends: "",
     });
 
-    const addTrip = useMutation(ADD_TRIP);
+    const [addTrip, {error}] = useMutation(ADD_TRIP);
 
     const [errorMessage, setErrorMessage] = useState("");
     const { name, location, transportation, budget, friends } = formState;
@@ -43,8 +44,8 @@ const CreateTrip = () => {
                 variables: {
                     name: name,
                     location: location,
-                    startDate: startValue,
-                    endDate: endValue,
+                    startDate: getFormattedDate(startValue),
+                    endDate: getFormattedDate(endValue),
                     transportation: transportation,
                     budget: budget,
                     members: [friends]
@@ -54,7 +55,8 @@ const CreateTrip = () => {
             console.error(e);
         }
 
-        setFormState({ ...formState, [e.target.name]: "" });
+        // setFormState({ ...formState, [e.target.name]: "" });
+        console.log('done')
 
         return <Navigate to="/profile" />;
     };
