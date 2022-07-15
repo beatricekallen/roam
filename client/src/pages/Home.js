@@ -6,15 +6,17 @@ import { QUERY_ME } from '../utils/queries';
 
 const Home = () => {
 
-  const { data: userData } = useQuery(QUERY_ME);
-
-  console.log(userData);
-
-
   const loggedIn = Auth.loggedIn();
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('check')
+  }
+
   return (
+
     <main>
+      <button onClick={handleSubmit}>Submit</button>
     </main>
   );
 };
