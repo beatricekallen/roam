@@ -55,9 +55,9 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addFriend(friendId: ID!): User
-    addTrip(name: String!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
+    addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
     deleteTrip(_id: ID!): Trip
-    updateTrip(_id: ID!, location: String, dates: String, transportation: String, budget: String, members: [String]): Trip
+    updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
   }
 `;
 

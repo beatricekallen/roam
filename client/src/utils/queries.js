@@ -16,7 +16,8 @@ export const QUERY_USER = gql`
         _id
         name
         location
-        dates
+        startDate
+        endDate
         members
       }
       friendCount
@@ -40,7 +41,8 @@ export const QUERY_ME = gql`
         name
         location
         createdAt
-        dates
+        startDate
+        endDate
         members
         budget
         creator
