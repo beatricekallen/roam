@@ -32,7 +32,7 @@
 }
 
 .top-line {
-  color: var(--clr-light-blue);
+  color: var(--clr-blue);
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;
@@ -45,7 +45,7 @@
   margin-bottom: 24px;
   font-size: 48px;
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: var(--font-bold);
   color: var(--clr-yellow);
 }
 
@@ -74,11 +74,20 @@
   margin: 0 0 0 10px;
 }
 
-img {
-  border: 0;
-  max-width: 100%;
-  vertical-align: middle;
-  display: inline-block;
+.hero__img {
+  background-image: url(/public/images/dino-reichmuth-A5rCN8626Ck-unsplash.jpg);
+}
+
+button {
+  border: none;
+  background: var(--clr-blue);
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+}
+
+button:hover {
+  background: var(--clr-green);
 }
 
 @media screen and (max-width: 991px) {
