@@ -1,10 +1,9 @@
 import React from 'react';
+import Carbon from '../components/Carbon';
 
 const NoMatch = () => {
   return (
-    <div>
-      Oops, we couldn't find that page.
-    </div>
+    <Carbon></Carbon>
   );
 };
 

@@ -26,14 +26,17 @@ app.use(cors());
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 app.post('/create_payment', cors(), async (req, res) => {
-  let { amount, description } = req.body;
+  let { amount, charity } = req.body;
   // convert dollar amount to pennies
   amount = amount * 100;
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
       currency: 'USD',
-      payment_method_types: ['card']
+      payment_method_types: ['card'],
+      metadata: {
+        charity
+      }
     });
     
     console.log(payment);
