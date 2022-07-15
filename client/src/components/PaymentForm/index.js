@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "@mui/material/Button";
 import { useElements, useStripe, PaymentElement } from '@stripe/react-stripe-js';
 
 const PaymentForm = function() {
@@ -25,7 +26,9 @@ const PaymentForm = function() {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button type='submit'>Submit</button>
+      <Button variant="contained" type="submit">
+          Submit Payment
+      </Button>
     </form>
   )
 };

@@ -23,7 +23,6 @@ const StripeTest = function() {
       });
 
       if (response.data.client_secret) {
-        console.log('Successful payment');
         setClientSecret(response.data.client_secret);
         setShowItem(true);
       }
