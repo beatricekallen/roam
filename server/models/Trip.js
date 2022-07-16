@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const attractionSchema = require('./Attraction');
-const expenseSchema = require('./Expense');
 const getFormattedDate = require("../utils/dateFormat");
+const compareDates = require('../utils/compareDates');
 
 const tripSchema = new Schema(
   {
@@ -34,7 +34,12 @@ const tripSchema = new Schema(
       type: String,
       trim: true
     },
-    expenses: [expenseSchema],
+    expenses: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Expense'
+      }
+    ],
     transportation: {
       type: String,
       trim: true
@@ -52,6 +57,12 @@ const tripSchema = new Schema(
     },
   }
 );
+
+// returns when a user queries for their own trips
+// populates into an array in GraphQL
+tripSchema.virtual('status').get(function() {
+  return compareDates(this.startDate, this.endDate);
+});
 
 const Trip = model("Trip", tripSchema);
 

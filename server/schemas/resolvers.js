@@ -169,26 +169,26 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     },
-    addExpense: async (parent, args, context) => {
-      if (context.user) {
-        const userId = context.user._id;
-        const tripId = args._id;
-        console.log(args);
+    // addExpense: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const userId = context.user._id;
+    //     const tripId = args._id;
+    //     console.log(args);
 
-        const tripData = await Trip.findByIdAndUpdate(
-          { _id: tripId },
-          { $push: { expenses: { ...args.expense, owner: mongoose.Types.ObjectId(userId) } } },
-          { new: true }
-          ).populate({
-              path: 'expenses',
-              populate: { path: 'owner' }
-          });
+    //     const tripData = await Trip.findByIdAndUpdate(
+    //       { _id: tripId },
+    //       { $push: { expenses: { ...args.expense, owner: mongoose.Types.ObjectId(userId) } } },
+    //       { new: true }
+    //       ).populate({
+    //           path: 'expenses',
+    //           populate: { path: 'owner' }
+    //       });
 
-        return tripData;
-      }
+    //     return tripData;
+    //   }
 
-      throw new AuthenticationError("You need to be logged in");
-    }
+    //   throw new AuthenticationError("You need to be logged in");
+    // }
   },
 };
 

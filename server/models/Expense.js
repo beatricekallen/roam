@@ -1,4 +1,5 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
+const debtorSchema = require('./Debtor');
 
 const expenseSchema = new Schema(
   {
@@ -15,17 +16,34 @@ const expenseSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User'
     },
-    debtors: [
+    debtors: [debtorSchema],
+    owers: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User'
       }
     ],
     balance: {
-      type: String,
+      type: Number,
       required: true
-    }
+    },
+    split: {
+      type: String,
+      required: true,
+      default: 'equal'
+    },
+    // split types:
+    // equal between all members automatically - MVP
+    // percent - reach
+    // flat - reach
+  }, 
+  {
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
 
-module.exports = expenseSchema;
+const Expense = model("Expense", expenseSchema);
+
+module.exports = Expense;
