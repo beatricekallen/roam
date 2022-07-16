@@ -18,6 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 import Avatar from "@mui/material/Avatar";
 import Carbon from "../components/Carbon";
+import "./Profile.css";
 
 const Profile = (props) => {
   const { username: userParam } = useParams();
@@ -58,12 +59,23 @@ const Profile = (props) => {
   };
 
   return (
-    <div>
-      <div className="flex-row mb-3">
-        <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${user.username}'s` : "your"} profile.
-        </h2>
-
+    <div className="profile-container">
+      <div>
+        <div className="headings">
+          <h1>Viewing {userParam ? `${user.username}'s` : "your"} profile.</h1>
+          <div>
+            {!userParam && (
+              <Link to={`/createtrip`}>
+                <button
+                  variant="contained"
+                  endIcon={<FlightTakeoffRoundedIcon />}
+                >
+                  Create a Trip!
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
         {/* Only show "add friend" when viewing another user's profile */}
         {userParam && (
           <button className="btn ml-auto" onClick={handleClick}>
@@ -72,14 +84,15 @@ const Profile = (props) => {
         )}
       </div>
 
-      <div className="flex-row justify-space-between mb-3">
-        <div className="col-12 col-lg-9 mb-3">
+      <div>
+        <div>
           <TripList trips={user.trips} title={`${user.username}'s trips`} />
         </div>
 
-        <div className="col-12 col-lg-3 mb-3">
+        <div>
+          <h1>Friends List</h1>
           {user.friends.map((friend) => (
-            <List dense="false">
+            <List dense={false}>
               <Link to={`/profile/${friend.username}`}>
                 <ListItem>
                   <ListItemAvatar>
@@ -93,15 +106,6 @@ const Profile = (props) => {
             </List>
           ))}
         </div>
-      </div>
-      <div className="mb-3">
-        {!userParam && (
-          <Link to={`/createtrip`}>
-            <Button variant="contained" endIcon={<FlightTakeoffRoundedIcon />}>
-              Create a Trip!
-            </Button>
-          </Link>
-        )}
       </div>
     </div>
   );
