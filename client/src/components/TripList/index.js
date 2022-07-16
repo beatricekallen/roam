@@ -15,64 +15,107 @@ const TripList = ({ trips }) => {
 
   // current past upcoming, trip.status
 
-  // function isCurrent(trips) {
-  //   let currentTrips = [];
-  //   if (trips.status === "current") {
-  //     currentTrips.push(trips);
-  //   }
-  // }
+  const currentTrip = trips.filter((trip) => {
+    return trip.status === "current";
+  });
 
-  // const currentTrips = trips.filter((word) => word.length < 6);
+  const upcomingTrips = trips.filter((trip) => {
+    return trip.status === "upcoming";
+  });
+
+  const previousTrips = trips.filter((trip) => {
+    return trip.status === "passed";
+  });
+
+  console.log(trips);
 
   return (
     <div>
+      <h1>Current Trip</h1>
+      {/* NEED TO CHANGE TO UPCOMING TRIPS */}
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          {currentTrip.length ? (
+            currentTrip.map((trip) => (
+              <Grid item xs={6} md={3}>
+                <Card key={trip._id} sx={{ maxWidth: 345 }}>
+                  <CardContent>
+                    <h2>{trip.name}</h2>
+                    <h3>{trip.location}</h3>
+                    <h4>Start date: {trip.startDate}</h4>
+                    <h4>End date: {trip.endDate}</h4>
+                  </CardContent>
+                  <CardActions>
+                    <button size="small">View Trip</button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <div className="padding">
+              <h2>You're not currently on a trip!</h2>
+            </div>
+          )}
+        </Grid>
+      </Box>
+
       <h1>Upcoming Trips</h1>
       {/* NEED TO CHANGE TO UPCOMING TRIPS */}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {trips.map((trip) => (
-            <Grid item xs={6} md={3}>
-              <Card key={trip._id} sx={{ maxWidth: 345 }}>
-                <CardContent>
-                  <h2>{trip.name}</h2>
-                  <h3>{trip.location}</h3>
-                  <h4>Start date: {trip.startDate}</h4>
-                  <h4>End date: {trip.endDate}</h4>
-                </CardContent>
-                <CardActions>
-                  <button size="small">View Trip</button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+          {upcomingTrips.length ? (
+            upcomingTrips.map((trip) => (
+              <Grid item xs={6} md={3}>
+                <Card key={trip._id} sx={{ maxWidth: 345 }}>
+                  <CardContent>
+                    <h2>{trip.name}</h2>
+                    <h3>{trip.location}</h3>
+                    <h4>Start date: {trip.startDate}</h4>
+                    <h4>End date: {trip.endDate}</h4>
+                  </CardContent>
+                  <CardActions>
+                    <button size="small">View Trip</button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <div className="padding">
+              <h2>No upcoming trips</h2>
+            </div>
+          )}
         </Grid>
       </Box>
 
       <h1>Previous Trips</h1>
-      {/* NEED TO CHANGE TO PREVIOUS TRIPS */}
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {trips.map((trip) => (
-            <Grid item xs={6} md={3}>
-              <Card key={trip._id} sx={{ maxWidth: 345 }}>
-                <CardContent>
-                  <h2>{trip.name}</h2>
-                  <h3>{trip.location}</h3>
-                  <h4>Start date: {trip.startDate}</h4>
-                  <h4>End date: {trip.endDate}</h4>
-                </CardContent>
-                <CardActions>
-                  <button
-                    size="small"
-                    onClick={() => navigate("/viewtrip/:_id")}
-                  >
-                    View Trip
-                  </button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+          {previousTrips.length ? (
+            previousTrips.map((trip) => (
+              <Grid item xs={6} md={3}>
+                <Card key={trip._id} sx={{ maxWidth: 345 }}>
+                  <CardContent>
+                    <h2>{trip.name}</h2>
+                    <h3>{trip.location}</h3>
+                    <h4>Start date: {trip.startDate}</h4>
+                    <h4>End date: {trip.endDate}</h4>
+                  </CardContent>
+                  <CardActions>
+                    <button
+                      size="small"
+                      onClick={() => navigate("/viewtrip/:_id")}
+                    >
+                      View Trip
+                    </button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <div className="padding">
+              <h2>No previous trips</h2>
+            </div>
+          )}
         </Grid>
       </Box>
     </div>

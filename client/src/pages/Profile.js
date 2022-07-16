@@ -83,15 +83,6 @@ const Profile = (props) => {
           </button>
         )}
       </div>
-      <div className="mb-3">
-        {!userParam && 
-          <Link to={`/createtrip`}>
-            <Button variant="contained" endIcon={<FlightTakeoffRoundedIcon/>}>
-              Create a Trip!
-            </Button>
-          </Link>
-        }
-      </div>
 
       <div>
         <div>
