@@ -1,7 +1,39 @@
-.footer {
-  background-color: var(--clr-blue);
-  color: white;
-  padding: 30px;
-  text-align: center;
-  font-family: var(--ff-secondary);
+/* footer {
+  background: var(--clr-blue);
 }
+
+.footer-container {
+  max-width: 100%;
+}
+
+.footer-box {
+  text-align: center;
+  
+}
+
+.footer-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.footer-link {
+  margin-left: ;
+}
+
+.footer-icon__container {
+
+}
+
+.footer-icon {
+
+}
+
+.copyright {
+
+}
+
+.copy {
+  
+} */
