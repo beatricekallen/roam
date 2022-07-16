@@ -9,6 +9,7 @@ const Home = () => {
   const loggedIn = Auth.loggedIn();
 
   return (
+
     <main>
       <div className="home__hero-section hero__img">
         <div>

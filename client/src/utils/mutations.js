@@ -77,3 +77,19 @@ export const UPDATE_TRIP = gql`
     }
   }
 `;
+
+export const ADD_EXPENSE = gql`
+  mutation addExpense($id: ID!, $expense: ExpenseInput!) {
+    addExpense(_id: $id, expense: $expense) {
+      expenses {
+        item
+        price
+        owner {
+          _id
+          email
+          username
+        }
+      }
+    }
+  }
+`;

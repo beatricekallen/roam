@@ -18,10 +18,11 @@ const typeDefs = gql`
     createdAt: String
     location: String
     attractions: [Attraction]
-    budget: String
+    expenses: [Expense]
     transportation: String
     startDate: String
     endDate: String
+    budget: String
   }
 
   type Attraction {
@@ -31,13 +32,20 @@ const typeDefs = gql`
     date: String
   }
 
+  type Expense {
+    item: String
+    price: String
+    owner: User
+  }
+
+  input ExpenseInput {
+    item: String!
+    price: String!
+  }
+
   type Auth {
     token: ID!
     user: User
-  }
-
-  input EmailInput {
-    email: String
   }
 
   type Query {
@@ -58,6 +66,7 @@ const typeDefs = gql`
     addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
     deleteTrip(_id: ID!): Trip
     updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
+    addExpense(_id: ID!, expense: ExpenseInput!): Trip
   }
 `;
 

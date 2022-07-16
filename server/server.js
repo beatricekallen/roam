@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const {ApolloServer} = require('apollo-server-express');
 const path = require('path');
@@ -5,6 +6,8 @@ const path = require('path');
 const {typeDefs, resolvers} = require('./schemas');
 const {authMiddleware} = require('./utils/auth');
 const db = require('./config/connection');
+
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
@@ -17,6 +20,36 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(cors());
+
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
+
+app.post('/create_payment', cors(), async (req, res) => {
+  let { amount, charity } = req.body;
+  // convert dollar amount to pennies
+  amount = amount * 100;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: 'USD',
+      payment_method_types: ['card'],
+      metadata: {
+        charity
+      }
+    });
+    
+    console.log(payment);
+    res.json(payment);
+
+  } catch (error) {
+    console.log('Error', error)
+    res.json({
+      message: 'Payment failed',
+      success: false
+    });
+  }
+});
 
 // Serve up static assets
 // TEMPORARILY COMMENTED OUT TO RUN SERVER

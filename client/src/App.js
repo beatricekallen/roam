@@ -26,6 +26,7 @@ import Splitwise from "./components/Splitwise";
 =======
 import CreateTrip from "./pages/CreateTrip";
 import StripeSuccess from "./components/StripeSuccess";
+import Carbon from "./components/Carbon";
 // import Splitwise from "./components/Splitwise";
 >>>>>>> 51f536c0757d4fcfd3f6e5cdfb5254902e67433e
 
@@ -62,6 +63,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/createtrip" element={<CreateTrip />} />
               <Route path="/stripe-success" element={<StripeSuccess />} />
+              <Route path="/stripe-test" element={<Carbon />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
             {/* <Splitwise /> */}
