@@ -16,19 +16,13 @@ import Login from "./pages/Login";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
-<<<<<<< HEAD
-<<<<<<< HEAD
-// import Splitwise from "./components/Splitwise";
-=======
-import CreateTrip from './pages/CreateTrip';
-import Splitwise from "./components/Splitwise";
->>>>>>> 74b8578bcd8c02b6e3761d19c848be7e0dbbd1b0
-=======
+
+import ViewTrip from "./pages/ViewTrip"
 import CreateTrip from "./pages/CreateTrip";
 import StripeSuccess from "./components/StripeSuccess";
 import Carbon from "./components/Carbon";
 // import Splitwise from "./components/Splitwise";
->>>>>>> 51f536c0757d4fcfd3f6e5cdfb5254902e67433e
+
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -61,6 +55,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/viewtrip/:trip" element={<ViewTrip />} />
               <Route path="/createtrip" element={<CreateTrip />} />
               <Route path="/stripe-success" element={<StripeSuccess />} />
               <Route path="/stripe-test" element={<Carbon />} />
