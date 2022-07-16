@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
@@ -12,35 +12,49 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 const SearchBar = () => {
     
-    // this was added to control the state in the case of having the form be onChange instead of onKeyPress
-    // const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState('');
     const [value, setValue] = useState("");
     const [alert, setAlert] = useState("");
 
-    const [searchUser, { called, loading, data }] = useLazyQuery(
+    let [searchUser, { called, loading, data }] = useLazyQuery(
         QUERY_USER,
         {variables: { username: value }}
     );
 
-    function changeHandler(e) {
-        // this was added to control the state in the case of having the form be onChange instead of onKeyPress
-        // setInputValue(e.target.value);
+    // hides alert after 4 seconds
+    useEffect(() => {
+        if (alert) {
+            const alertTimer = setTimeout(() => {
+            setAlert(false)
+            }, 3000);
+            return () => clearTimeout(alertTimer);
+        }
+      }, [alert]);
+
+    async function changeHandler(e) {
         setValue(e.target.value);
-        searchUser();
+        const result = await searchUser();
+
+        if (result.data.user === null) {
+            setAlert('error');
+        }
     }
 
-    if (called && data && data.user != null) {
-        return window.location.assign(`/profile/${data.user.username}`);
+    // successful username search
+    if (called && !loading && data.user != null) {
+        window.location.assign(`/profile/${data.user.username}`);
     }
-    // } else if (called && !loading) {
-    //     setAlert('error');
-    //     return (
-    //         <Alert severity="error">
-    //             <AlertTitle>Error</AlertTitle>
-    //             No user found with this username!
-    //         </Alert>
-    //     )
-    // }
+    /*
+    } else if (called && !loading && !alert) {
+        setAlert('error');
+        return (
+            <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                No user found with this username!
+            </Alert>
+        )
+    }
+    */
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -91,12 +105,14 @@ const SearchBar = () => {
                 <StyledInputBase
                     placeholder="Find a Friend"
                     inputProps={{ 'aria-label': 'search' }}
+                    onChange={e => {
+                        setInputValue(e.target.value);
+                    }}
                     onKeyPress={e => {
                         if (e.key === 'Enter') {
                             changeHandler(e)}}}
-                    // this was added to control the state in the case of having the form be onChange instead of onKeyPress
-                    // value={inputValue}
-                    autoFocus
+                    value={inputValue}
+                    autoFocus={!!inputValue}
                 />
             </Search>
             <div>
