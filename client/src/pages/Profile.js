@@ -78,7 +78,7 @@ const Profile = (props) => {
               <Link to={`/createtrip`}>
                 <button
                   variant="contained"
-                  endIcon={<FlightTakeoffRoundedIcon />}
+                  endicon={<FlightTakeoffRoundedIcon />}
                 >
                   Create a Trip!
                 </button>

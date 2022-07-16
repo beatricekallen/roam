@@ -103,7 +103,7 @@ const TripList = ({ trips }) => {
                   <CardActions>
                     <button
                       size="small"
-                      onClick={() => navigate("/viewtrip/:_id")}
+                      onClick={() => navigate(`/viewtrip/:id`)}
                     >
                       View Trip
                     </button>
