@@ -1,6 +1,6 @@
 import React from "react";
 // import { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { ADD_FRIEND } from "../utils/mutations";
 import { QUERY_ME, QUERY_USER } from "../utils/queries";
@@ -10,17 +10,19 @@ import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 
 import List from "@mui/material/List";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import PersonIcon from "@mui/icons-material/Person";
 import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 import Avatar from "@mui/material/Avatar";
-import Carbon from "../components/Carbon";
+// import Carbon from "../components/Carbon";
 import "./Profile.css";
 
 const Profile = (props) => {
+  const navigate = useNavigate();
+
   const { username: userParam } = useParams();
   const [addFriend] = useMutation(ADD_FRIEND);
 
@@ -41,10 +43,18 @@ const Profile = (props) => {
 
   if (!user?.username) {
     return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
+      <div className="container">
+        <div className="no-match">
+          <h1>Oops!</h1>
+          <h2>
+            You need to be logged in to view that page. Sign up or log in using
+            the links above!
+          </h2>
+          <button size="small" onClick={() => navigate("/")}>
+            Return To The Homepage
+          </button>
+        </div>
+      </div>
     );
   }
 
