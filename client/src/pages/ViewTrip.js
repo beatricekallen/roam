@@ -15,11 +15,8 @@ const ViewTrip = () => {
     <>
     {data && (
         <>
-        <h1>yes</h1>
-        <p>{data.trip.name}</p>
         <CurrentTrip data={data} />
         </>
-
     )}
     </>
  )

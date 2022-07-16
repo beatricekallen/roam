@@ -1,4 +1,6 @@
 import * as React from "react";
+import Auth from '../../utils/auth';
+import { Link } from 'react-router-dom';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,6 +14,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import SearchBar from '../SearchBar';
 
 import "./Navigation.css";
 
@@ -19,6 +22,7 @@ const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navigation = () => {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -35,6 +39,11 @@ const Navigation = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const logout = event => {
+    event.preventDefault();
+    Auth.logout();
   };
 
   return (
@@ -109,21 +118,49 @@ const Navigation = () => {
                 {page}
               </Button>
             ))} */}
-            <Button
-              key="login"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Log In
-            </Button>
+            {Auth.loggedIn() ? (
+              <>
+                <SearchBar/>
+                <a href="/" onClick={logout}>
+                  Logout
+                </a>
+                <Link to="/profile">
+                  <IconButton sx={{ p: 0 }}>
+                    Me
+                  {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                  </IconButton>
+                </Link>
+              </>
+            ) : ( 
+              <>
+                <Link to={`/login`}>
+                  <Button
+                    key="login"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Log In
+                  </Button>
+                </Link>
+                <Link to={`/signup`}>
+                  <Button
+                    key="signup"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-              </IconButton>
-            </Tooltip>
+              {/* </IconButton>
+            </Tooltip> */}
             {/* <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -146,8 +183,8 @@ const Navigation = () => {
                 </MenuItem>
               ))}
             </Menu> */}
-          </Box>
-        </Toolbar>
+          {/* </Box> */}
+         </Toolbar>
       </Container>
     </AppBar>
   );

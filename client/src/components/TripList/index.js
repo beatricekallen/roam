@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from 'react-router-dom';
 
 //TODO: need to update to route to different components on click. need to confirm trip information being passed in here is correct with backend.
 
@@ -32,7 +33,9 @@ const TripList = ({ trips }) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">View Trip</Button>
+            <Button size="small">
+              <Link to={`/viewtrip/${trip._id}`}>VIEW TRIP</Link>
+            </Button>
           </CardActions>
         </Card>
       ))}
