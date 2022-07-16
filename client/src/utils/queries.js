@@ -41,10 +41,12 @@ export const QUERY_ME = gql`
         name
         location
         createdAt
+        status
+        members
+        budget
+        creator
         startDate
         endDate
-        members
-        creator
       }
       friendCount
       friends {
@@ -107,6 +109,7 @@ export const QUERY_MY_TRIPS = gql`
         startDate
         endDate
         location
+        status
       }
     }
   }
