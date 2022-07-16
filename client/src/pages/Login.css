@@ -1,7 +1,5 @@
 .container {
   border-radius: 10px;
-  opacity: 0.8;
-  background-color: white;
   margin: auto;
   height: 95vh;
 }
@@ -11,9 +9,10 @@
   text-align: center;
 }
 
-.form {
-  width: 30%;
-  margin: auto;
+.form-container {
+  width: 50%;
+  margin: 0% 25% !important;
+  justify-content: center;
 }
 
 .padding {
