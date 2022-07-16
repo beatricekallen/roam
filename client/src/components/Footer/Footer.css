@@ -1,5 +1,9 @@
-/* footer {
-  background: var(--clr-blue);
+footer {
+  background: var(--clr-light-blue);
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
 }
 
 .footer-container {
@@ -8,32 +12,29 @@
 
 .footer-box {
   text-align: center;
-  
 }
 
 .footer-navigation {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   margin-bottom: 10px;
 }
 
 .footer-link {
-  margin-left: ;
+  cursor: pointer;
 }
 
 .footer-icon__container {
-
+  margin-bottom: 10px;
 }
 
 .footer-icon {
-
+  cursor: pointer;
 }
 
 .copyright {
-
+  justif-content: center;
 }
 
 .copy {
-  
-} */
+}
