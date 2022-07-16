@@ -23,13 +23,7 @@ const typeDefs = gql`
     startDate: String
     endDate: String
     budget: String
-  }
-
-  type Attraction {
-    _id: ID
-    name: String
-    address: String
-    date: String
+    status: String
   }
 
   type Expense {
@@ -39,6 +33,13 @@ const typeDefs = gql`
     debtors: [Debtor]
     balance: Int
     split: String
+  }
+
+  type Attraction {
+    _id: ID
+    name: String
+    address: String
+    date: String
   }
 
   type Debtor {
