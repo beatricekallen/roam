@@ -13,6 +13,17 @@ import { useNavigate } from "react-router-dom";
 const TripList = ({ trips }) => {
   const navigate = useNavigate();
 
+  // current past upcoming, trip.status
+
+  // function isCurrent(trips) {
+  //   let currentTrips = [];
+  //   if (trips.status === "current") {
+  //     currentTrips.push(trips);
+  //   }
+  // }
+
+  // const currentTrips = trips.filter((word) => word.length < 6);
+
   return (
     <div>
       <h1>Upcoming Trips</h1>
