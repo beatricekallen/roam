@@ -1,0 +1,41 @@
+.container {
+  border-radius: 10px;
+  opacity: 0.8;
+  background-color: white;
+  margin: auto;
+}
+
+.carbon {
+  padding: 50px;
+  text-align: center;
+}
+
+.form {
+  width: 30%;
+  margin: 30px !important;
+}
+
+.headers {
+  margin: 30px;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.carbon-img {
+}
+
+h1 {
+  font-family: var(--ff-primary);
+  color: var(--clr-green);
+  font-size: 40px;
+}
+
+h2 {
+  font-family: var(--ff-secondary);
+}
+
+h3 {
+  font-family: var(--ff-secondary);
+}
