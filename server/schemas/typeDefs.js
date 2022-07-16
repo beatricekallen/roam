@@ -36,6 +36,14 @@ const typeDefs = gql`
     item: String
     price: String
     owner: User
+    debtors: [Debtor]
+    balance: Int
+    split: String
+  }
+
+  type Debtor {
+    name: String
+    amount: Int
   }
 
   input ExpenseInput {
