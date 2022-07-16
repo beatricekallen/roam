@@ -110,13 +110,13 @@ const resolvers = {
         const trip = await Trip.create({
           ...args,
           creator: context.user.username,
-          members: [context.user.email, ...args.members],
+          members: [context.user.email, ...args.members]
         });
 
         if (trip) {
           // add trip to each members trip array
           trip.members.forEach(async (member) => {
-            const user = await User.findOneAndUpdate(
+            return await User.findOneAndUpdate(
               { email: member },
               { $push: { trips: trip } }
             );
@@ -169,6 +169,26 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     },
+    addExpense: async (parent, args, context) => {
+      if (context.user) {
+        const userId = context.user._id;
+        const tripId = args._id;
+        console.log(args);
+
+        const tripData = await Trip.findByIdAndUpdate(
+          { _id: tripId },
+          { $push: { expenses: { ...args.expense, owner: mongoose.Types.ObjectId(userId) } } },
+          { new: true }
+          ).populate({
+              path: 'expenses',
+              populate: { path: 'owner' }
+          });
+
+        return tripData;
+      }
+
+      throw new AuthenticationError("You need to be logged in");
+    }
   },
 };
 

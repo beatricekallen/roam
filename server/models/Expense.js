@@ -10,6 +10,20 @@ const expenseSchema = new Schema(
     price: {
       type: String,
       trim: true
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    debtors: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    balance: {
+      type: String,
+      required: true
     }
   }
 );

@@ -1,124 +1,229 @@
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import natureConservancyLogo from "./assets/nature-conservancy.png";
 import npfLogo from "./assets/npf-logo.png";
 import scLogo from "./assets/sc-logo.png";
 import wwfLogo from "./assets/wwf-logo.png";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Input from "@mui/material/Input";
+
+import StripeContainer from "../../components/StripeContainer";
+import axios from "axios";
+import "./index.css";
 
 const Carbon = () => {
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [formState, setFormState] = useState({
+    amount: "0",
+    charity: "World WildLife Fund",
+  });
+  const [clientSecret, setClientSecret] = useState({ client_secret: "" });
+
+  const { amount, charity } = formState;
+
+  const handleFormChange = (e) => {
+    if (e.target.name === "amount") {
+      // only accept numbers as input
+      const editedValue = e.target.value.replace(/\D/g, "");
+      setFormState({ ...formState, [e.target.name]: editedValue });
+    } else {
+      setFormState({ ...formState, [e.target.name]: e.target.value });
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [showCheckout]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/create_payment",
+        {
+          amount,
+          charity,
+        }
+      );
+
+      if (response.data.client_secret) {
+        setClientSecret(response.data.client_secret);
+        setShowCheckout(true);
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
   //TODO: need to add functionality to take people to the Stripe page after selecting a charity
   //TODO: add ability to calculate distance and carbon footprint with Google Matrix API?
 
   return (
-    <div>
-      <h2>
-        Consider offsetting the carbon footprint of your trip by making a
-        donation to one of these charities.
-      </h2>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={wwfLogo}
-          alt="World Wildlife Fund logo."
+    <>
+      {showCheckout ? (
+        <StripeContainer
+          clientSecret={clientSecret}
+          amount={amount}
+          charity={charity}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            World Wildlife Fund
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            href="https://www.worldwildlife.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={scLogo}
-          alt="Sierra Club logo."
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Sierra Club
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            href="https://www.sierraclub.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={npfLogo}
-          alt="National Park Foundation logo."
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            National Park Foundation
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            href="https://www.nationalparks.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={natureConservancyLogo}
-          alt="Nature Conservancy logo."
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Nature Conservancy
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size="small"
-            href="https://www.nature.org/en-us/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
+      ) : (
+        <div className="carbon">
+          <div className="headers">
+            <h1>Carbon Offsetting</h1>
+            <h2>
+              Consider offsetting the carbon emissions of your trip by making a
+              donation to one of these charities.
+            </h2>
+          </div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={3}>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={wwfLogo}
+                    alt="World Wildlife Fund logo."
+                  />
+                  <CardContent>
+                    <h2 gutterBottom variant="h5" component="div">
+                      World Wildlife Fund
+                    </h2>
+                  </CardContent>
+                  <CardActions>
+                    <button
+                      size="small"
+                      href="https://www.worldwildlife.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Learn More
+                    </button>
+                  </CardActions>
+                </Card>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={scLogo}
+                    alt="Sierra Club logo."
+                  />
+                  <CardContent>
+                    <h2 gutterBottom variant="h5" component="div">
+                      Sierra Club
+                    </h2>
+                  </CardContent>
+                  <CardActions>
+                    <button
+                      size="small"
+                      href="https://www.sierraclub.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Learn More
+                    </button>
+                  </CardActions>
+                </Card>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={npfLogo}
+                    alt="National Park Foundation logo."
+                  />
+                  <CardContent>
+                    <h2 gutterBottom variant="h5" component="div">
+                      National Park Foundation
+                    </h2>
+                  </CardContent>
+                  <CardActions>
+                    <button
+                      size="small"
+                      href="https://www.nationalparks.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Learn More
+                    </button>
+                  </CardActions>
+                </Card>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardMedia
+                    className="carbon-img"
+                    component="img"
+                    height="140"
+                    image={natureConservancyLogo}
+                    alt="Nature Conservancy logo."
+                  />
+                  <CardContent>
+                    <h2 gutterBottom variant="h5" component="div">
+                      Nature Conservancy
+                    </h2>
+                  </CardContent>
+                  <CardActions>
+                    <button
+                      size="small"
+                      href="https://www.nature.org/en-us/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Learn More
+                    </button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            </Grid>
+          </Box>
 
-      <select name="charity-dropdown" id="charity-dropdown">
-        <option value="wwf">World Wildlife Fund</option>
-        <option value="sierra-club">Sierra Club</option>
-        <option value="park-foundation">National Park Foundation</option>
-        <option value="nature-conservancy">Nature Conservancy</option>
-      </select>
-    </div>
+          <FormControl className="form" onSubmit={handleSubmit}>
+            <label id="charity-label">
+              <h3>Select your charity:</h3>
+            </label>
+            <Select
+              name="charity"
+              id="charity-dropdown"
+              value={charity}
+              onChange={handleFormChange}
+            >
+              <MenuItem value="wwf">World Wildlife Fund</MenuItem>
+              <MenuItem value="sierra-club">Sierra Club</MenuItem>
+              <MenuItem value="park-foundation">
+                National Park Foundation
+              </MenuItem>
+              <MenuItem value="nature-conservancy">Nature Conservancy</MenuItem>
+            </Select>
+            <br></br>
+            <label>
+              <h3>Enter your donation amount:</h3>
+            </label>
+            <Input
+              type="text"
+              name="amount"
+              value={amount}
+              onChange={handleFormChange}
+            />
+
+            <button variant="contained" type="submit">
+              Submit
+            </button>
+          </FormControl>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -44,7 +44,6 @@ export const QUERY_ME = gql`
         startDate
         endDate
         members
-        budget
         creator
       }
       friendCount

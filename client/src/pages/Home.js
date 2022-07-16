@@ -9,6 +9,7 @@ const Home = () => {
   const loggedIn = Auth.loggedIn();
 
   return (
+
     <main>
       <div className="home__hero-section hero__img">
         <div>
@@ -32,10 +33,10 @@ const Home = () => {
       <div className="home__section friends__img">
         <div className="home__text-wrapper">
           <div className="home__content">
-            <h2 className="top-line">Plan Trips with Friends</h2>
-            <p>
+            <h2>Plan Trips with Friends</h2>
+            <h3>
               Create a trip and invite friends to view the itinerary and budget.
-            </p>
+            </h3>
             {/* <img className="friends__img" src="/" alt=""></img> */}
           </div>
         </div>
@@ -44,12 +45,12 @@ const Home = () => {
       <div className="home__section carbon__img">
         <div className="home__text-wrapper">
           <div className="home__content">
-            <h2 className="top-line">Carbon Offsetting</h2>
-            <p>
+            <h2>Carbon Offsetting</h2>
+            <h3>
               Love traveling the world but want to do so sustainably? Offset the
               carbon emissions of your trip by donating to a conservation
               charity through our app.
-            </p>
+            </h3>
             <img className="carbon__img" src="/" alt=""></img>
           </div>
         </div>
@@ -57,13 +58,13 @@ const Home = () => {
       <div className="home__section splitwise__img">
         <div className="home__text-wrapper">
           <div className="home__content">
-            <h2 className="top-line">Split Expenses Among Friends</h2>
-            <p>
+            <h2>Split Expenses Among Friends</h2>
+            <h3>
               Traveling with friends? Awesome. Trying to settle up expenses
               after the end of the trip with friends? Not so awesome. Our
               built-in functionality allows you to track expenses and then
               easily settle up when you get home.
-            </p>
+            </h3>
             <img className="splitwise__img" src="/" alt=""></img>
           </div>
         </div>
