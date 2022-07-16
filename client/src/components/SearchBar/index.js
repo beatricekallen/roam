@@ -12,6 +12,8 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 const SearchBar = () => {
     
+    // this was added to control the state in the case of having the form be onChange instead of onKeyPress
+    // const [inputValue, setInputValue] = useState('');
     const [value, setValue] = useState("");
     const [alert, setAlert] = useState("");
 
@@ -20,17 +22,25 @@ const SearchBar = () => {
         {variables: { username: value }}
     );
 
-    if (called && data.user) {
-        return window.location.assign(`/profile/${data.user.username}`);
-    } else if (called && !loading) {
-        setAlert('error');
-        return (
-            <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                No user found with this username!
-            </Alert>
-        )
+    function changeHandler(e) {
+        // this was added to control the state in the case of having the form be onChange instead of onKeyPress
+        // setInputValue(e.target.value);
+        setValue(e.target.value);
+        searchUser();
     }
+
+    if (called && data && data.user != null) {
+        return window.location.assign(`/profile/${data.user.username}`);
+    }
+    // } else if (called && !loading) {
+    //     setAlert('error');
+    //     return (
+    //         <Alert severity="error">
+    //             <AlertTitle>Error</AlertTitle>
+    //             No user found with this username!
+    //         </Alert>
+    //     )
+    // }
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -81,10 +91,12 @@ const SearchBar = () => {
                 <StyledInputBase
                     placeholder="Find a Friend"
                     inputProps={{ 'aria-label': 'search' }}
-                    onChange={(newValue) => {
-                        setValue(newValue);
-                        searchUser();
-                    }}
+                    onKeyPress={e => {
+                        if (e.key === 'Enter') {
+                            changeHandler(e)}}}
+                    // this was added to control the state in the case of having the form be onChange instead of onKeyPress
+                    // value={inputValue}
+                    autoFocus
                 />
             </Search>
             <div>
