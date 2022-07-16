@@ -32,7 +32,7 @@
   font-size: 60px !important;
   line-height: 1.1;
   font-weight: var(--font-bold);
-  color: var(--clr-yellow);
+  color: var(--clr-green);
   font-family: var(--ff-primary);
 }
 
@@ -71,9 +71,8 @@ button:hover {
   max-width: 540px;
   padding-top: 0;
   padding-bottom: 60px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
-  opacity: 0.95;
   padding: 50px;
   font-family: var(--ff-secondary);
   margin-left: 60%;
@@ -123,9 +122,8 @@ button:hover {
 }
 
 .home__content {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
-  opacity: 0.8;
   padding: 50px;
   font-family: var(--ff-secondary);
 }
