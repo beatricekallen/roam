@@ -63,6 +63,7 @@ const typeDefs = gql`
     user(username: String!): User
     trip(_id: ID!): Trip
     trips(username: String): [Trip]
+    trip_expenses(_id: ID!): [Expense]
     my_trips: [Trip]
     user_trips(_id: ID!): User
     my_expenses: MyExpenses

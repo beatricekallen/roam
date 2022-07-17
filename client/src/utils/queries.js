@@ -145,6 +145,16 @@ export const QUERY_MY_EXPENSES = gql`
   }
 `;
 
+export const QUERY_TRIP_EXEPNSES = gql`
+  query trip_expenses($id: ID!) {
+    trip_expenses(_id: $id) {
+      item
+      totalPrice
+      pricePerPerson
+    }
+  }
+`;
+
 // export const QUERY_MY_TRIPS_BASIC = gql`
 //   query my_trips {
 //     my_trips {

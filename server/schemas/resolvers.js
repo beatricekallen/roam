@@ -85,6 +85,13 @@ const resolvers = {
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    trip_expenses: async (parent, { _id }, context) => {
+      if (context.user) {
+        return await Expense.find({ trip: _id });
+      }
+
+      throw new AuthenticationError("Not logged in");
     }
     // look up my debts
     // returns array of Expense with amount owed, associated trip, and item name
