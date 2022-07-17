@@ -76,7 +76,9 @@ const TripList = ({ trips }) => {
                     <h4>End date: {trip.endDate}</h4>
                   </CardContent>
                   <CardActions>
-                    <button size="small">View Trip</button>
+                    <Link to={`/viewtrip/${trip._id}`}>
+                      <button size="small">View Trip</button>
+                    </Link>
                   </CardActions>
                 </Card>
               </Grid>
@@ -103,12 +105,9 @@ const TripList = ({ trips }) => {
                     <h4>End date: {trip.endDate}</h4>
                   </CardContent>
                   <CardActions>
-                    <button
-                      size="small"
-                      onClick={() => navigate(`/viewtrip/:id`)}
-                    >
-                      View Trip
-                    </button>
+                    <Link to={`/viewtrip/${trip._id}`}>
+                      <button size="small">View Trip</button>
+                    </Link>
                   </CardActions>
                 </Card>
               </Grid>

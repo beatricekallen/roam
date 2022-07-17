@@ -66,8 +66,8 @@ export const DELETE_TRIP = gql`
 `;
 
 export const UPDATE_TRIP = gql`
-  mutation updateTrip($id: ID!, $location: String, $transportation: String, $budget: String, $members: [ID]) {
-    updateTrip(_id: $id, location: $location, transportation: $transportation, budget: $budget, members: $members) {
+  mutation updateTrip($id: ID!, $location: String, $transportation: String, $budget: String, $members: [ID], $startDate: String, $endDate: String) {
+    updateTrip(_id: $id, location: $location, transportation: $transportation, budget: $budget, members: $members, startDate: $startDate, endDate: $endDate) {
       _id
       location
       startDate

@@ -81,17 +81,20 @@ const Itinerary = ({trip}) => {
         try {
             await updateTrip({
               variables: {
-                _id: trip._id,
-                location: "The Beach",
+                id: trip._id,
+                budget: "1000",
+                location: "BoatRideCharlie",
+                startDate: "",
+                endDate: "",
                 transportation: "Car",
-                budget: "4000",
+                members: ""
               },
             });
           } catch (e) {
-            console.error(e, "failure");
+            console.error(e);
           }
 
-
+          console.log("Success");
     }
 
     const handleChange = (e) => {
