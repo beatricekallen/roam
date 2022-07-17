@@ -83,18 +83,13 @@ export const UPDATE_TRIP = gql`
   }
 `;
 
-// export const ADD_EXPENSE = gql`
-//   mutation addExpense($id: ID!, $expense: ExpenseInput!) {
-//     addExpense(_id: $id, expense: $expense) {
-//       expenses {
-//         item
-//         price
-//         owner {
-//           _id
-//           email
-//           username
-//         }
-//       }
-//     }
-//   }
-// `;
+export const ADD_EXPENSE = gql`
+  mutation addExpense($tripId: ID!, $item: String!, $price: String!) {
+    addExpense(tripId: $tripId, item: $item, price: $price) {
+      _id
+      item
+      totalPrice
+      pricePerPerson
+    }
+  }
+`;

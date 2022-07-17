@@ -181,13 +181,23 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     },
-    addExpense: async(parent, args, context) => {
+    addExpense: async(parent, { item, price, tripId }, context) => {
       if (context.user) {
-        const tripData = await Trip.findById(args.tripId, ['memberCount', 'trip.members'])
+        const { _id, members } = await Trip.findById(tripId)
           .populate('members')
-          .select('members, memberCount')
+          .select('members');
 
-        console.log(tripData)
+        const expenseData = await Expense.create({
+          item,
+          totalPrice: parseInt(price),
+          pricePerPerson: parseInt(price) / members.length,
+          trip: _id,
+          payer: context.user._id,
+          borrowers: members.map(member => member._id),
+        });
+
+        console.log(expenseData);
+        return expenseData;
       }
 
       throw new AuthenticationError("You need to be logged in");

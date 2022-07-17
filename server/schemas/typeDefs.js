@@ -28,6 +28,7 @@ const typeDefs = gql`
   }
 
   type Expense {
+    _id: ID
     item: String
     totalPrice: Int
     pricePerPerson: Int
@@ -73,7 +74,7 @@ const typeDefs = gql`
     addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
     deleteTrip(_id: ID!): Trip
     updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
-    addExpense(tripId: ID!, item: String, price: String, split: String): Expense
+    addExpense(tripId: ID!, item: String!, price: String!, split: String): Expense
   }
 `;
 
