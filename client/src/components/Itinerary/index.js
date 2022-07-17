@@ -18,6 +18,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+
 
 import mapImage from "./assets/mapimage.png"
 import friendsImage from "./assets/friendsimage.jpg"
@@ -25,6 +30,7 @@ import calendarImage from "./assets/calendarimage.jpg"
 import travelImage from "./assets/travelimage.jpg"
 
 const Itinerary = ({trip}) => {
+
     const [updateTrip, { error }] = useMutation(UPDATE_TRIP);
     const [loadMyData, { data }] = useLazyQuery(QUERY_ME_BASIC);
 
@@ -36,11 +42,19 @@ const Itinerary = ({trip}) => {
     const [startValue, setStartValue] = useState("");
     const [endValue, setEndValue] = useState("");
 
-    let friends;
+    const [friendDataState, setFriendDataState] = useState({})
+    const { addedFriends, notAddedFriends } = friendDataState;
 
     useEffect(() => {
         loadMyData();
       }, []);
+
+    useEffect(() => {
+        if (data) {
+          setFriendDataState({notAddedFriends: data.me.friends, addedFriends: []});
+        }
+    }, [data])
+    
 
     const editHandler = (event, editStatus) => {
         setToggleEdit(editStatus);
@@ -57,20 +71,20 @@ const Itinerary = ({trip}) => {
         try {
           await updateTrip({
             variables: {
-              _id: trip._id,
-              location: location,
-              startDate: getFormattedDate(startValue),
-              endDate: getFormattedDate(endValue),
-              transportation: transportation,
+              id: trip._id,
               budget: budget,
-              members: [friends],
-              name: name
+              location: location,
+              ...startValue && {startDate: getFormattedDate(startValue)},
+              ...endValue && {endDate: getFormattedDate(endValue)},
+              transportation: transportation,
+              members: addedFriends.map(friend => friend._id),
             },
           });
         } catch (e) {
           console.error(e);
         }
 
+        console.log("Success!");
         return window.location.reload();
       };
 
@@ -111,6 +125,24 @@ const Itinerary = ({trip}) => {
         if (!errorMessage) setFormState({ ...formState, [e.target.name]: e.target.value });
         
     };
+
+    const handleAddFriend = e => {
+        setFriendDataState({
+          notAddedFriends: notAddedFriends.filter(friend => friend !== e.target.value),
+          addedFriends: [...addedFriends, e.target.value]
+      });
+      }
+    
+    const handleRemoveFriend= e => {
+        // get index from ClearIcon
+        e.preventDefault();
+        const i = e.target.dataset.id;
+        const removedFriend = {...addedFriends[i]};
+        setFriendDataState({
+          notAddedFriends: [...notAddedFriends, removedFriend],
+          addedFriends: addedFriends.filter(friend => friend._id !== removedFriend._id)
+        });
+    }
 
     function datePicker(type) {
         if (type === "startDate") {
@@ -259,72 +291,93 @@ const Itinerary = ({trip}) => {
                 </div>
   
             )}
-            {/* {toggleEdit === "edit" && (
-               (
-                    <div className="create-trip-container">
-                      <div className="headings">
+             {/* <div className="headings">
                         <h2>Edit Your Trip</h2>
                         <h3>Enter in your trip information.</h3>
-                      </div>
-                      <form onSubmit={handleSubmit}>
-                        <h3>Enter a name for your trip.</h3>
-                        <TextField
-                          fullWidth
-                          label="Name"
-                          name="name"
-                          onBlur={handleChange}
-                          defaultValue={name}
-                        />
-                        <h3>Where are you headed?</h3>
-                        <TextField
-                          fullWidth
-                          label="Destination"
-                          name="location"
-                          onBlur={handleChange}
-                          defaultValue={location}
-                        />
-                        <h3>Pick a start date for your trip:</h3>
-                        {datePicker("startDate")}
-                        <h3>Pick an end date for your trip:</h3>
-                        {datePicker("endDate")}
-                        <h3>How are you getting there?</h3>
-                        <TextField
-                          fullWidth
-                          label="Transportation"
-                          name="transportation"
-                          onBlur={handleChange}
-                          defaultValue={transportation}
-                        />
-                        <h3>What's your budget?</h3>
-                        <TextField
-                          fullWidth
-                          label="Budget"
-                          name="budget"
-                          onBlur={handleChange}
-                          defaultValue={budget}
-                        />
-                        <h3>Are friends joining? If so, enter their email addresses here.</h3>
-                        <TextField
-                          fullWidth
-                          label="Friends"
-                          name="friends"
-                          onBlur={handleChange}
-                          defaultValue={friends}
-                        />
-                        {errorMessage && (
-                          <div>
-                            <p className="error-text">{errorMessage}</p>
-                          </div>
-                        )}
-                        <div className="headings">
-                            <button variant="contained" type="submit">
-                                Submit
-                            </button>
-                        </div>
-                      </form>
+                      </div> */}
+            {toggleEdit === "edit" && (
+                <div className="create-trip-container">
+                <div className="headings">
+                    <h1>Edit Trip</h1>
+                    <h2>Results will also reflect in your Itinerary!</h2>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <h3>Edit Destination</h3>
+                    <TextField
+                    fullWidth
+                    label="Optional"
+                    name="location"
+                    onBlur={handleChange}
+                    defaultValue={location}
+                    />
+                    <h3>Edit start date for your trip:</h3>
+                    {datePicker("startDate")}
+                    <h3>Edit end date for your trip:</h3>
+                    {datePicker("endDate")}
+                    <h3>Edit Transportation</h3>
+                    <TextField
+                    fullWidth
+                    label="Optional"
+                    name="transportation"
+                    onBlur={handleChange}
+                    defaultValue={transportation}
+                    />
+                    <h3>Edit Budget</h3>
+                    <TextField
+                    fullWidth
+                    label="Optional"
+                    name="budget"
+                    onBlur={handleChange}
+                    defaultValue={budget}
+                    />
+                    <h3>Feel Free to Add, Remove, or Keep Friends</h3>
+                    <FormControl sx={{ minWidth: 250 }}>
+                    <InputLabel shrink={false}>Add friend</InputLabel>
+                    <Select
+                    name="friends"
+                    id="friend-dropdown"
+                    onChange={handleAddFriend}
+                    defaultValue=""
+                    value=""
+                    >
+                    {notAddedFriends &&
+                        notAddedFriends.map((friend, i) => {
+                        return <MenuItem value={friend} key={i}>{friend.username}</MenuItem>
+                        })}
+                    </Select>
+                    </FormControl>
+                    {addedFriends &&
+                        addedFriends.map((friend, i) => {
+                        return (
+                            <Card value={friend} key={i} sx={{ 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                alignItems: 'center',
+                                minWidth: 150, 
+                                maxWidth: 250, 
+                                p: 1, 
+                                m: 1, 
+                                border: 1, 
+                                borderColor: 'grey.300', 
+                                bgcolor: 'grey.50' }} >
+                            <h4>{friend.username}</h4>
+                            <button data-id={i} onClick={handleRemoveFriend} className="remove-friend-btn">X</button>
+                            </Card>
+                        )
+                        })}
+                    {errorMessage && (
+                    <div>
+                        <p className="error-text">{errorMessage}</p>
                     </div>
-                )
-            )} */}
+                    )}
+                    <div className="headings">
+                    <button variant="contained" type="submit">
+                        Update
+                    </button>
+                    </div>
+                </form>
+                </div>
+            )}
         </Container>
     )
 }
