@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { ADD_TRIP } from "../utils/mutations";
 import { QUERY_ME_BASIC } from "../utils/queries";
-import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
+import { useMutation, useLazyQuery } from "@apollo/client";
 import { getFormattedDate } from "../utils/dateFormat";
 
 // import Input from "@mui/material/Input";
 // import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 // import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -17,7 +16,6 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
-import ClearIcon from '@mui/icons-material/Clear';
 import InputLabel from '@mui/material/InputLabel';
 
 import "./CreateTrip.css";
@@ -28,11 +26,14 @@ const CreateTrip = () => {
 
   const [addTrip] = useMutation(ADD_TRIP);
 
-  const [loadMyData, { loading, data }] = useLazyQuery(QUERY_ME_BASIC);
+  const [loadMyData, { data }] = useLazyQuery(QUERY_ME_BASIC);
 
   // query user data only once on load
   useEffect(() => {
     loadMyData();
+    // NOTE: Run effect once on component mount, please
+    // recheck dependencies if effect is updated.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [friendDataState, setFriendDataState] = useState({})
@@ -46,7 +47,7 @@ const CreateTrip = () => {
   }, [data])
 
   const [errorMessage, setErrorMessage] = useState("");
-  const { name, location, transportation, budget, friends } = formState;
+  const { name, location, transportation, budget } = formState;
 
   const [startValue, setStartValue] = useState("");
   const [endValue, setEndValue] = useState("");
@@ -99,18 +100,19 @@ const CreateTrip = () => {
 
   const handleAddFriend = e => {
     setFriendDataState({
-      notAddedFriends: notAddedFriends.filter(friend => friend != e.target.value),
+      notAddedFriends: notAddedFriends.filter(friend => friend !== e.target.value),
       addedFriends: [...addedFriends, e.target.value]
   });
   }
 
   const handleRemoveFriend= e => {
     // get index from ClearIcon
+    e.preventDefault();
     const i = e.target.dataset.id;
     const removedFriend = {...addedFriends[i]};
     setFriendDataState({
       notAddedFriends: [...notAddedFriends, removedFriend],
-      addedFriends: addedFriends.filter(friend => friend._id != removedFriend._id)
+      addedFriends: addedFriends.filter(friend => friend._id !== removedFriend._id)
     });
   }
 
@@ -209,20 +211,16 @@ const CreateTrip = () => {
                 <Card value={friend} key={i} sx={{ 
                     display: 'flex', 
                     justifyContent: 'space-between', 
+                    alignItems: 'center',
                     minWidth: 150, 
                     maxWidth: 250, 
-                    p: 2, 
+                    p: 1, 
                     m: 1, 
                     border: 1, 
                     borderColor: 'grey.300', 
-                    bgcolor: 'grey.100' }} >
+                    bgcolor: 'grey.50' }} >
                   <h4>{friend.username}</h4>
-                  <ClearIcon data-id={i} onClick={handleRemoveFriend} sx={{ 
-                    bg: 'white', 
-                    width: 25, 
-                    height: 25, 
-                    '&:hover': { bgcolor: 'grey.300', cursor: 'pointer' } }} 
-                  />
+                  <button data-id={i} onClick={handleRemoveFriend} className="remove-friend-btn">X</button>
                 </Card>
               )
             })}
