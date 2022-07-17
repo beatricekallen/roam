@@ -13,7 +13,7 @@ const typeDefs = gql`
   type Trip {
     _id: ID
     creator: String
-    members: [String]
+    members: [User]
     name: String
     createdAt: String
     location: String
@@ -62,7 +62,7 @@ const typeDefs = gql`
     user(username: String!): User
     trip(_id: ID!): Trip
     trips(username: String): [Trip]
-    my_trips: User
+    my_trips: [Trip]
     user_trips(_id: ID!): User
   }
 
@@ -70,9 +70,9 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addFriend(friendId: ID!): User
-    addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
+    addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
     deleteTrip(_id: ID!): Trip
-    updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
+    updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
     addExpense(tripId: ID!, item: String, price: String, split: String): Expense
   }
 `;

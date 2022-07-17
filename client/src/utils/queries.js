@@ -18,7 +18,6 @@ export const QUERY_USER = gql`
         location
         startDate
         endDate
-        members
       }
       friendCount
       friends {
@@ -42,12 +41,15 @@ export const QUERY_ME = gql`
         location
         createdAt
         status
-        members
+        members {
+          _id
+          username
+          email
+        }
         budget
         creator
         startDate
         endDate
-        memberCount
       }
       friendCount
       friends {
@@ -81,12 +83,17 @@ export const QUERY_TRIP = gql`
       _id
       name
       creator
-      members
+      members {
+        _id
+        email
+        username
+      }
       transportation
       budget
       startDate
       endDate
       location
+      status
       createdAt
       memberCount
     }
@@ -96,51 +103,51 @@ export const QUERY_TRIP = gql`
 export const QUERY_MY_TRIPS = gql`
   query my_trips {
     my_trips {
-      trips {
+      _id
+      name
+      creator
+      members {
+        email
         _id
-        name
-        creator
-        members
-        transportation
-        budget
-        startDate
-        endDate
-        location
-        status
-        memberCount
+        username
       }
+      budget
+      transportation
+      startDate
+      endDate
+      location
+      status
     }
   }
 `;
 
-export const QUERY_MY_TRIPS_BASIC = gql`
-  query my_trips {
-    my_trips {
-      trips {
-        _id
-        name
-        startDate
-        endDate
-        location
-      }
-    }
-  }
-`;
+// export const QUERY_MY_TRIPS_BASIC = gql`
+//   query my_trips {
+//     my_trips {
+//       trips {
+//         _id
+//         name
+//         startDate
+//         endDate
+//         location
+//       }
+//     }
+//   }
+// `;
 
-export const QUERY_USER_TRIPS = gql`
-  query user_trips($id: ID!) {
-    user_trips(_id: $id) {
-      trips {
-          _id
-        name
-        creator
-        members
-        transportation
-        budget
-        startDate
-        endDate
-        location
-      }
-    }
-  }
-`;
+// export const QUERY_USER_TRIPS = gql`
+//   query user_trips($id: ID!) {
+//     user_trips(_id: $id) {
+//       trips {
+//           _id
+//         name
+//         creator
+//         transportation
+//         budget
+//         startDate
+//         endDate
+//         location
+//       }
+//     }
+//   }
+// `;

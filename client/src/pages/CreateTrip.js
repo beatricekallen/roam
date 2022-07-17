@@ -13,7 +13,11 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { validateEmail } from "../utils/helpers";
-import Auth from "../utils/auth";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from '@mui/material/FormControl';
+import Card from '@mui/material/Card';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import "./CreateTrip.css";
 
@@ -31,9 +35,14 @@ const CreateTrip = () => {
 
   const [addTrip, { error }] = useMutation(ADD_TRIP);
 
-  const { loading, data } = useQuery(QUERY_ME_BASIC);
+  const { data } = useQuery(QUERY_ME_BASIC);
 
-  console.log(data);
+  const [friendDataState, setFriendDataState] = useState()
+  const [addedFriendState, setAddedFriendState] = useState([])
+
+  if (data && !friendDataState) {
+    setFriendDataState(data.me.friends);
+  }
 
   const [errorMessage, setErrorMessage] = useState("");
   const { name, location, transportation, budget, friends } = formState;
@@ -41,7 +50,7 @@ const CreateTrip = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!errorMessage) {
-      setFormState({ [e.target.name]: e.target.value });
+      // setFormState({ [e.target.name]: e.target.value });
       console.log("Form", formState);
     }
 
@@ -55,7 +64,7 @@ const CreateTrip = () => {
           endDate: getFormattedDate(endValue),
           transportation: transportation,
           budget: budget,
-          members: [friends],
+          members: addedFriendState.map(friend => friend._id),
         },
       });
     } catch (e) {
@@ -87,6 +96,18 @@ const CreateTrip = () => {
       setFormState({ ...formState, [e.target.name]: e.target.value });
     }
   };
+
+  const handleAddFriend = e => {
+    setAddedFriendState([...addedFriendState, e.target.value]);
+    setFriendDataState(friendDataState.filter(friend => friend != e.target.value));
+  }
+
+  function handleRemoveFriend(e) {
+    const i = e.target.dataset.id;
+    const removedFriend = addedFriendState[i];
+    setFriendDataState([...friendDataState, removedFriend]);
+    setAddedFriendState(addedFriendState.filter(friend => friend != removedFriend));
+  }
 
   const [startValue, setStartValue] = useState("");
   const [endValue, setEndValue] = useState("");
@@ -164,14 +185,29 @@ const CreateTrip = () => {
           onBlur={handleChange}
           defaultValue={budget}
         />
-        <h3>Are friends joining? If so, enter their email addresses here.</h3>
-        <TextField
-          fullWidth
-          label="Friends"
+        <FormControl>
+        <h3>Are friends joining? If so, add them from the dropdown here.</h3>
+        <Select
           name="friends"
-          onBlur={handleChange}
-          defaultValue={friends}
-        />
+          id="friend-dropdown"
+          onChange={handleAddFriend}
+          value={friends}
+        >
+          {friendDataState &&
+            friendDataState.map((friend, i) => {
+              return <MenuItem value={friend} key={i}>{friend.username}</MenuItem>
+            })}
+        </Select>
+        </FormControl>
+        {addedFriendState.length != 0 &&
+          addedFriendState.map((friend, i) => {
+            return (
+              <Card value={friend} key={i} sx={{ display: 'flex', justifyContent: 'space-between', minWidth: 150, maxWidth: 250, p: 2, m: 1, border: 1, borderColor: 'grey.300', bgcolor: 'grey.100' }} >
+                <h4>{friend.username}</h4>
+                <ClearIcon data-id={i} sx={{ bg: 'white', width: 25, height: 25, '&:hover': { bgcolor: 'grey.300', cursor: 'pointer' } }} onClick={handleRemoveFriend} />
+              </Card>
+            )
+          })}
         {errorMessage && (
           <div>
             <p className="error-text">{errorMessage}</p>

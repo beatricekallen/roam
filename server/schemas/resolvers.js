@@ -8,7 +8,6 @@ const resolvers = {
   Query: {
     loginAuth: async () => {
       try {
-        console.log("hit");
         const urlData = await getUrl();
 
         return JSON.stringify(urlData);
@@ -50,11 +49,10 @@ const resolvers = {
     },
     my_trips: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("trips")
-          .populate("trips");
+        const tripData = await Trip.find({})
+          .populate('members');
 
-        return userData;
+        return tripData;
       }
 
       throw new AuthenticationError("Not logged in");
@@ -105,6 +103,8 @@ const resolvers = {
     },
     addFriend: async (parent, { friendId }, context) => {
       if (context.user) {
+        const user = await User.findById(context.user._id);
+
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { friends: friendId } },
@@ -122,14 +122,14 @@ const resolvers = {
         const trip = await Trip.create({
           ...args,
           creator: context.user.username,
-          members: [context.user.email, ...args.members]
+          members: [mongoose.Types.ObjectId(context.user._id), ...(args.members ? args.members.map(id => mongoose.Types.ObjectId(id)) : [])]
         });
 
         if (trip) {
           // add trip to each members trip array
           trip.members.forEach(async (member) => {
             return await User.findOneAndUpdate(
-              { email: member },
+              { _id: member },
               { $push: { trips: trip } }
             );
           });
@@ -171,7 +171,7 @@ const resolvers = {
               ...args.budget && {budget: args.budget}
             },
             // update members conditionally
-            ...args.members[0] && {$addToSet: { members: { $each: args.members } } }
+            ...args.members[0] && {$addToSet: { members: { $each: args.members.map(id => mongoose.Types.ObjectId(id)) } } }
           },
           { new: true }
         );

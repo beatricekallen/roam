@@ -11,8 +11,8 @@ const tripSchema = new Schema(
     },
     members: [
       {
-        type: String,
-        trim: true
+        type: Schema.Types.ObjectId,
+        ref: 'User'
       }
     ],
     name: {
