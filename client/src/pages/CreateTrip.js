@@ -42,7 +42,7 @@ const CreateTrip = () => {
     if (data) {
       setFriendDataState({notAddedFriends: data.me.friends, addedFriends: []});
     }
-  }, [loading])
+  }, [data])
 
   const [errorMessage, setErrorMessage] = useState("");
   const { name, location, transportation, budget, friends } = formState;
