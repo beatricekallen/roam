@@ -62,10 +62,14 @@ const Itinerary = ({trip}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!errorMessage) {
-        //   setFormState({ [e.target.name]: e.target.value });
-          console.log("Form", formState);
-        }
+
+        const formEmpty = Object.values(formState).every(child => {
+            if (child === null) return true;
+            return false;
+        })
+
+        if (formEmpty) return;
+        
     
         // update db with trip info
         try {
@@ -87,29 +91,6 @@ const Itinerary = ({trip}) => {
         console.log("Success!");
         return window.location.reload();
       };
-
-      //--------------------------------------------------------------------------------------------------------------------------
-    const handleThisSubmit = async e => {
-        e.preventDefault();
-
-        try {
-            await updateTrip({
-              variables: {
-                id: trip._id,
-                budget: "1000",
-                location: "BoatRideCharlie",
-                startDate: "",
-                endDate: "",
-                transportation: "Car",
-                members: ""
-              },
-            });
-          } catch (e) {
-            console.error(e);
-          }
-
-          console.log("Success");
-    }
 
     const handleChange = (e) => {
         if (e.target.name === "friends") {
@@ -283,18 +264,6 @@ const Itinerary = ({trip}) => {
                     </Grid>
                 </Box>
             }
-            {toggleEdit === "edit" && (
-                <div>
-                    <form onSubmit={handleThisSubmit}>
-                    <button type="submit">Click Now</button>
-                    </form>
-                </div>
-  
-            )}
-             {/* <div className="headings">
-                        <h2>Edit Your Trip</h2>
-                        <h3>Enter in your trip information.</h3>
-                      </div> */}
             {toggleEdit === "edit" && (
                 <div className="create-trip-container">
                 <div className="headings">
