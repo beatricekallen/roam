@@ -18,6 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
 import ClearIcon from '@mui/icons-material/Clear';
+import InputLabel from '@mui/material/InputLabel';
 
 import "./CreateTrip.css";
 
@@ -186,8 +187,9 @@ const CreateTrip = () => {
           onBlur={handleChange}
           defaultValue={budget}
         />
-        <FormControl>
         <h3>Are friends joining? If so, add them from the dropdown here.</h3>
+        <FormControl sx={{ minWidth: 250 }}>
+        <InputLabel shrink={false}>Add friend</InputLabel>
         <Select
           name="friends"
           id="friend-dropdown"
