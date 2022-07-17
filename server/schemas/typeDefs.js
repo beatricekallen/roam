@@ -28,6 +28,7 @@ const typeDefs = gql`
   }
 
   type Expense {
+    _id: ID
     item: String
     totalPrice: Int
     pricePerPerson: Int
@@ -45,9 +46,9 @@ const typeDefs = gql`
     date: String
   }
 
-  type Debtor {
-    name: String
-    amount: Int
+  type MyExpenses {
+    owed: [Expense]
+    borrowing: [Expense]
   }
 
   type Auth {
@@ -62,8 +63,10 @@ const typeDefs = gql`
     user(username: String!): User
     trip(_id: ID!): Trip
     trips(username: String): [Trip]
+    trip_expenses(_id: ID!): [Expense]
     my_trips: [Trip]
     user_trips(_id: ID!): User
+    my_expenses: MyExpenses
   }
 
   type Mutation {
@@ -73,7 +76,8 @@ const typeDefs = gql`
     addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
     deleteTrip(_id: ID!): Trip
     updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
-    addExpense(tripId: ID!, item: String, price: String, split: String): Expense
+    addExpense(tripId: ID!, item: String!, price: String!, split: String): Expense
+    deleteExpense(_id: ID!): Expense
   }
 `;
 

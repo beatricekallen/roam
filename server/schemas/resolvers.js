@@ -64,18 +64,35 @@ const resolvers = {
 
       return userData;
     },
-    // look up my debts
-    // returns array of Expense with amount owed, associated trip, and item name
-    // my_debts: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const expenseData = await Expense.find({ borrowers: mongoose.Types.ObjectId(context.user._id) })
-    //       // what to select?
-    //       .select('')
+    my_expenses: async (parent, args, context) => {
+      if (context.user) {
+        const owedExpenseData = await Expense.find({ payer: context.user._id })
+          .populate('trip')
+          .populate('borrowers');
 
-    //     console.log(expenseData);
-    //   }
-    // }
-    // look up my expenses
+        const borrowingExpenseData = await Expense.find({
+          'borrowers': { $in: [
+            mongoose.Types.ObjectId(context.user._id)
+          ]}
+        })
+          .populate('trip')
+          .populate('borrowers');
+
+        return {
+          owed: owedExpenseData,
+          borrowing: borrowingExpenseData
+        }
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+    trip_expenses: async (parent, { _id }, context) => {
+      if (context.user) {
+        return await Expense.find({ trip: _id });
+      }
+
+      throw new AuthenticationError("Not logged in");
+    }
   },
 
   Mutation: {
@@ -181,37 +198,36 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     },
-    addExpense: async(parent, args, context) => {
+    addExpense: async(parent, { item, price, tripId }, context) => {
       if (context.user) {
-        const tripData = await Trip.findById(args.tripId, ['memberCount', 'trip.members'])
+        const { _id, members } = await Trip.findById(tripId)
           .populate('members')
-          .select('members, memberCount')
+          .select('members');
 
-        console.log(tripData)
+        // remove expense payer from list
+        const memberData = members.filter(member => member._id != context.user._id)
+
+        const expenseData = await Expense.create({
+          item,
+          totalPrice: parseInt(price),
+          pricePerPerson: parseInt(price) / members.length,
+          trip: _id,
+          payer: context.user._id,
+          borrowers: memberData.map(member => member._id),
+        });
+
+        return expenseData;
+      }
+
+      throw new AuthenticationError("You need to be logged in");
+    },
+    deleteExpense: async(parent, { _id }, context) => {
+      if (context.user) {
+        return await Expense.findByIdAndDelete(_id)
       }
 
       throw new AuthenticationError("You need to be logged in");
     }
-    // addExpense: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const userId = context.user._id;
-    //     const tripId = args._id;
-    //     console.log(args);
-
-    //     const tripData = await Trip.findByIdAndUpdate(
-    //       { _id: tripId },
-    //       { $push: { expenses: { ...args.expense, owner: mongoose.Types.ObjectId(userId) } } },
-    //       { new: true }
-    //       ).populate({
-    //           path: 'expenses',
-    //           populate: { path: 'owner' }
-    //       });
-
-    //     return tripData;
-    //   }
-
-    //   throw new AuthenticationError("You need to be logged in");
-    // }
   },
 };
 
