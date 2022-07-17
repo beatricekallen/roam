@@ -93,18 +93,6 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     }
-    // look up my debts
-    // returns array of Expense with amount owed, associated trip, and item name
-    // my_debts: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const expenseData = await Expense.find({ borrowers: mongoose.Types.ObjectId(context.user._id) })
-    //       // what to select?
-    //       .select('')
-
-    //     console.log(expenseData);
-    //   }
-    // }
-    // look up my expenses
   },
 
   Mutation: {
@@ -240,26 +228,6 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     }
-    // addExpense: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const userId = context.user._id;
-    //     const tripId = args._id;
-    //     console.log(args);
-
-    //     const tripData = await Trip.findByIdAndUpdate(
-    //       { _id: tripId },
-    //       { $push: { expenses: { ...args.expense, owner: mongoose.Types.ObjectId(userId) } } },
-    //       { new: true }
-    //       ).populate({
-    //           path: 'expenses',
-    //           populate: { path: 'owner' }
-    //       });
-
-    //     return tripData;
-    //   }
-
-    //   throw new AuthenticationError("You need to be logged in");
-    // }
   },
 };
 
