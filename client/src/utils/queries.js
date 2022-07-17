@@ -145,7 +145,7 @@ export const QUERY_MY_EXPENSES = gql`
   }
 `;
 
-export const QUERY_TRIP_EXEPNSES = gql`
+export const QUERY_TRIP_EXPENSES = gql`
   query trip_expenses($id: ID!) {
     trip_expenses(_id: $id) {
       item
