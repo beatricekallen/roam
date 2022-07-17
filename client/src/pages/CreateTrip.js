@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ADD_TRIP } from "../utils/mutations";
 import { QUERY_ME_BASIC } from "../utils/queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import { getFormattedDate } from "../utils/dateFormat";
 
 // import Input from "@mui/material/Input";
@@ -23,29 +23,32 @@ import "./CreateTrip.css";
 
 const CreateTrip = () => {
 
-  const [formState, setFormState] = useState({
-    name: "",
-    location: "",
-    startDate: "",
-    endDate: "",
-    transportation: "",
-    budget: "",
-    friends: "",
-  });
+  const [formState, setFormState] = useState({});
 
-  const [addTrip, { error }] = useMutation(ADD_TRIP);
+  const [addTrip] = useMutation(ADD_TRIP);
 
-  const { data } = useQuery(QUERY_ME_BASIC);
+  const [loadMyData, { loading, data }] = useLazyQuery(QUERY_ME_BASIC);
 
-  const [friendDataState, setFriendDataState] = useState()
-  const [addedFriendState, setAddedFriendState] = useState([])
+  // query user data only once on load
+  useEffect(() => {
+    loadMyData();
+  }, []);
 
-  if (data && !friendDataState) {
-    setFriendDataState(data.me.friends);
-  }
+  const [friendDataState, setFriendDataState] = useState({})
+  const { addedFriends, notAddedFriends } = friendDataState;
+
+  // set friend dropdown data after data loads
+  useEffect(() => {
+    if (data) {
+      setFriendDataState({notAddedFriends: data.me.friends, addedFriends: []});
+    }
+  }, [loading])
 
   const [errorMessage, setErrorMessage] = useState("");
   const { name, location, transportation, budget, friends } = formState;
+
+  const [startValue, setStartValue] = useState("");
+  const [endValue, setEndValue] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,26 +56,22 @@ const CreateTrip = () => {
       // setFormState({ [e.target.name]: e.target.value });
       console.log("Form", formState);
     }
-
     // update db with trip info
     try {
       await addTrip({
         variables: {
           name: name,
           location: location,
-          startDate: getFormattedDate(startValue),
-          endDate: getFormattedDate(endValue),
+          ...startValue && {startDate: getFormattedDate(startValue)},
+          ...endValue && {endDate: getFormattedDate(endValue)},
           transportation: transportation,
           budget: budget,
-          members: addedFriendState.map(friend => friend._id),
+          members: addedFriends.map(friend => friend._id),
         },
       });
     } catch (e) {
       console.error(e);
     }
-
-    // setFormState({ ...formState, [e.target.name]: "" });
-    console.log("done");
 
     return window.location.assign("/profile");
   };
@@ -98,19 +97,21 @@ const CreateTrip = () => {
   };
 
   const handleAddFriend = e => {
-    setAddedFriendState([...addedFriendState, e.target.value]);
-    setFriendDataState(friendDataState.filter(friend => friend != e.target.value));
+    setFriendDataState({
+      notAddedFriends: notAddedFriends.filter(friend => friend != e.target.value),
+      addedFriends: [...addedFriends, e.target.value]
+  });
   }
 
-  function handleRemoveFriend(e) {
+  const handleRemoveFriend= e => {
+    // get index from ClearIcon
     const i = e.target.dataset.id;
-    const removedFriend = addedFriendState[i];
-    setFriendDataState([...friendDataState, removedFriend]);
-    setAddedFriendState(addedFriendState.filter(friend => friend != removedFriend));
+    const removedFriend = {...addedFriends[i]};
+    setFriendDataState({
+      notAddedFriends: [...notAddedFriends, removedFriend],
+      addedFriends: addedFriends.filter(friend => friend._id != removedFriend._id)
+    });
   }
-
-  const [startValue, setStartValue] = useState("");
-  const [endValue, setEndValue] = useState("");
 
   function datePicker(type) {
     if (type === "startDate") {
@@ -191,23 +192,38 @@ const CreateTrip = () => {
           name="friends"
           id="friend-dropdown"
           onChange={handleAddFriend}
-          value={friends}
+          defaultValue=""
+          value=""
         >
-          {friendDataState &&
-            friendDataState.map((friend, i) => {
+          {notAddedFriends &&
+            notAddedFriends.map((friend, i) => {
               return <MenuItem value={friend} key={i}>{friend.username}</MenuItem>
             })}
         </Select>
         </FormControl>
-        {addedFriendState.length != 0 &&
-          addedFriendState.map((friend, i) => {
-            return (
-              <Card value={friend} key={i} sx={{ display: 'flex', justifyContent: 'space-between', minWidth: 150, maxWidth: 250, p: 2, m: 1, border: 1, borderColor: 'grey.300', bgcolor: 'grey.100' }} >
-                <h4>{friend.username}</h4>
-                <ClearIcon data-id={i} sx={{ bg: 'white', width: 25, height: 25, '&:hover': { bgcolor: 'grey.300', cursor: 'pointer' } }} onClick={handleRemoveFriend} />
-              </Card>
-            )
-          })}
+          {addedFriends &&
+            addedFriends.map((friend, i) => {
+              return (
+                <Card value={friend} key={i} sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    minWidth: 150, 
+                    maxWidth: 250, 
+                    p: 2, 
+                    m: 1, 
+                    border: 1, 
+                    borderColor: 'grey.300', 
+                    bgcolor: 'grey.100' }} >
+                  <h4>{friend.username}</h4>
+                  <ClearIcon data-id={i} onClick={handleRemoveFriend} sx={{ 
+                    bg: 'white', 
+                    width: 25, 
+                    height: 25, 
+                    '&:hover': { bgcolor: 'grey.300', cursor: 'pointer' } }} 
+                  />
+                </Card>
+              )
+            })}
         {errorMessage && (
           <div>
             <p className="error-text">{errorMessage}</p>
