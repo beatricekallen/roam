@@ -64,6 +64,28 @@ const resolvers = {
 
       return userData;
     },
+    my_expenses: async (parent, args, context) => {
+      if (context.user) {
+        const owedExpenseData = await Expense.find({ payer: context.user._id })
+          .populate('trip')
+          .populate('borrowers');
+
+        const borrowingExpenseData = await Expense.find({
+          'borrowers': { $in: [
+            mongoose.Types.ObjectId(context.user._id)
+          ]}
+        })
+          .populate('trip')
+          .populate('borrowers');
+
+        return {
+          owed: owedExpenseData,
+          borrowing: borrowingExpenseData
+        }
+      }
+
+      throw new AuthenticationError("Not logged in");
+    }
     // look up my debts
     // returns array of Expense with amount owed, associated trip, and item name
     // my_debts: async (parent, args, context) => {
@@ -187,16 +209,18 @@ const resolvers = {
           .populate('members')
           .select('members');
 
+        // remove expense payer from list
+        const memberData = members.filter(member => member._id != context.user._id)
+
         const expenseData = await Expense.create({
           item,
           totalPrice: parseInt(price),
           pricePerPerson: parseInt(price) / members.length,
           trip: _id,
           payer: context.user._id,
-          borrowers: members.map(member => member._id),
+          borrowers: memberData.map(member => member._id),
         });
 
-        console.log(expenseData);
         return expenseData;
       }
 

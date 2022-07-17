@@ -46,9 +46,9 @@ const typeDefs = gql`
     date: String
   }
 
-  type Debtor {
-    name: String
-    amount: Int
+  type MyExpenses {
+    owed: [Expense]
+    borrowing: [Expense]
   }
 
   type Auth {
@@ -65,6 +65,7 @@ const typeDefs = gql`
     trips(username: String): [Trip]
     my_trips: [Trip]
     user_trips(_id: ID!): User
+    my_expenses: MyExpenses
   }
 
   type Mutation {
