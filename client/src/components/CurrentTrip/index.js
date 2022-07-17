@@ -1,18 +1,19 @@
 import { useState } from "react";
 import Itinerary from "../Itinerary";
-import Splitwise from "../Splitwise";
-import Carbon from "..Carbon";
+// import Splitwise from "../Splitwise";
+import Carbon from "../Carbon";
 import CurrentTripNav from "../CurrentTripNav";
 
-const CurrentTrip = () => {
+const CurrentTrip = ({data}) => {
+
   const [currentTab, handleTabChange] = useState("Itinerary");
 
   const renderTab = () => {
     switch (currentTab) {
       case "Itinerary":
-        return <Itinerary />;
+        return 
       case "Splitwise":
-        return <Splitwise />;
+        // return <Splitwise />;
       default:
         return <Carbon />;
     }
@@ -24,7 +25,8 @@ const CurrentTrip = () => {
         currentTab={currentTab}
         handleTabChange={handleTabChange}
       ></CurrentTripNav>
-      <div>{renderTab()}</div>
+       <div>{renderTab()}</div> 
+       <Itinerary  trip={data.trip} />;
     </>
   );
 };

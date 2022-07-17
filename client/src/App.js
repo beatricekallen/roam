@@ -16,6 +16,8 @@ import Login from "./pages/Login";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
+
+import ViewTrip from "./pages/ViewTrip"
 import CreateTrip from "./pages/CreateTrip";
 import StripeSuccess from "./components/StripeSuccess";
 import Carbon from "./components/Carbon";
@@ -56,17 +58,18 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/viewtrip/:trip" element={<ViewTrip />} />
               {loggedIn 
                 ?
-              <Route path="/profile">
-                <Route path=":username" element={<Profile />} />
-                <Route path="" element={<Profile />} />
-              </Route>
+                  <Route path="/profile">
+                    <Route path=":username" element={<Profile />} />
+                    <Route path="" element={<Profile />} />
+                  </Route>
                 :
-              <Route path="/profile">
-                <Route path=":username" element={<NeedLogin />} />
-                <Route path="" element={<NeedLogin />} />
-              </Route>
+                  <Route path="/profile">
+                    <Route path=":username" element={<NeedLogin />} />
+                    <Route path="" element={<NeedLogin />} />
+                  </Route>
               }
               {loggedIn
                 ? <Route path="/createtrip" element={<CreateTrip />} />

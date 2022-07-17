@@ -49,8 +49,8 @@ const Signup = () => {
             Ready to start planning your next trip with us? Enter in your
             information below.
           </h2>
-          <div>
-            <form className="form" onSubmit={handleFormSubmit}>
+          <div className="form-container">
+            <form onSubmit={handleFormSubmit}>
               <Input
                 className="form-input padding"
                 placeholder="Your username"
