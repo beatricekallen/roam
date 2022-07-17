@@ -6,10 +6,16 @@ import CurrentTrip from '../components/CurrentTrip';
 
 const ViewTrip = () => {
     const { trip } = useParams();
+    console.log(trip, "trip string");
     const { loading, data } = useQuery(trip && QUERY_TRIP, {
         variables: {_id: trip}
     });
-    console.log(data);
+
+    useEffect(() => {
+        if(data) {
+            console.log(data);
+        }
+    });
 
  return (
     <>

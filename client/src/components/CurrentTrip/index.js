@@ -5,7 +5,6 @@ import Carbon from "../Carbon";
 import CurrentTripNav from "../CurrentTripNav";
 
 const CurrentTrip = ({data}) => {
-
   const [currentTab, handleTabChange] = useState("Itinerary");
 
   const renderTab = () => {

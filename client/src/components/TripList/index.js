@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 //TODO: need to update to route to different components on click. need to confirm trip information being passed in here is correct with backend.
 
@@ -46,7 +46,9 @@ const TripList = ({ trips }) => {
                     <h4>End date: {trip.endDate}</h4>
                   </CardContent>
                   <CardActions>
-                    <button size="small">View Trip</button>
+                    <Link to={`/viewtrip/${trip._id}`}>
+                      <button size="small">View Trip</button>
+                    </Link>
                   </CardActions>
                 </Card>
               </Grid>

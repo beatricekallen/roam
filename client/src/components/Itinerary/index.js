@@ -1,6 +1,7 @@
-import { useState} from "react";
-import { useMutation } from "@apollo/client";
+import { useState, useEffect} from "react";
+import { useMutation, useLazyQuery } from "@apollo/client";
 import { UPDATE_TRIP } from "../../utils/mutations"
+import { QUERY_ME_BASIC } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
 import { validateEmail } from "../../utils/helpers";
 
@@ -25,21 +26,21 @@ import travelImage from "./assets/travelimage.jpg"
 
 const Itinerary = ({trip}) => {
     const [updateTrip, { error }] = useMutation(UPDATE_TRIP);
+    const [loadMyData, { data }] = useLazyQuery(QUERY_ME_BASIC);
 
     const [toggleEdit, setToggleEdit] = useState('info');
-    const [formState, setFormState] = useState({
-        location: "",
-        startDate: "",
-        endDate: "",
-        transportation: "",
-        budget: "",
-        friends: "",
-        name: ""
-      });
-
-    const {location, transportation, budget, friends, name } = formState;
-    
+    const [formState, setFormState] = useState({});
+    const { name, location, transportation, budget } = formState;
     const [errorMessage, setErrorMessage] = useState("");
+
+    const [startValue, setStartValue] = useState("");
+    const [endValue, setEndValue] = useState("");
+
+    let friends;
+
+    useEffect(() => {
+        loadMyData();
+      }, []);
 
     const editHandler = (event, editStatus) => {
         setToggleEdit(editStatus);
@@ -48,7 +49,7 @@ const Itinerary = ({trip}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!errorMessage) {
-          setFormState({ [e.target.name]: e.target.value });
+        //   setFormState({ [e.target.name]: e.target.value });
           console.log("Form", formState);
         }
     
@@ -73,6 +74,26 @@ const Itinerary = ({trip}) => {
         return window.location.reload();
       };
 
+      //--------------------------------------------------------------------------------------------------------------------------
+    const handleThisSubmit = async e => {
+        e.preventDefault();
+
+        try {
+            await updateTrip({
+              variables: {
+                _id: trip._id,
+                location: "The Beach",
+                transportation: "Car",
+                budget: "4000",
+              },
+            });
+          } catch (e) {
+            console.error(e, "failure");
+          }
+
+
+    }
+
     const handleChange = (e) => {
         if (e.target.name === "friends") {
           const isValid = validateEmail(e.target.value);
@@ -87,9 +108,6 @@ const Itinerary = ({trip}) => {
         if (!errorMessage) setFormState({ ...formState, [e.target.name]: e.target.value });
         
     };
-
-    const [startValue, setStartValue] = useState("");
-    const [endValue, setEndValue] = useState("");
 
     function datePicker(type) {
         if (type === "startDate") {
@@ -133,7 +151,7 @@ const Itinerary = ({trip}) => {
             }}>
                 <div>
                     <h2>Location: {trip.location}!</h2>
-                    <h3>Budget ${trip.budget}</h3>
+                    <h3>Budget - {trip.budget && `$${trip.budget}` || "None"}</h3>
                 </div>
                 <ToggleButtonGroup
                     value={toggleEdit}
@@ -182,7 +200,7 @@ const Itinerary = ({trip}) => {
                                {trip.members && trip.members.map((member, i) => (
                                 <span key={i} style={{
                                     marginLeft: 10
-                                }}>{member}</span>
+                                }}>{member.username}</span>
 
                                ))}
                                 </Typography>
@@ -231,6 +249,14 @@ const Itinerary = ({trip}) => {
                 </Box>
             }
             {toggleEdit === "edit" && (
+                <div>
+                    <form onSubmit={handleThisSubmit}>
+                    <button type="submit">Click Now</button>
+                    </form>
+                </div>
+  
+            )}
+            {/* {toggleEdit === "edit" && (
                (
                     <div className="create-trip-container">
                       <div className="headings">
@@ -295,7 +321,7 @@ const Itinerary = ({trip}) => {
                       </form>
                     </div>
                 )
-            )}
+            )} */}
         </Container>
     )
 }
