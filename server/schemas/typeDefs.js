@@ -24,15 +24,18 @@ const typeDefs = gql`
     endDate: String
     budget: String
     status: String
+    memberCount: Int
   }
 
   type Expense {
     item: String
-    price: String
-    owner: User
-    debtors: [Debtor]
-    balance: Int
+    totalPrice: Int
+    pricePerPerson: Int
+    trip: Trip
+    payer: User
+    borrowers: [User]
     split: String
+    balance: Int
   }
 
   type Attraction {
@@ -45,11 +48,6 @@ const typeDefs = gql`
   type Debtor {
     name: String
     amount: Int
-  }
-
-  input ExpenseInput {
-    item: String!
-    price: String!
   }
 
   type Auth {
@@ -75,7 +73,7 @@ const typeDefs = gql`
     addTrip(name: String!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
     deleteTrip(_id: ID!): Trip
     updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [String]): Trip
-    addExpense(_id: ID!, expense: ExpenseInput!): Trip
+    addExpense(tripId: ID!, item: String, price: String, split: String): Expense
   }
 `;
 

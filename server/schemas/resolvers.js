@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Trip } = require("../models");
+const { User, Trip, Expense } = require("../models");
 const { signToken } = require("../utils/auth");
 const mongoose = require("mongoose");
 const getUrl = require("../utils/oauthHelper");
@@ -66,6 +66,18 @@ const resolvers = {
 
       return userData;
     },
+    // look up my debts
+    // returns array of Expense with amount owed, associated trip, and item name
+    // my_debts: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const expenseData = await Expense.find({ borrowers: mongoose.Types.ObjectId(context.user._id) })
+    //       // what to select?
+    //       .select('')
+
+    //     console.log(expenseData);
+    //   }
+    // }
+    // look up my expenses
   },
 
   Mutation: {
@@ -169,6 +181,17 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     },
+    addExpense: async(parent, args, context) => {
+      if (context.user) {
+        const tripData = await Trip.findById(args.tripId, ['memberCount', 'trip.members'])
+          .populate('members')
+          .select('members, memberCount')
+
+        console.log(tripData)
+      }
+
+      throw new AuthenticationError("You need to be logged in");
+    }
     // addExpense: async (parent, args, context) => {
     //   if (context.user) {
     //     const userId = context.user._id;

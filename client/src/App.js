@@ -19,7 +19,10 @@ import Signup from "./pages/Signup";
 import CreateTrip from "./pages/CreateTrip";
 import StripeSuccess from "./components/StripeSuccess";
 import Carbon from "./components/Carbon";
+import NeedLogin from "./pages/NeedLogin";
 // import Splitwise from "./components/Splitwise";
+
+import Auth from './utils/auth';
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -40,6 +43,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const loggedIn = Auth.loggedIn();
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -51,11 +56,22 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              {loggedIn 
+                ?
               <Route path="/profile">
                 <Route path=":username" element={<Profile />} />
                 <Route path="" element={<Profile />} />
               </Route>
-              <Route path="/createtrip" element={<CreateTrip />} />
+                :
+              <Route path="/profile">
+                <Route path=":username" element={<NeedLogin />} />
+                <Route path="" element={<NeedLogin />} />
+              </Route>
+              }
+              {loggedIn
+                ? <Route path="/createtrip" element={<CreateTrip />} />
+                : <Route path="/createtrip" element={<NeedLogin />} />
+              }
               <Route path="/stripe-success" element={<StripeSuccess />} />
               <Route path="/stripe-test" element={<Carbon />} />
               <Route path="*" element={<NoMatch />} />

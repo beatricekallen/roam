@@ -9,10 +9,12 @@ const tripSchema = new Schema(
       type: String,
       required: true
     },
-    members: [{
-      type: String,
-      trim: true
-    }],
+    members: [
+      {
+        type: String,
+        trim: true
+      }
+    ],
     name: {
       type: String,
       trim: true
@@ -58,10 +60,12 @@ const tripSchema = new Schema(
   }
 );
 
-// returns when a user queries for their own trips
-// populates into an array in GraphQL
 tripSchema.virtual('status').get(function() {
   return compareDates(this.startDate, this.endDate);
+});
+
+tripSchema.virtual('memberCount').get(function() {
+  return this.members.length;
 });
 
 const Trip = model("Trip", tripSchema);

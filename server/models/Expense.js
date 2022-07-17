@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const debtorSchema = require('./Debtor');
 
 const expenseSchema = new Schema(
   {
@@ -8,25 +7,29 @@ const expenseSchema = new Schema(
       required: true,
       trim: true
     },
-    price: {
-      type: String,
-      trim: true
+    totalPrice: {
+      type: Number,
+      required: true
     },
-    owner: {
+    pricePerPerson: {
+      type: Number,
+    },
+    trip: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Trip',
+      required: true
     },
-    debtors: [debtorSchema],
-    owers: [
+    payer: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    borrowers: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User'
       }
     ],
-    balance: {
-      type: Number,
-      required: true
-    },
     split: {
       type: String,
       required: true,
@@ -43,6 +46,11 @@ const expenseSchema = new Schema(
     },
   }
 );
+
+expenseSchema.virtual('balance', function() {
+  return this.pricePerPerson * this.borrowers.length
+});
+// make associated client side helper to tally up all balances
 
 const Expense = model("Expense", expenseSchema);
 

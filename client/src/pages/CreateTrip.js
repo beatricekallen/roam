@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ADD_TRIP } from "../utils/mutations";
-import { useMutation } from "@apollo/client";
+import { QUERY_ME_BASIC } from "../utils/queries";
+import { useMutation, useQuery } from "@apollo/client";
 import { getFormattedDate } from "../utils/dateFormat";
 
 // import Input from "@mui/material/Input";
@@ -12,10 +13,12 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { validateEmail } from "../utils/helpers";
+import Auth from "../utils/auth";
 
 import "./CreateTrip.css";
 
 const CreateTrip = () => {
+
   const [formState, setFormState] = useState({
     name: "",
     location: "",
@@ -27,6 +30,10 @@ const CreateTrip = () => {
   });
 
   const [addTrip, { error }] = useMutation(ADD_TRIP);
+
+  const { loading, data } = useQuery(QUERY_ME_BASIC);
+
+  console.log(data);
 
   const [errorMessage, setErrorMessage] = useState("");
   const { name, location, transportation, budget, friends } = formState;

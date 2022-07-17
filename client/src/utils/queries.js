@@ -47,6 +47,7 @@ export const QUERY_ME = gql`
         creator
         startDate
         endDate
+        memberCount
       }
       friendCount
       friends {
@@ -70,11 +71,6 @@ export const QUERY_ME_BASIC = gql`
         _id
         username
       }
-      trips {
-        _id
-        name
-        dates
-      }
     }
   }
 `;
@@ -92,6 +88,7 @@ export const QUERY_TRIP = gql`
       endDate
       location
       createdAt
+      memberCount
     }
   }
 `;
@@ -110,6 +107,7 @@ export const QUERY_MY_TRIPS = gql`
         endDate
         location
         status
+        memberCount
       }
     }
   }
