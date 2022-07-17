@@ -75,6 +75,7 @@ const typeDefs = gql`
     deleteTrip(_id: ID!): Trip
     updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
     addExpense(tripId: ID!, item: String!, price: String!, split: String): Expense
+    deleteExpense(_id: ID!): Expense
   }
 `;
 

@@ -201,6 +201,13 @@ const resolvers = {
       }
 
       throw new AuthenticationError("You need to be logged in");
+    },
+    deleteExpense: async(parent, { _id }, context) => {
+      if (context.user) {
+        return await Expense.findByIdAndDelete(_id)
+      }
+
+      throw new AuthenticationError("You need to be logged in");
     }
     // addExpense: async (parent, args, context) => {
     //   if (context.user) {

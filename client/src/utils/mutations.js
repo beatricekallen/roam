@@ -93,3 +93,11 @@ export const ADD_EXPENSE = gql`
     }
   }
 `;
+
+export const DELETE_EXPENSE = gql`
+  mutation deleteExpense($id: ID!) {
+    deleteExpense(_id: $id) {
+      _id
+    }
+  }
+`;
