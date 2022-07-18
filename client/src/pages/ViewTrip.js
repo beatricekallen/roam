@@ -12,10 +12,8 @@ const ViewTrip = () => {
     });
 
     useEffect(() => {
-        if(data) {
-            console.log(data);
-        }
-    });
+        console.log(data)
+    },[data]);
 
  return (
     <>

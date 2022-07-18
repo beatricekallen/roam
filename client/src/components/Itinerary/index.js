@@ -1,6 +1,7 @@
 import { useState, useEffect} from "react";
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import { UPDATE_TRIP } from "../../utils/mutations"
+import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
 import { QUERY_ME_BASIC } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
 import { validateEmail } from "../../utils/helpers";
@@ -24,11 +25,12 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
 
-import mapImage from "./assets/mapimage.png"
-import friendsImage from "./assets/friendsimage.jpg"
-import calendarImage from "./assets/calendarimage.jpg"
-import travelImage from "./assets/travelimage.jpg"
-import planImage from "./assets/planimage.png"
+import mapImage from "./assets/mapimage.png";
+import friendsImage from "./assets/friendsimage.jpg";
+import calendarImage from "./assets/calendarimage.jpg";
+import travelImage from "./assets/travelimage.jpg";
+import planImage from "./assets/planimage.png";
+import expensesImage from "./assets/expensesimage.jpg";
 
 import "./index.css";
 
@@ -36,7 +38,13 @@ const Itinerary = ({trip}) => {
 
     const [updateTrip, { error }] = useMutation(UPDATE_TRIP);
     const [loadMyData, { data }] = useLazyQuery(QUERY_ME_BASIC);
+   
 
+    const {loading, data: expenses} = useQuery(trip && QUERY_TRIP_EXPENSES, {
+            variables: {id: trip._id}
+    });
+
+    if (!loading) console.log(expenses);
     const [toggleEdit, setToggleEdit] = useState('info');
     const [formState, setFormState] = useState({});
     const { name, location, transportation, budget } = formState;
@@ -72,6 +80,7 @@ const Itinerary = ({trip}) => {
         })
 
         if (formEmpty) return;
+        if (addedFriends) console.log(addedFriends);
         
     
         // update db with trip info
@@ -154,7 +163,7 @@ const Itinerary = ({trip}) => {
     }
     
     return (
-        <Container>
+        <div class="parent-container">
             <h1 style={{
                 textAlign: "center"
             }}>{trip.name}</h1>
@@ -184,25 +193,28 @@ const Itinerary = ({trip}) => {
             </div>
             {toggleEdit === "info" &&
             <Box sx={{flexGrow: 1, flexShrink: 1, marginTop: 1}}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={7}>
-                        <Card>
+                    <Grid container>
+                        <Grid item xs={6}>
+                        <Card style={{
+                            width: "80%",
+                            height: "35%"
+                        }}>
                             <CardMedia
                                 component="img"
-                                height="350"
-                                width="350"
                                 image={mapImage}
                                 alt="View of the US Embassy"
+                 
                             />
                         </Card>
                         <Card style={{
                             marginTop: 15,
                             width: "70%",
+                            height: "30vh",
                             justifySelf: "right"
                         }}>
                             <CardMedia
                                 component="img"
-                                height="120"
+                                height="50%"
                                 image={friendsImage}
                                 alt="View of the US Embassy"
                             />
@@ -214,50 +226,87 @@ const Itinerary = ({trip}) => {
                                {trip.members && trip.members.map((member, i) => (
                                 <span key={i} style={{
                                     marginLeft: 10
-                                }}>{member.username}</span>
+                                }}>User: {member.username}</span>
 
                                ))}
                                 </Typography>
                             </CardContent>
                         </Card>
                         </Grid>
-                        <Grid item xs={4}>
-                        <Card>
-                            <CardMedia
-                                component="img"
-                                height="200"
-                                image={calendarImage}
-                                alt="View of the US Embassy"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                Trip Dates
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    <>
-                                        <span>Start Date:{trip.startDate}</span>
-                                        <span style={{marginLeft: 8}}>End Date: {trip.endDate}</span>
-                                    </>
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                        <Card style={{
-                            marginTop: 10
+                        <Grid item xs={6} style={{
+                            display: "flex",
+                            height: "50vh",
+                            flexWrap: "wrap"
                         }}>
-                            <CardMedia
-                                component="img"
-                                height="200"
-                                image={travelImage}
-                                alt="View of the US Embassy"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                Travel Method: {trip.transportation}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                            <Card style={{
+                                height: "65%",
+                                width: "45%",
+                                marginRight: "20px"
+                            }}>
+                                <CardMedia
+                                    component="img"
+                                    height="50%"
+                                    image={calendarImage}
+                                    alt="View of a calendar"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    Trip Dates
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        <>
+                                            <span>Start Date:{trip.startDate}</span>
+                                            <span style={{marginLeft: 8}}>End Date: {trip.endDate}</span>
+                                        </>
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                            <Card style={{
+                                height: "75%",
+                                width: "45%",
+                                marginLeft: "10px"
+                            }}>
+                                <CardMedia
+                                    component="img"
+                                    height="50%"
+                                    image={expensesImage}
+                                    alt="View of friends jumping during a sunset"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    {expenses && expenses.trip_expenses.length ? "Expenses" : "No Expenses Currently"}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                {expenses && expenses.trip_expenses.length && expenses.trip_expenses.map((expense, i) => (
+                                    <span key={i}>
+                                        <p>Item - {expense.item}</p>
+                                        <p>Price - ${expense.totalPrice}</p>
+                                    </span>
+
+                                ))}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                            <Card style={{
+                                marginTop: 10,
+                                width: "60%",
+                                height: "30vh"
+
+                            }}>
+                                <CardMedia
+                                    component="img"
+                                    height= "60%"
+                                    image={travelImage}
+                                    alt="View of travel"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                    Travel Method: {trip.transportation}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                    </Typography>
+                                </CardContent>
+                            </Card>
                         </Grid>
                     </Grid>
                 </Box>
@@ -283,7 +332,8 @@ const Itinerary = ({trip}) => {
                             onBlur={handleChange}
                             defaultValue={location}
                             style={{
-                                width: "70%"
+                                width: "70%",
+                                alignSelf: "flex-start"
                             }}
                             />
                             <button type="submit" style={{
@@ -292,11 +342,12 @@ const Itinerary = ({trip}) => {
                             </div>
                             <div style={{
                                 display: "flex",
-                                marginTop: "10px"
+                                marginTop: "10px",
+                                width: "70%"
                             }}>
                                 <h3 style={{marginRight: "5px"}}>Edit Start Date </h3>
                                 {datePicker("startDate")}
-                                <h3 style={{marginLeft: "15px"}}>Edit End Date</h3>
+                                <h3 style={{marginLeft: "15px", marginRight: "5px"}}>Edit End Date</h3>
                                 {datePicker("endDate")}
                             </div>
                             <h3>Edit Transportation</h3>
@@ -306,6 +357,9 @@ const Itinerary = ({trip}) => {
                             name="transportation"
                             onBlur={handleChange}
                             defaultValue={transportation}
+                            style={{
+                                width: "70%"
+                            }}
                             />
                             <h3>Edit Budget</h3>
                             <TextField
@@ -314,8 +368,11 @@ const Itinerary = ({trip}) => {
                             name="budget"
                             onBlur={handleChange}
                             defaultValue={budget}
+                            style={{
+                                width: "70%"
+                            }}
                             />
-                            <h3>Feel Free to Add, Remove, or Keep Friends</h3>
+                            <h3>Add Friends!</h3>
                             <FormControl sx={{ minWidth: 250 }}>
                             <InputLabel shrink={false}>Add friend</InputLabel>
                             <Select
@@ -371,8 +428,9 @@ const Itinerary = ({trip}) => {
                 </Grid>
                 </Box>
             )}
-        </Container>
+        </div>
     )
+
 }
 
 export default Itinerary;
