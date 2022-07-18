@@ -7,9 +7,12 @@ footer {
 
 .footer-container {
   max-width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  color: white;
+  display: flex;
+  color: #fff;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .footer-box {
@@ -20,10 +23,13 @@ footer {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 10px;
+  justify-content: center;
 }
 
 .footer-link {
   cursor: pointer;
+  margin-right: 20px;
+  color: #fff;
 }
 
 .footer-icon__container {
@@ -32,6 +38,8 @@ footer {
 
 .footer-icon {
   cursor: pointer;
+  margin-right: 20px;
+  color: #fff;
 }
 
 .copyright {
