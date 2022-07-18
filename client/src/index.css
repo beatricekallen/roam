@@ -46,6 +46,9 @@
   --header-height: 100px;
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
+  height:100%;
+  width:100%;
+  display:block;
 }

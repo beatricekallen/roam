@@ -47,10 +47,13 @@ const expenseSchema = new Schema(
   }
 );
 
-expenseSchema.virtual('balance', function() {
-  return this.pricePerPerson * this.borrowers.length
+expenseSchema.virtual('balance').get(function() {
+  return this.pricePerPerson
 });
-// make associated client side helper to tally up all balances
+
+expenseSchema.virtual('paidOff').get(function() {
+  return !!this.borrowers.length;
+});
 
 const Expense = model("Expense", expenseSchema);
 
