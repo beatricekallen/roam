@@ -1,10 +1,10 @@
 import "./index.css";
 
 const CurrentTripNav = (props) => {
-  const tabs = ["Itinerary", "Splitwise", "Carbon-offsetting"];
+  const tabs = ["Itinerary", "Expenses", "Carbon-offsetting"];
 
   return (
-    <nav class="navMenu">
+    <nav className="navMenu">
       {tabs.map((tab) => (
         <a
           className="nav-item"

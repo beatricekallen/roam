@@ -163,7 +163,7 @@ const Itinerary = ({trip}) => {
     }
     
     return (
-        <div class="parent-container">
+        <div className="parent-container">
             <h1 style={{
                 textAlign: "center"
             }}>{trip.name}</h1>

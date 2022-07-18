@@ -23,3 +23,9 @@ h4 {
 p {
   font-family: var(--ff-secondary);
 }
+
+.friendLink {
+  text-decoration: none;
+  font-family: var(--ff-secondary);
+  color: var(--clr-blue);
+}

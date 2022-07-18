@@ -37,7 +37,7 @@ const TripList = ({ trips }) => {
         <Grid container spacing={2}>
           {currentTrip.length ? (
             currentTrip.map((trip) => (
-              <Grid item xs={6} md={3}>
+              <Grid item xs={6} md={3} key={trip._id}>
                 <Card key={trip._id} sx={{ maxWidth: 345 }}>
                   <CardContent>
                     <h2>{trip.name}</h2>
@@ -67,7 +67,7 @@ const TripList = ({ trips }) => {
         <Grid container spacing={2}>
           {upcomingTrips.length ? (
             upcomingTrips.map((trip) => (
-              <Grid item xs={6} md={3}>
+              <Grid item xs={6} md={3} key={trip._id}>
                 <Card key={trip._id} sx={{ maxWidth: 345 }}>
                   <CardContent>
                     <h2>{trip.name}</h2>
@@ -96,7 +96,7 @@ const TripList = ({ trips }) => {
         <Grid container spacing={2}>
           {previousTrips.length ? (
             previousTrips.map((trip) => (
-              <Grid item xs={6} md={3}>
+              <Grid item xs={6} md={3} key={trip._id}>
                 <Card key={trip._id} sx={{ maxWidth: 345 }}>
                   <CardContent>
                     <h2>{trip.name}</h2>

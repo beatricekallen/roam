@@ -101,7 +101,7 @@ const Profile = (props) => {
         <div>
           <h1>Friends List</h1>
           {user.friends.map((friend) => (
-            <List dense={false}>
+            <List dense={false}  key={friend.username}>
               <Link to={`/profile/${friend.username}`}>
                 <ListItem>
                   <ListItemAvatar>
@@ -109,7 +109,7 @@ const Profile = (props) => {
                       <PersonIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={friend.username} secondary={null} />
+                  <ListItemText primary={friend.username} secondary={null} className='friendLink'/>
                 </ListItem>
               </Link>
             </List>
