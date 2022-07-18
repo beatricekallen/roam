@@ -173,7 +173,9 @@ const Itinerary = ({trip}) => {
                 justifyContent: "space-between"
             }}>
                 <div>
-                    <h2>Location: {trip.location}!</h2>
+                    <h2 style={{
+                        color: "var(--clr-yellow)"
+                    }}>Location: {trip.location}!</h2>
                     <h3>Budget - {trip.budget && `$${trip.budget}` || "None"}</h3>
                 </div>
                 <ToggleButtonGroup
@@ -314,7 +316,9 @@ const Itinerary = ({trip}) => {
             {toggleEdit === "edit" && (
                 <Box sx={{flexGrow: 1, flexShrink: 1, marginTop: 1}}>
                 <div className="headings">
-                    <h2>Edit Trip</h2>
+                    <h2 style={{
+                        color: "var(--clr-yellow)"
+                    }}>Edit Trip</h2>
                     <h3>Results will also reflect in your Itinerary!</h3>
                 </div>
                 <Grid container spacing={2}>
@@ -372,7 +376,7 @@ const Itinerary = ({trip}) => {
                                 width: "70%"
                             }}
                             />
-                            <h3>Add Friends!</h3>
+                            <h3>Edit Trip Friends!</h3>
                             <FormControl sx={{ minWidth: 250 }}>
                             <InputLabel shrink={false}>Add friend</InputLabel>
                             <Select

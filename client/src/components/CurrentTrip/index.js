@@ -9,8 +9,8 @@ const CurrentTrip = ({data}) => {
 
   const renderTab = () => {
     switch (currentTab) {
-      case "Itinerary":
-        return 
+      case "Itinerary": 
+       return <Itinerary trip={data.trip} />;
       case "Splitwise":
         // return <Splitwise />;
       default:
@@ -25,7 +25,6 @@ const CurrentTrip = ({data}) => {
         handleTabChange={handleTabChange}
       ></CurrentTripNav>
        <div>{renderTab()}</div> 
-       <Itinerary  trip={data.trip} />;
     </>
   );
 };

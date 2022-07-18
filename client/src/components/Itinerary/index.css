@@ -3,10 +3,6 @@
     margin: 0 50px;
 }
 
-h2 {
-    color: var(--clr-yellow);
-}
-
 button[type="submit"] {
     background-color: #00BFFF;
     border: 1px solid #00BFFF;

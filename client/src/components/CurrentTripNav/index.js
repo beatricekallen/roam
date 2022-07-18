@@ -1,19 +1,21 @@
+import "./index.css";
+
 const CurrentTripNav = (props) => {
   const tabs = ["Itinerary", "Splitwise", "Carbon-offsetting"];
 
   return (
-    <div>
+    <nav class="navMenu">
       {tabs.map((tab) => (
         <a
           className="nav-item"
           key={tab}
           href={"#" + tab.toLowerCase()}
-          onClick={() => props.handlePageChange(tab)}
+          onClick={() => props.handleTabChange(tab)}
         >
           {tab}
         </a>
       ))}
-    </div>
+    </nav>
   );
 };
 
