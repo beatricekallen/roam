@@ -1,0 +1,20 @@
+button[type="submit"] {
+    background-color: #00BFFF;
+    border: 1px solid #00BFFF;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:active {
+  transition-duration: 0.2s;
+  background-color: initial;
+  color: #00BFFF !important;
+}
+
+.card:hover {
+    transform: scale(1);
+}

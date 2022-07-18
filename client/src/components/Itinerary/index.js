@@ -28,6 +28,9 @@ import mapImage from "./assets/mapimage.png"
 import friendsImage from "./assets/friendsimage.jpg"
 import calendarImage from "./assets/calendarimage.jpg"
 import travelImage from "./assets/travelimage.jpg"
+import planImage from "./assets/planimage.png"
+
+import "./index.css";
 
 const Itinerary = ({trip}) => {
 
@@ -98,13 +101,8 @@ const Itinerary = ({trip}) => {
           if (!isValid) setErrorMessage("That email is invalid.");
           else setErrorMessage("");
           
-        } else {
-          if (!e.target.value.length) setErrorMessage(`This information is required.`);
-          else setErrorMessage("");
-        }
-
+        } 
         if (!errorMessage) setFormState({ ...formState, [e.target.name]: e.target.value });
-        
     };
 
     const handleAddFriend = e => {
@@ -265,87 +263,113 @@ const Itinerary = ({trip}) => {
                 </Box>
             }
             {toggleEdit === "edit" && (
-                <div className="create-trip-container">
+                <Box sx={{flexGrow: 1, flexShrink: 1, marginTop: 1}}>
                 <div className="headings">
-                    <h1>Edit Trip</h1>
-                    <h2>Results will also reflect in your Itinerary!</h2>
+                    <h2>Edit Trip</h2>
+                    <h3>Results will also reflect in your Itinerary!</h3>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <h3>Edit Destination</h3>
-                    <TextField
-                    fullWidth
-                    label="Optional"
-                    name="location"
-                    onBlur={handleChange}
-                    defaultValue={location}
-                    />
-                    <h3>Edit start date for your trip:</h3>
-                    {datePicker("startDate")}
-                    <h3>Edit end date for your trip:</h3>
-                    {datePicker("endDate")}
-                    <h3>Edit Transportation</h3>
-                    <TextField
-                    fullWidth
-                    label="Optional"
-                    name="transportation"
-                    onBlur={handleChange}
-                    defaultValue={transportation}
-                    />
-                    <h3>Edit Budget</h3>
-                    <TextField
-                    fullWidth
-                    label="Optional"
-                    name="budget"
-                    onBlur={handleChange}
-                    defaultValue={budget}
-                    />
-                    <h3>Feel Free to Add, Remove, or Keep Friends</h3>
-                    <FormControl sx={{ minWidth: 250 }}>
-                    <InputLabel shrink={false}>Add friend</InputLabel>
-                    <Select
-                    name="friends"
-                    id="friend-dropdown"
-                    onChange={handleAddFriend}
-                    defaultValue=""
-                    value=""
-                    >
-                    {notAddedFriends &&
-                        notAddedFriends.map((friend, i) => {
-                        return <MenuItem value={friend} key={i}>{friend.username}</MenuItem>
-                        })}
-                    </Select>
-                    </FormControl>
-                    {addedFriends &&
-                        addedFriends.map((friend, i) => {
-                        return (
-                            <Card value={friend} key={i} sx={{ 
-                                display: 'flex', 
-                                justifyContent: 'space-between', 
-                                alignItems: 'center',
-                                minWidth: 150, 
-                                maxWidth: 250, 
-                                p: 1, 
-                                m: 1, 
-                                border: 1, 
-                                borderColor: 'grey.300', 
-                                bgcolor: 'grey.50' }} >
-                            <h4>{friend.username}</h4>
-                            <button data-id={i} onClick={handleRemoveFriend} className="remove-friend-btn">X</button>
-                            </Card>
-                        )
-                        })}
-                    {errorMessage && (
-                    <div>
-                        <p className="error-text">{errorMessage}</p>
-                    </div>
-                    )}
-                    <div className="headings">
-                    <button variant="contained" type="submit">
-                        Update
-                    </button>
-                    </div>
-                </form>
-                </div>
+                <Grid container spacing={2}>
+                    <Grid item xs={7}>
+                        <form onSubmit={handleSubmit}>
+                            <h3>Edit Destination</h3>
+                            <div style={{
+                                display: "flex",
+                                justifyContent: "space-between"
+                            }}>
+                            <TextField
+                            fullWidth
+                            label="Optional"
+                            name="location"
+                            onBlur={handleChange}
+                            defaultValue={location}
+                            style={{
+                                width: "70%"
+                            }}
+                            />
+                            <button type="submit" style={{
+                                color: "#FFFFFF"
+                            }}>Update</button>
+                            </div>
+                            <div style={{
+                                display: "flex",
+                                marginTop: "10px"
+                            }}>
+                                <h3 style={{marginRight: "5px"}}>Edit Start Date </h3>
+                                {datePicker("startDate")}
+                                <h3 style={{marginLeft: "15px"}}>Edit End Date</h3>
+                                {datePicker("endDate")}
+                            </div>
+                            <h3>Edit Transportation</h3>
+                            <TextField
+                            fullWidth
+                            label="Optional"
+                            name="transportation"
+                            onBlur={handleChange}
+                            defaultValue={transportation}
+                            />
+                            <h3>Edit Budget</h3>
+                            <TextField
+                            fullWidth
+                            label="Optional"
+                            name="budget"
+                            onBlur={handleChange}
+                            defaultValue={budget}
+                            />
+                            <h3>Feel Free to Add, Remove, or Keep Friends</h3>
+                            <FormControl sx={{ minWidth: 250 }}>
+                            <InputLabel shrink={false}>Add friend</InputLabel>
+                            <Select
+                            name="friends"
+                            id="friend-dropdown"
+                            onChange={handleAddFriend}
+                            defaultValue=""
+                            value=""
+                            >
+                            {notAddedFriends &&
+                                notAddedFriends.map((friend, i) => {
+                                return <MenuItem value={friend} key={i}>{friend.username}</MenuItem>
+                                })}
+                            </Select>
+                            </FormControl>
+                            {addedFriends &&
+                                addedFriends.map((friend, i) => {
+                                return (
+                                    <Card value={friend} key={i} sx={{ 
+                                        display: 'flex', 
+                                        justifyContent: 'space-between', 
+                                        alignItems: 'center',
+                                        minWidth: 150, 
+                                        maxWidth: 250, 
+                                        p: 1, 
+                                        m: 1, 
+                                        border: 1, 
+                                        borderColor: 'grey.300', 
+                                        bgcolor: 'grey.50' }} >
+                                    <h4>{friend.username}</h4>
+                                    <button data-id={i} onClick={handleRemoveFriend} className="remove-friend-btn">X</button>
+                                    </Card>
+                                )
+                                })}
+                            {errorMessage && (
+                            <div>
+                                <p className="error-text">{errorMessage}</p>
+                            </div>
+                            )}
+                        </form>
+                    </Grid>
+                    <Grid item xs={5}>
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "center"
+                        }}>
+                        <img src={planImage} style={{
+                            width: "50%",
+                            height: "50%"
+                        }} />
+                        </div>
+                    </Grid>
+                </Grid>
+                </Box>
             )}
         </Container>
     )
