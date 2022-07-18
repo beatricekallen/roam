@@ -30,13 +30,14 @@ const typeDefs = gql`
   type Expense {
     _id: ID
     item: String
-    totalPrice: Int
-    pricePerPerson: Int
+    totalPrice: Float
+    pricePerPerson: Float
     trip: Trip
     payer: User
     borrowers: [User]
     split: String
-    balance: Int
+    balance: Float
+    paidOff: Boolean
   }
 
   type Attraction {
@@ -78,6 +79,7 @@ const typeDefs = gql`
     updateTrip(_id: ID!, location: String, startDate: String, endDate: String, transportation: String, budget: String, members: [ID]): Trip
     addExpense(tripId: ID!, item: String!, price: String!, split: String): Expense
     deleteExpense(_id: ID!): Expense
+    payOffExpense(_id: ID!): Expense
   }
 `;
 

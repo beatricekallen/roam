@@ -101,3 +101,16 @@ export const DELETE_EXPENSE = gql`
     }
   }
 `;
+
+export const PAY_OFF_EXPENSE = gql`
+  mutation payOffExpense($id: ID!) {
+    payOffExpense(_id: $id) {
+      _id
+      item
+      trip {
+        name
+        location
+      }
+    }
+  }
+`;

@@ -210,7 +210,8 @@ const resolvers = {
         const expenseData = await Expense.create({
           item,
           totalPrice: parseInt(price),
-          pricePerPerson: parseInt(price) / members.length,
+          // round to 2 decimal places
+          pricePerPerson: Math.round(parseInt(price) / members.length * 100) / 100,
           trip: _id,
           payer: context.user._id,
           borrowers: memberData.map(member => member._id),
@@ -227,6 +228,19 @@ const resolvers = {
       }
 
       throw new AuthenticationError("You need to be logged in");
+    },
+    payOffExpense: async(parent, { _id }, context) => {
+      if (context.user) {
+        return await Expense.findByIdAndUpdate(
+          _id,
+          { $pull: { borrowers: context.user._id } },
+          { new: true }
+        )
+        .populate('borrowers')
+        .populate('trip');
+      }
+
+      throw new AuthenticationError('You need to be logged in');
     }
   },
 };
