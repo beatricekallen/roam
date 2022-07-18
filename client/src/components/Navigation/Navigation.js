@@ -47,7 +47,7 @@ const Navigation = () => {
   };
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" className="app-bar">
       <Container maxWidth="xl" className="justify-content-between">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
@@ -108,7 +108,7 @@ const Navigation = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box className="nav-links" sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {/* {pages.map((page) => (
               <Button
                 key={page}
@@ -134,7 +134,7 @@ const Navigation = () => {
             ) : ( 
               <>
                 <Link to={`/login`}>
-                  <Button
+                  <Button className="login"
                     key="login"
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white", display: "block" }}
@@ -143,7 +143,7 @@ const Navigation = () => {
                   </Button>
                 </Link>
                 <Link to={`/signup`}>
-                  <Button
+                  <Button className="signup"
                     key="signup"
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white", display: "block" }}

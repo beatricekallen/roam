@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const expenseSchema = new Schema(
   {
@@ -7,25 +7,51 @@ const expenseSchema = new Schema(
       required: true,
       trim: true
     },
-    price: {
-      type: String,
-      trim: true
+    totalPrice: {
+      type: Number,
+      required: true
     },
-    owner: {
+    pricePerPerson: {
+      type: Number,
+    },
+    trip: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Trip',
+      required: true
     },
-    debtors: [
+    payer: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    borrowers: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User'
       }
     ],
-    balance: {
+    split: {
       type: String,
-      required: true
-    }
+      required: true,
+      default: 'equal'
+    },
+    // split types:
+    // equal between all members automatically - MVP
+    // percent - reach
+    // flat - reach
+  }, 
+  {
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
 
-module.exports = expenseSchema;
+expenseSchema.virtual('balance', function() {
+  return this.pricePerPerson * this.borrowers.length
+});
+// make associated client side helper to tally up all balances
+
+const Expense = model("Expense", expenseSchema);
+
+module.exports = Expense;

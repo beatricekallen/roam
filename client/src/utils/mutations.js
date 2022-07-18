@@ -39,18 +39,20 @@ export const ADD_FRIEND = gql`
 `;
 
 export const ADD_TRIP = gql`
-  mutation addTrip($name: String!, $location: String, $startDate: String, $endDate: String, $transportation: String, $budget: String, $members: [String]) {
-    addTrip(name: $name, location: $location, startDate: $startDate, endDate: $endDate, transportation: $transportation, budget: $budget, members: $members) {
+  mutation addTrip($name: String!, $location: String, $startDate: String, $endDate: String, $transportation: String, $members: [ID]) {
+    addTrip(name: $name, location: $location, startDate: $startDate, endDate: $endDate transportation: $transportation, members: $members) {
       creator
       _id
       name
       location
+      transportation
       startDate
       endDate
-      transportation
-      budget
       createdAt
-      members
+      members {
+        _id
+      }
+      status
     }
   }
 `;
@@ -64,32 +66,38 @@ export const DELETE_TRIP = gql`
 `;
 
 export const UPDATE_TRIP = gql`
-  mutation updateTrip($id: ID!, $location: String, $startDate: String, $endDate: String, $transportation: String, $budget: String, $members: [String]) {
-    updateTrip(_id: $id, location: $location, startDate: $startDate, endDate: $endDate, transportation: $transportation, budget: $budget, members: $members) {
+  mutation updateTrip($id: ID!, $location: String, $transportation: String, $budget: String, $members: [ID]) {
+    updateTrip(_id: $id, location: $location, transportation: $transportation, budget: $budget, members: $members) {
       _id
       location
       startDate
       endDate
       transportation
       budget
-      members
-      name
+      members {
+        _id
+        email
+        username
+      }
     }
   }
 `;
 
 export const ADD_EXPENSE = gql`
-  mutation addExpense($id: ID!, $expense: ExpenseInput!) {
-    addExpense(_id: $id, expense: $expense) {
-      expenses {
-        item
-        price
-        owner {
-          _id
-          email
-          username
-        }
-      }
+  mutation addExpense($tripId: ID!, $item: String!, $price: String!) {
+    addExpense(tripId: $tripId, item: $item, price: $price) {
+      _id
+      item
+      totalPrice
+      pricePerPerson
+    }
+  }
+`;
+
+export const DELETE_EXPENSE = gql`
+  mutation deleteExpense($id: ID!) {
+    deleteExpense(_id: $id) {
+      _id
     }
   }
 `;

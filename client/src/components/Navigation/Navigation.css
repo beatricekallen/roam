@@ -1,4 +1,14 @@
 .nav__title {
   font-family: var(--ff-primary) !important;
-  font-size: 48px !important;
+  font-size: 40px !important;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.app-bar {
+  background-color: var(--clr-blue) !important;
 }

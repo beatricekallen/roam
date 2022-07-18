@@ -1,13 +1,15 @@
 footer {
-  background: var(--clr-light-blue);
+  background: var(--clr-blue);
   position: absolute;
   bottom: 0;
-  display: block;
   width: 100%;
 }
 
 .footer-container {
   max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .footer-box {
@@ -34,7 +36,5 @@ footer {
 
 .copyright {
   justif-content: center;
-}
-
-.copy {
+  align-items: center;
 }

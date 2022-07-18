@@ -1,6 +1,6 @@
 import React from "react";
 // import { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { ADD_FRIEND } from "../utils/mutations";
 import { QUERY_ME, QUERY_USER } from "../utils/queries";
@@ -10,16 +10,19 @@ import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
 
 import List from "@mui/material/List";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import PersonIcon from "@mui/icons-material/Person";
 import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 import Avatar from "@mui/material/Avatar";
-import Carbon from "../components/Carbon";
+// import Carbon from "../components/Carbon";
+import "./Profile.css";
 
 const Profile = (props) => {
+  const navigate = useNavigate();
+
   const { username: userParam } = useParams();
   const [addFriend] = useMutation(ADD_FRIEND);
 
@@ -28,7 +31,6 @@ const Profile = (props) => {
   });
 
   const user = data?.me || data?.user || {};
-  console.log(Auth.loggedIn());
 
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/profile" />;
@@ -40,10 +42,18 @@ const Profile = (props) => {
 
   if (!user?.username) {
     return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
+      <div className="container">
+        <div className="no-match">
+          <h1>Oops!</h1>
+          <h2>
+            You need to be logged in to view that page. Sign up or log in using
+            the links above!
+          </h2>
+          <button size="small" onClick={() => navigate("/")}>
+            Return To The Homepage
+          </button>
+        </div>
+      </div>
     );
   }
 
@@ -58,12 +68,23 @@ const Profile = (props) => {
   };
 
   return (
-    <div>
-      <div className="flex-row mb-3">
-        <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${user.username}'s` : "your"} profile.
-        </h2>
-
+    <div className="profile-container">
+      <div>
+        <div className="headings">
+          <h1>Viewing {userParam ? `${user.username}'s` : "your"} profile.</h1>
+          <div>
+            {!userParam && (
+              <Link to={`/createtrip`}>
+                <button
+                  variant="contained"
+                  endicon={<FlightTakeoffRoundedIcon />}
+                >
+                  Create a Trip!
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
         {/* Only show "add friend" when viewing another user's profile */}
         {userParam && (
           <button className="btn ml-auto" onClick={handleClick}>
@@ -72,14 +93,15 @@ const Profile = (props) => {
         )}
       </div>
 
-      <div className="flex-row justify-space-between mb-3">
-        <div className="col-12 col-lg-9 mb-3">
+      <div>
+        <div>
           <TripList trips={user.trips} title={`${user.username}'s trips`} />
         </div>
 
-        <div className="col-12 col-lg-3 mb-3">
+        <div>
+          <h1>Friends List</h1>
           {user.friends.map((friend) => (
-            <List dense="false">
+            <List dense={false}>
               <Link to={`/profile/${friend.username}`}>
                 <ListItem>
                   <ListItemAvatar>
@@ -93,15 +115,6 @@ const Profile = (props) => {
             </List>
           ))}
         </div>
-      </div>
-      <div className="mb-3">
-        {!userParam && (
-          <Link to={`/createtrip`}>
-            <Button variant="contained" endIcon={<FlightTakeoffRoundedIcon />}>
-              Create a Trip!
-            </Button>
-          </Link>
-        )}
       </div>
     </div>
   );

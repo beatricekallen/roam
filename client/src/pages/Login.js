@@ -47,11 +47,11 @@ const Login = (props) => {
   return (
     <main>
       <div className="container">
-        <div className="signup">
+        <div className="login">
           <h1>Log In</h1>
           <h2>Welcome back!</h2>
-          <div>
-            <form className="form" onSubmit={handleFormSubmit}>
+          <div className="form-container">
+            <form onSubmit={handleFormSubmit}>
               <Input
                 className="form-input padding"
                 placeholder="Your email"

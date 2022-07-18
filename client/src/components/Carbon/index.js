@@ -5,8 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import natureConservancyLogo from "./assets/nature-conservancy.png";
 import npfLogo from "./assets/npf-logo.png";
-import scLogo from "./assets/sc-logo.png";
-import wwfLogo from "./assets/wwf-logo.png";
+import scLogo from "./assets/sc-logo.gif";
+import wwfLogo from "./assets/wwf-logo.jpeg";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
@@ -88,6 +88,7 @@ const Carbon = () => {
               <Grid item xs={6} md={3}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
+                    className=".wwf-img"
                     component="img"
                     height="140"
                     image={wwfLogo}
