@@ -1,0 +1,28 @@
+.expense-modal {
+    border-radius: 20px;
+    border: 5px solid  #87CEEB;
+    background-color: white;
+
+}
+
+#expense-description {
+    padding: 0 0 20px 0;
+}
+
+#expense-description h3 {
+    color: var(--clr-blue);
+    padding: 0 0 10px 0;
+}
+
+.headings {
+    padding-top: 20px;
+}
+
+.headings button {
+    margin: 0;
+}
+
+.expenses-container {
+    display: flex;
+    justify-content: center;
+}
