@@ -1,4 +1,5 @@
 import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
+import { useQuery, useMutation } from '@apollo/client';
 import "./index.css";
 
 const Expenses = ({trip}) => {
