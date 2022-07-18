@@ -14,11 +14,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import Avatar from "@mui/material/Avatar";
 import SearchBar from '../SearchBar';
 
 import "./Navigation.css";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Profile", "Create a Trip", "Logout"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navigation = () => {
@@ -51,7 +52,9 @@ const Navigation = () => {
       <Container maxWidth="xl" className="justify-content-between">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
+          <a className="nav__home" href='/'>
           <Typography className="nav__title">Roam</Typography>
+          </a>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -89,8 +92,8 @@ const Navigation = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
+          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -107,7 +110,7 @@ const Navigation = () => {
             }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
           <Box className="nav-links" sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {/* {pages.map((page) => (
               <Button
@@ -121,13 +124,18 @@ const Navigation = () => {
             {Auth.loggedIn() ? (
               <>
                 <SearchBar/>
-                <a href="/" onClick={logout}>
-                  Logout
-                </a>
+                <Link to='/'>
+                  <Button className="logout"
+                    key="logout"
+                    onClick={logout}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Logout
+                  </Button>
+                </Link>
                 <Link to="/profile">
-                  <IconButton sx={{ p: 0 }}>
-                    Me
-                  {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                  <IconButton sx={{ py: 2 }}>
+                  <Avatar alt="Sea Turtle Avatar" src="/images/seaturtle.jpg" sx={{ width: 56, height: 56, border: `2px solid white` }}/>
                   </IconButton>
                 </Link>
               </>

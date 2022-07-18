@@ -3,6 +3,11 @@
   font-size: 40px !important;
 }
 
+.nav__home {
+  text-decoration: none;
+  color: white;
+}
+
 .nav-links {
   display: flex;
   justify-content: end;
