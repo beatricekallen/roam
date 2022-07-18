@@ -1,12 +1,19 @@
 import React from "react";
 
 import Auth from "../utils/auth";
+import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
 import "./Home.css";
 
 const Home = () => {
-  const loggedIn = Auth.loggedIn();
+  let discoverLink = '';
+
+  if (Auth.loggedIn()) {
+    discoverLink = 'profile';
+  } else {
+    discoverLink = 'login';
+  }
 
   return (
 
@@ -23,10 +30,9 @@ const Home = () => {
             <div className="home__hero-img-wrapper">
               <img className="home__hero-img" src="/" alt=""></img>
             </div>
-            {/* <Link to="/">
-            <button>Discover More</button>
-          </Link> */}
-            <button>Discover More</button>
+            <Link to={`/${discoverLink}`}>
+              <button>Discover More</button>
+            </Link>
           </div>
         </div>
       </div>
