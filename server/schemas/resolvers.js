@@ -198,6 +198,17 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in");
     },
+    removeTripMember: async(parent, { memberId, tripId }, context) => {
+      if (context.user) {
+        return await Trip.findByIdAndUpdate(
+          tripId,
+          { $pull: { members: memberId } },
+          { new: true }
+        ).populate('members');
+      }
+
+      throw new AuthenticationError("You need to be logged in");
+    },
     addExpense: async(parent, { item, price, tripId }, context) => {
       if (context.user) {
         const { _id, members } = await Trip.findById(tripId)

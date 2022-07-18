@@ -114,3 +114,16 @@ export const PAY_OFF_EXPENSE = gql`
     }
   }
 `;
+
+export const REMOVE_TRIP_MEMBER = gql`
+  mutation removeTripMember($memberId: ID!, $tripId: ID!) {
+    removeTripMember(memberId: $memberId, tripId: $tripId) {
+      _id
+      name
+      location
+      members {
+        username
+      }
+    }
+  }
+`;
