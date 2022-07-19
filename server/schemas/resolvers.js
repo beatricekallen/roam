@@ -88,7 +88,8 @@ const resolvers = {
     },
     trip_expenses: async (parent, { _id }, context) => {
       if (context.user) {
-        return await Expense.find({ trip: _id });
+        return await Expense.find({ trip: _id })
+          .populate('borrowers');
       }
 
       throw new AuthenticationError("Not logged in");
