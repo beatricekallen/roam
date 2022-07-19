@@ -277,8 +277,8 @@ const Itinerary = ({trip}) => {
                             You'll have more opportunities to enjoy a trip with your friends!
                         </Typography>
                         <div>
-                        <button onClick={handleClose}>Cancel</button>
-                        <button onClick={handleDelete}>Delete</button>
+                        <button class="modal-btn cancel" onClick={handleClose}>Cancel</button>
+                        <button class="modal-btn delete" onClick={handleDelete}>Delete</button>
                         </div>
                     </Box>
                 </Modal>
@@ -321,7 +321,7 @@ const Itinerary = ({trip}) => {
                             Aww, maybe you'll try and attend another trip soon!
                         </Typography>
                         <div>
-                        <button onClick={handleRedirect}>Ok</button>
+                        <button class="modal-btn ok" onClick={handleRedirect}>Ok</button>
                         </div>
                     </Box>
                 </Modal>
@@ -364,7 +364,7 @@ const Itinerary = ({trip}) => {
                             Now you can feel better attending it!
                         </Typography>
                         <div>
-                        <button onClick={handleReload}>Ok</button>
+                        <button class="modal-btn ok" onClick={handleReload}>Ok</button>
                         </div>
                     </Box>
                 </Modal>
@@ -491,14 +491,19 @@ const Itinerary = ({trip}) => {
             }
             {toggleChoices === "edit" && (
                 <Box sx={{flexGrow: 1, flexShrink: 1, marginTop: 1}}>
-                <div className="headings">
+                <div className="headings" style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    paddingTop: 0
+                }}>
                     <h2 style={{
-                        color: "var(--clr-yellow)"
+                        color: "var(--clr-yellow)",
                     }}>Edit Trip</h2>
                     <h3>Results will also reflect in your Itinerary!</h3>
                 </div>
                 <Grid container spacing={2}>
-                    <Grid item xs={7}>
+                    <Grid item xs={7} style={{position: "relative"}}>
                         <form onSubmit={handleSubmit}>
                             <h3>Edit Destination</h3>
                             <div style={{
@@ -516,7 +521,7 @@ const Itinerary = ({trip}) => {
                                 alignSelf: "flex-start"
                             }}
                             />
-                            <button type="submit" style={{
+                            <button class="update" type="submit" style={{
                                 color: "#FFFFFF",
                             }}>Update</button>
                             </div>
