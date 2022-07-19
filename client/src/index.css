@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Arima:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Arima:wght@300&family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Arima:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arima:wght@300&family=Lobster&display=swap");
 
 *,
 *::before,
@@ -12,8 +12,8 @@
 
 :root {
   /* Typography */
-  --ff-primary: 'Lobster', cursive;
-  --ff-secondary: 'Arima', cursive;
+  --ff-primary: "Lobster", cursive;
+  --ff-secondary: "Arima", cursive;
 
   --h1-font-size: 48px;
   --h2-font-size: 32px;
@@ -46,7 +46,27 @@
   --header-height: 100px;
 }
 
-html, body {
+html,
+body {
   scroll-behavior: smooth;
-  display:block;
+  display: block;
+}
+
+.button {
+  border: none;
+  background: var(--clr-blue) !important;
+  border-radius: 4px !important;
+  color: #fff !important;
+  padding: 10px !important;
+  font-family: var(--ff-secondary) !important;
+}
+
+.button:hover {
+  background: var(--clr-green) !important;
+  color: #fff !important;
+}
+
+.center {
+  text-align: center !important;
+  justify-content: center !important;
 }
