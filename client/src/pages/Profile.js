@@ -17,6 +17,7 @@ import ListItemText from "@mui/material/ListItemText";
 import PersonIcon from "@mui/icons-material/Person";
 import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
 // import Carbon from "../components/Carbon";
 import "./Profile.css";
 
@@ -72,24 +73,25 @@ const Profile = (props) => {
       <div>
         <div className="headings">
           <h1>Viewing {userParam ? `${user.username}'s` : "your"} profile.</h1>
-          <div>
+          <div className="padding">
             {!userParam && (
               <Link to={`/createtrip`}>
-                <button
+                <Button
                   variant="contained"
                   endicon={<FlightTakeoffRoundedIcon />}
+                  className="button"
                 >
                   Create a Trip!
-                </button>
+                </Button>
               </Link>
             )}
           </div>
         </div>
         {/* Only show "add friend" when viewing another user's profile */}
         {userParam && (
-          <button className="btn ml-auto" onClick={handleClick}>
+          <Button className="button" onClick={handleClick}>
             Add Friend
-          </button>
+          </Button>
         )}
       </div>
 
@@ -101,7 +103,7 @@ const Profile = (props) => {
         <div>
           <h1>Friends List</h1>
           {user.friends.map((friend) => (
-            <List dense={false}  key={friend.username}>
+            <List dense={false} key={friend.username}>
               <Link to={`/profile/${friend.username}`}>
                 <ListItem>
                   <ListItemAvatar>
@@ -109,7 +111,11 @@ const Profile = (props) => {
                       <PersonIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={friend.username} secondary={null} className='friendLink'/>
+                  <ListItemText
+                    primary={friend.username}
+                    secondary={null}
+                    className="friendLink"
+                  />
                 </ListItem>
               </Link>
             </List>

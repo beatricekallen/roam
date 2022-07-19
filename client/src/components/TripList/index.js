@@ -2,13 +2,12 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 // import CardMedia from "@mui/material/CardMedia";
-// import Button from "@mui/material/Button";
+import Button from "@mui/material/Button";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useNavigate, Link } from "react-router-dom";
-
-//TODO: need to update to route to different components on click. need to confirm trip information being passed in here is correct with backend.
+import "./index.css";
 
 const TripList = ({ trips }) => {
   const navigate = useNavigate();
@@ -45,9 +44,11 @@ const TripList = ({ trips }) => {
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
                   </CardContent>
-                  <CardActions>
+                  <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
-                      <button size="small">View Trip</button>
+                      <Button size="small" className="button">
+                        View Trip
+                      </Button>
                     </Link>
                   </CardActions>
                 </Card>
@@ -61,7 +62,9 @@ const TripList = ({ trips }) => {
         </Grid>
       </Box>
 
-      <h1>Upcoming Trips</h1>
+      <div>
+        <h1>Upcoming Trips</h1>
+      </div>
       {/* NEED TO CHANGE TO UPCOMING TRIPS */}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -75,9 +78,11 @@ const TripList = ({ trips }) => {
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
                   </CardContent>
-                  <CardActions>
+                  <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
-                      <button size="small">View Trip</button>
+                      <Button size="small" className="button">
+                        View Trip
+                      </Button>
                     </Link>
                   </CardActions>
                 </Card>
@@ -104,9 +109,11 @@ const TripList = ({ trips }) => {
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
                   </CardContent>
-                  <CardActions>
+                  <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
-                      <button size="small">View Trip</button>
+                      <Button size="small" className="button">
+                        View Trip
+                      </Button>
                     </Link>
                   </CardActions>
                 </Card>

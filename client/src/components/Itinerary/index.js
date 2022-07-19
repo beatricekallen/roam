@@ -516,7 +516,7 @@ const Itinerary = ({trip}) => {
                                 alignSelf: "flex-start"
                             }}
                             />
-                            <button class="update" type="submit" style={{
+                            <button type="submit" style={{
                                 color: "#FFFFFF",
                             }}>Update</button>
                             </div>

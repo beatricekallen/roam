@@ -48,7 +48,7 @@ const expenseSchema = new Schema(
 );
 
 expenseSchema.virtual('balance').get(function() {
-  return this.pricePerPerson
+  return this.pricePerPerson * this.borrowers.length;
 });
 
 expenseSchema.virtual('paidOff').get(function() {

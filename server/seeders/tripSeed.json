@@ -1,56 +1,62 @@
 [
   {
-    "name": "Trip 1",
+    "name": "Spain in August",
     "creator": "Molly48",
-    "members": ["Molly48_Waters59@hotmail.com"],
+    "transportation": "Plane",
+    "budget": "3000",
+    "startDate": "7/5/2022",
+    "endDate": "7/12/2022",
+    "location": "Barcelona",
+    "members": []
+  },
+  {
+    "name": "Visit the Lemon Tree",
+    "creator": "Katlyn85",
     "transportation": "Car",
-    "budget": "$100",
-    "dates": "1/12-1/16",
-    "location": "Spain"
+    "budget": "1000",
+    "startDate": "8/20/2022",
+    "endDate": "8/25/2022",
+    "location": "Eugene, OR",
+    "members": []
   },
   {
-    "name": "Trip 2",
-    "creator": "",
-    "members": [""],
-    "transportation": "",
-    "budget": "$100",
-    "dates": "1/12-1/16",
-    "location": "France"
+    "name": "Fast Fjorward",
+    "creator": "Lessie_Kautzer61",
+    "transportation": "Plane",
+    "budget": "5000",
+    "startDate": "7/16/2022",
+    "endDate": "7/22/2022",
+    "location": "Norway",
+    "members": []
   },
   {
-    "name": "Trip 3",
-    "creator": "",
-    "members": [""],
-    "transportation": "",
-    "budget": "$100",
-    "dates": "1/12-1/16",
-    "location": "Norway"
+    "name": "Why Am I Here?",
+    "creator": "Elton_Heaney",
+    "transportation": "Amtrak",
+    "budget": "100",
+    "startDate": "1/23/2023",
+    "endDate": "1/28/2023",
+    "location": "Cleveland, OH",
+    "members": []
   },
   {
-    "name": "Trip 4",
-    "creator": "",
-    "members": [""],
-    "transportation": "",
-    "budget": "$100",
-    "dates": "1/12-1/16",
-    "location": "Germany"
+    "name": "Pirates of the Caribbean",
+    "creator": "Molly48",
+    "transportation": "Schooner",
+    "budget": "5000",
+    "startDate": "4/10/2022",
+    "endDate": "4/15/2022",
+    "location": "Antigua",
+    "members": []
   },
   {
-    "name": "Trip 5",
-    "creator": "",
-    "members": [""],
-    "transportation": "",
-    "budget": "$100",
-    "dates": "1/12-1/16",
-    "location": "Spain"
-  },
-  {
-    "name": "Trip 6",
-    "creator": "",
-    "members": [""],
-    "transportation": "",
-    "budget": "$100",
-    "dates": "1/12-1/16",
-    "location": "Spain"
+    "name": "Work Trip",
+    "creator": "Molly48",
+    "transportation": "Bus",
+    "budget": "500",
+    "startDate": "8/1/2022",
+    "endDate": "8/3/2022",
+    "location": "New York",
+    "members": []
   }
 ]
