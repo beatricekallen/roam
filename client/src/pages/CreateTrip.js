@@ -59,7 +59,6 @@ const CreateTrip = () => {
       console.log("Form", formState);
     }
     // update db with trip info
-    console.log(budget);
     try {
       await addTrip({
         variables: {
@@ -76,7 +75,7 @@ const CreateTrip = () => {
       console.error(e);
     }
 
-    // return window.location.assign("/profile");
+    return window.location.assign("/profile");
   };
 
   const handleChange = (e) => {

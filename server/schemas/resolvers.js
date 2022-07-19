@@ -137,7 +137,6 @@ const resolvers = {
     },
     addTrip: async (parent, args, context) => {
       if (context.user) {
-        console.log(args);
         // create trip
         const trip = await Trip.create({
           ...args,
