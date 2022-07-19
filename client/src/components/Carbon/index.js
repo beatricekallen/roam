@@ -95,7 +95,7 @@ const Carbon = () => {
                     alt="World Wildlife Fund logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
+                    <h2 variant="h5" component="div">
                       World Wildlife Fund
                     </h2>
                   </CardContent>

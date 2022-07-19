@@ -2,17 +2,22 @@
   margin: 0 50px;
 }
 
+.submitButtonWrapper {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+}
+
 button[type="submit"].update {
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  position: absolute;
-  right: 50%;
-  bottom: 0;
   border: none;
   background: var(--clr-blue) !important;
   border-radius: 4px !important;
   color: #fff !important;
   padding: 10px !important;
   font-family: var(--ff-secondary) !important;
+  margin: auto;
+  width: 30%;
 }
 
 button[type="submit"].update:hover {

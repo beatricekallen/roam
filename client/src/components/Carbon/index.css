@@ -41,3 +41,7 @@ h2 {
 h3 {
   font-family: var(--ff-secondary);
 }
+
+.margin {
+  margin-bottom: 20px !important;
+}

@@ -459,7 +459,6 @@ const Itinerary = ({ trip }) => {
                   <Typography gutterBottom variant="h5" component="div">
                     <h3>{trip.members ? "Friends" : "No other attendees"}</h3>
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
                     {trip.members &&
                       trip.members.map((member, i) => (
                         <span
@@ -471,7 +470,6 @@ const Itinerary = ({ trip }) => {
                           <p>User: {member.username} </p>
                         </span>
                       ))}
-                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -501,16 +499,12 @@ const Itinerary = ({ trip }) => {
                   <Typography gutterBottom variant="h5" component="div">
                     <h3>Trip Dates</h3>
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
                     <>
                       <span>
                         <p>Start Date: {trip.startDate}</p>
-                      </span>
-                      <span style={{ marginLeft: 8 }}>
                         <p>End Date: {trip.endDate}</p>
                       </span>
                     </>
-                  </Typography>
                 </CardContent>
               </Card>
               <Card
@@ -527,23 +521,21 @@ const Itinerary = ({ trip }) => {
                   alt="View of friends jumping during a sunset"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <h3>
-                      {expenses && expenses.trip_expenses.length
-                        ? "Expenses"
-                        : "No Expenses Currently"}
-                    </h3>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                    <Typography gutterBottom variant="h5" component="div">
+                        <h3>
+                        {expenses && expenses.trip_expenses.length
+                            ? "Expenses"
+                            : "No Expenses Currently"}
+                        </h3>
+                    </Typography>
                     {expenses &&
-                      expenses.trip_expenses.length &&
-                      expenses.trip_expenses.map((expense, i) => (
+                        expenses.trip_expenses.length &&
+                        expenses.trip_expenses.map((expense, i) => (
                         <span key={i}>
-                          <p>Item - {expense.item}</p>
-                          <p>Price - ${expense.totalPrice}</p>
+                            <p>Item - {expense.item}</p>
+                            <p>Price - ${expense.totalPrice}</p>
                         </span>
-                      ))}
-                  </Typography>
+                        ))}
                 </CardContent>
               </Card>
               <Card
@@ -614,15 +606,6 @@ const Itinerary = ({ trip }) => {
                       alignSelf: "flex-start",
                     }}
                   />
-                  <Button
-                    class="update"
-                    type="submit"
-                    style={{
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    Update
-                  </Button>
                 </div>
                 <div
                   style={{
@@ -734,6 +717,17 @@ const Itinerary = ({ trip }) => {
               </div>
             </Grid>
           </Grid>
+            <div className='submitButtonWrapper'>
+                <Button
+                    className="update"
+                    type="submit"
+                    style={{
+                        color: "#FFFFFF",
+                    }}
+                    >
+                    Submit
+                </Button>
+            </div>
         </Box>
       )}
     </div>
