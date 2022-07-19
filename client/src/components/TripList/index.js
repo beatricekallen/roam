@@ -7,9 +7,10 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useNavigate, Link } from "react-router-dom";
+import Auth from "../../utils/auth";
 import "./index.css";
 
-const TripList = ({ trips }) => {
+const TripList = ({ trips, profileUsername }) => {
   const navigate = useNavigate();
 
   // current past upcoming, trip.status
@@ -26,7 +27,7 @@ const TripList = ({ trips }) => {
     return trip.status === "passed";
   });
 
-  console.log(trips);
+  const loggedInUsername = Auth.getProfile().data.username;
 
   return (
     <div>
@@ -70,7 +71,7 @@ const TripList = ({ trips }) => {
             ))
           ) : (
             <div className="padding">
-              <h2>You're not currently on a trip!</h2>
+              {loggedInUsername == profileUsername ? <h2>You're not currently on a trip!</h2> : <h2>No current trips!</h2>}
             </div>
           )}
         </Grid>

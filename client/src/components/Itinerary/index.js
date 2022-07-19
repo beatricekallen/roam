@@ -659,35 +659,37 @@ const Itinerary = ({ trip }) => {
                   </Select>
                 </FormControl>
                 {addedFriends &&
-                  addedFriends.map((friend, i) => {
-                    return (
-                      <Card
-                        value={friend}
-                        key={i}
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          minWidth: 150,
-                          maxWidth: 250,
-                          p: 1,
-                          m: 1,
-                          border: 1,
-                          borderColor: "grey.300",
-                          bgcolor: "grey.50",
-                        }}
-                      >
-                        <h4>{friend.username}</h4>
-                        <button
-                          data-id={i}
-                          onClick={handleRemoveFriend}
-                          className="remove-friend-btn"
+                  <div className="added-friends-container">
+                    {addedFriends.map((friend, i) => {
+                      return (
+                        <Card
+                          value={friend}
+                          key={i}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: 250,
+                            p: 1,
+                            m: 1,
+                            border: 1,
+                            borderColor: "grey.300",
+                            bgcolor: "grey.50",
+                          }}
                         >
-                          X
-                        </button>
-                      </Card>
-                    );
-                  })}
+                          <h4>{friend.username}</h4>
+                          <button
+                            data-id={i}
+                            onClick={handleRemoveFriend}
+                            className="remove-friend-btn"
+                          >
+                            X
+                          </button>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                }
                 {errorMessage && (
                   <div>
                     <p className="error-text">{errorMessage}</p>

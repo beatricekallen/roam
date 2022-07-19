@@ -17,3 +17,17 @@
 .app-bar {
   background-color: var(--clr-blue) !important;
 }
+
+.username-container {
+  background-color: white;
+  padding: 3px 4px;
+  margin-left: 4px;
+  border-radius: 5px;
+  display: flex;
+}
+
+.username {
+  font-family: var(--ff-primary);
+  color: var(--clr-blue);
+  font-size: 20px;
+}

@@ -46,6 +46,9 @@ const Navigation = () => {
     Auth.logout();
   };
 
+  let username;
+  if (Auth.loggedIn()) username = Auth.getProfile().data.username;
+
   return (
     <AppBar position="sticky" className="app-bar">
       <Container maxWidth="xl" className="justify-content-between">
@@ -136,13 +139,14 @@ const Navigation = () => {
                     Logout
                   </Button>
                 </Link>
-                <Link to="/profile">
-                  <IconButton sx={{ py: 2 }}>
+                <Link to="/profile">                 
+                  <IconButton sx={{ py: 2, pr: 0 }}>
                     <Avatar
                       alt="Sea Turtle Avatar"
                       src="/images/seaturtle.jpg"
                       sx={{ width: 56, height: 56, border: `2px solid white` }}
                     />
+                    <span className="username-container"><span className="username">{username}</span></span>
                   </IconButton>
                 </Link>
               </>
