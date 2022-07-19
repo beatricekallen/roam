@@ -52,3 +52,8 @@ html, body {
   width:100%;
   display:block;
 }
+
+#root {
+  position: relative;
+  height: 100%;
+}

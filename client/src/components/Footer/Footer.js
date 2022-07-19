@@ -4,12 +4,41 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import AppBar from '@mui/material/AppBar';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import PropTypes from 'prop-types';
+import Slide from '@mui/material/Slide';
 
 import "./Footer.css";
 
-const Footer = () => {
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+  });
+
   return (
-    <footer>
+    <Slide appear={false} direction="up" in={trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+const Footer = (props) => {
+  return (
+    <HideOnScroll {...props}>
+    <AppBar position="fixed" sx={{ top: 'auto', bottom: 0, bgColor: '#1b4d89', mt: 50}}>
     <div className="footer-container">
       <div className="footer-box">
         <div className="footer-navigation">
@@ -47,7 +76,8 @@ const Footer = () => {
         <p className="copy">© 2022 Roam. All rights reserved.</p>
       </div>
     </div>
-  </footer>
+  </AppBar>
+  </HideOnScroll>
   )
 };
 
