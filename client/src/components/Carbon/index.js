@@ -15,7 +15,7 @@ import Select from "@mui/material/Select";
 import Input from "@mui/material/Input";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import InputAdornment from '@mui/material/InputAdornment';
+import InputAdornment from "@mui/material/InputAdornment";
 
 import StripeContainer from "../../components/StripeContainer";
 import axios from "axios";
@@ -85,8 +85,15 @@ const Carbon = () => {
           </div>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={6} md={3}>
-                <Card sx={{ maxWidth: 345 }}>
+              <Grid item xs={6} md={3} style={{ display: "flex" }}>
+                <Card
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <CardMedia
                     className=".wwf-img"
                     component="img"
@@ -112,8 +119,15 @@ const Carbon = () => {
                   </CardActions>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={3}>
-                <Card sx={{ maxWidth: 345 }}>
+              <Grid item xs={6} md={3} style={{ display: "flex" }}>
+                <Card
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <CardMedia
                     component="img"
                     height="140"
@@ -138,8 +152,15 @@ const Carbon = () => {
                   </CardActions>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={3}>
-                <Card sx={{ maxWidth: 345 }}>
+              <Grid item xs={6} md={3} style={{ display: "flex" }}>
+                <Card
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <CardMedia
                     component="img"
                     height="140"
@@ -164,8 +185,15 @@ const Carbon = () => {
                   </CardActions>
                 </Card>
               </Grid>
-              <Grid item xs={6} md={3}>
-                <Card sx={{ maxWidth: 345 }}>
+              <Grid item xs={6} md={3} style={{ display: "flex" }}>
+                <Card
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <CardMedia
                     className="carbon-img"
                     component="img"
@@ -221,9 +249,11 @@ const Carbon = () => {
               defaultValue={amount}
               onBlur={handleFormChange}
               variant="standard"
-              className='margin'
+              className="margin"
               InputProps={{
-                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
               }}
             />
 
