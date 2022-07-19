@@ -218,7 +218,7 @@ const Carbon = () => {
             <TextField
               label="Amount"
               name="amount"
-              value={amount}
+              defaultValue={amount}
               onBlur={handleFormChange}
               variant="standard"
               InputProps={{
