@@ -147,7 +147,7 @@ const Itinerary = ({ trip }) => {
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
-    if (toggleChoices == "delete") {
+    if (toggleChoices === "delete") {
       settoggleChoices("info");
       setOpen(false);
     }
@@ -427,9 +427,9 @@ const Itinerary = ({ trip }) => {
       </div>
       {toggleChoices === "info" && (
         <Box sx={{ flexGrow: 1, flexShrink: 1, marginTop: 1 }}>
-          <Grid container>
-            <Grid item xs={6}>
-              <Card
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={3} style={{ display: "flex" }}>
+              {/* <Card
                 style={{
                   width: "80%",
                   height: "35%",
@@ -440,25 +440,26 @@ const Itinerary = ({ trip }) => {
                   image={mapImage}
                   alt="View of the US Embassy"
                 />
-              </Card>
+              </Card> */}
               <Card
                 style={{
                   marginTop: 15,
-                  width: "70%",
-                  height: "30vh",
-                  justifySelf: "right",
+                  width: 345,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 <CardMedia
                   component="img"
-                  height="50%"
+                  // height="50%"
+                  height="140"
                   image={friendsImage}
-                  alt="View of the US Embassy"
+                  alt="Friends jumping on a beach at sunset"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <h3>{trip.members ? "Friends" : "No other attendees"}</h3>
-                  </Typography>
+                  <h3 gutterBottom variant="h5" component="div">
+                    {trip.members ? "Friends" : "No other attendees"}
+                  </h3>
                   {trip.members &&
                     trip.members.map((member, i) => (
                       <span
@@ -473,61 +474,54 @@ const Itinerary = ({ trip }) => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{
-                display: "flex",
-                height: "50vh",
-                flexWrap: "wrap",
-              }}
-            >
+            <Grid item xs={6} md={3} style={{ display: "flex" }}>
               <Card
                 style={{
-                  height: "65%",
-                  width: "45%",
-                  marginRight: "20px",
+                  marginTop: 15,
+                  width: 345,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 <CardMedia
                   component="img"
-                  height="50%"
+                  height="140"
                   image={calendarImage}
-                  alt="View of a calendar"
+                  alt="Calendar"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <h3>Trip Dates</h3>
-                  </Typography>
-                  <>
-                    <span>
-                      <p>Start Date: {trip.startDate}</p>
-                      <p>End Date: {trip.endDate}</p>
-                    </span>
-                  </>
+                  <h3 gutterBottom variant="h5" component="div">
+                    Trip Dates
+                  </h3>
+                  <span>
+                    <p>Start Date: {trip.startDate}</p>
+                    <p>End Date: {trip.endDate}</p>
+                  </span>
                 </CardContent>
               </Card>
+            </Grid>
+            <Grid item xs={6} md={3} style={{ display: "flex" }}>
               <Card
                 style={{
-                  height: "75%",
-                  width: "45%",
-                  marginLeft: "10px",
+                  marginTop: 15,
+                  width: 345,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 <CardMedia
                   component="img"
-                  height="50%"
+                  // height="50%"
+                  height="140"
                   image={expensesImage}
-                  alt="View of friends jumping during a sunset"
+                  alt="Wall of small photos"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <h3>
-                      {expenses && expenses.trip_expenses.length
-                        ? "Expenses"
-                        : "No Expenses Currently"}
-                    </h3>
-                  </Typography>
+                  <h3 gutterBottom variant="h5" component="div">
+                    {expenses && expenses.trip_expenses.length
+                      ? "Expenses"
+                      : "No Expenses Currently"}
+                  </h3>
                   {expenses &&
                     expenses.trip_expenses.length &&
                     expenses.trip_expenses.map((expense, i) => (
@@ -538,27 +532,28 @@ const Itinerary = ({ trip }) => {
                     ))}
                 </CardContent>
               </Card>
+            </Grid>
+            <Grid item xs={6} md={3} style={{ display: "flex" }}>
               <Card
                 style={{
-                  marginTop: 10,
-                  width: "60%",
-                  height: "30vh",
+                  marginTop: 15,
+                  width: 345,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 <CardMedia
                   component="img"
-                  height="60%"
+                  // height="60%"
+                  height="140"
                   image={travelImage}
-                  alt="View of travel"
+                  alt="Volkswagen vans on a beach"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <h3>Travel Method: {trip.transportation}</h3>
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                  ></Typography>
+                  <h3 gutterBottom variant="h5" component="div">
+                    Travel Method: {trip.transportation}
+                  </h3>
+                  <p variant="body2" color="text.secondary"></p>
                 </CardContent>
               </Card>
             </Grid>
@@ -719,6 +714,7 @@ const Itinerary = ({ trip }) => {
                 }}
               >
                 <img
+                  alt="Itinerary"
                   src={planImage}
                   style={{
                     width: "50%",

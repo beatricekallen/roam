@@ -1,6 +1,6 @@
 import * as React from "react";
-import Auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
+import Auth from "../../utils/auth";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,7 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Avatar from "@mui/material/Avatar";
-import SearchBar from '../SearchBar';
+import SearchBar from "../SearchBar";
 
 import "./Navigation.css";
 
@@ -23,7 +23,6 @@ const pages = ["Profile", "Create a Trip", "Logout"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navigation = () => {
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -42,7 +41,7 @@ const Navigation = () => {
     setAnchorElUser(null);
   };
 
-  const logout = event => {
+  const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
@@ -52,8 +51,8 @@ const Navigation = () => {
       <Container maxWidth="xl" className="justify-content-between">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-          <a className="nav__home" href='/'>
-          <Typography className="nav__title">Roam</Typography>
+          <a className="nav__home" href="/">
+            <Typography className="nav__title">Roam</Typography>
           </a>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -111,7 +110,10 @@ const Navigation = () => {
           >
             LOGO
           </Typography> */}
-          <Box className="nav-links" sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            className="nav-links"
+            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+          >
             {/* {pages.map((page) => (
               <Button
                 key={page}
@@ -123,9 +125,10 @@ const Navigation = () => {
             ))} */}
             {Auth.loggedIn() ? (
               <>
-                <SearchBar/>
-                <Link to='/'>
-                  <Button className="logout"
+                <SearchBar />
+                <Link to="/">
+                  <Button
+                    className="logout"
                     key="logout"
                     onClick={logout}
                     sx={{ my: 2, color: "white", display: "block" }}
@@ -135,14 +138,19 @@ const Navigation = () => {
                 </Link>
                 <Link to="/profile">
                   <IconButton sx={{ py: 2 }}>
-                  <Avatar alt="Sea Turtle Avatar" src="/images/seaturtle.jpg" sx={{ width: 56, height: 56, border: `2px solid white` }}/>
+                    <Avatar
+                      alt="Sea Turtle Avatar"
+                      src="/images/seaturtle.jpg"
+                      sx={{ width: 56, height: 56, border: `2px solid white` }}
+                    />
                   </IconButton>
                 </Link>
               </>
-            ) : ( 
+            ) : (
               <>
                 <Link to={`/login`}>
-                  <Button className="login"
+                  <Button
+                    className="login"
                     key="login"
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white", display: "block" }}
@@ -151,7 +159,8 @@ const Navigation = () => {
                   </Button>
                 </Link>
                 <Link to={`/signup`}>
-                  <Button className="signup"
+                  <Button
+                    className="signup"
                     key="signup"
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white", display: "block" }}
@@ -167,9 +176,9 @@ const Navigation = () => {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-              {/* </IconButton>
+          {/* </IconButton>
             </Tooltip> */}
-            {/* <Menu
+          {/* <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -192,7 +201,7 @@ const Navigation = () => {
               ))}
             </Menu> */}
           {/* </Box> */}
-         </Toolbar>
+        </Toolbar>
       </Container>
     </AppBar>
   );
