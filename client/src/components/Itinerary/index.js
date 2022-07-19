@@ -459,17 +459,17 @@ const Itinerary = ({ trip }) => {
                   <Typography gutterBottom variant="h5" component="div">
                     <h3>{trip.members ? "Friends" : "No other attendees"}</h3>
                   </Typography>
-                    {trip.members &&
-                      trip.members.map((member, i) => (
-                        <span
-                          key={i}
-                          style={{
-                            marginLeft: 10,
-                          }}
-                        >
-                          <p>User: {member.username} </p>
-                        </span>
-                      ))}
+                  {trip.members &&
+                    trip.members.map((member, i) => (
+                      <span
+                        key={i}
+                        style={{
+                          marginLeft: 10,
+                        }}
+                      >
+                        <p>User: {member.username} </p>
+                      </span>
+                    ))}
                 </CardContent>
               </Card>
             </Grid>
@@ -499,12 +499,12 @@ const Itinerary = ({ trip }) => {
                   <Typography gutterBottom variant="h5" component="div">
                     <h3>Trip Dates</h3>
                   </Typography>
-                    <>
-                      <span>
-                        <p>Start Date: {trip.startDate}</p>
-                        <p>End Date: {trip.endDate}</p>
-                      </span>
-                    </>
+                  <>
+                    <span>
+                      <p>Start Date: {trip.startDate}</p>
+                      <p>End Date: {trip.endDate}</p>
+                    </span>
+                  </>
                 </CardContent>
               </Card>
               <Card
@@ -521,21 +521,21 @@ const Itinerary = ({ trip }) => {
                   alt="View of friends jumping during a sunset"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        <h3>
-                        {expenses && expenses.trip_expenses.length
-                            ? "Expenses"
-                            : "No Expenses Currently"}
-                        </h3>
-                    </Typography>
-                    {expenses &&
-                        expenses.trip_expenses.length &&
-                        expenses.trip_expenses.map((expense, i) => (
-                        <span key={i}>
-                            <p>Item - {expense.item}</p>
-                            <p>Price - ${expense.totalPrice}</p>
-                        </span>
-                        ))}
+                  <Typography gutterBottom variant="h5" component="div">
+                    <h3>
+                      {expenses && expenses.trip_expenses.length
+                        ? "Expenses"
+                        : "No Expenses Currently"}
+                    </h3>
+                  </Typography>
+                  {expenses &&
+                    expenses.trip_expenses.length &&
+                    expenses.trip_expenses.map((expense, i) => (
+                      <span key={i}>
+                        <p>Item - {expense.item}</p>
+                        <p>Price - ${expense.totalPrice}</p>
+                      </span>
+                    ))}
                 </CardContent>
               </Card>
               <Card
@@ -698,6 +698,17 @@ const Itinerary = ({ trip }) => {
                     <p className="error-text">{errorMessage}</p>
                   </div>
                 )}
+                <div className="submitButtonWrapper">
+                  <Button
+                    className="update"
+                    type="submit"
+                    style={{
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </div>
               </form>
             </Grid>
             <Grid item xs={5}>
@@ -717,17 +728,6 @@ const Itinerary = ({ trip }) => {
               </div>
             </Grid>
           </Grid>
-            <div className='submitButtonWrapper'>
-                <Button
-                    className="update"
-                    type="submit"
-                    style={{
-                        color: "#FFFFFF",
-                    }}
-                    >
-                    Submit
-                </Button>
-            </div>
         </Box>
       )}
     </div>
