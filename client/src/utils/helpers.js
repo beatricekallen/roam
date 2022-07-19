@@ -12,3 +12,18 @@ export function formatCharity(charity) {
     })
     .join(' ');
 };
+
+// takes two arrays, returns array
+export function populateDropdown(friendsList, tripMembers) {
+  let dropdownItems = [];
+  for (let i = 0; i < friendsList.length; i++ ) {
+    let toBeAdded = true;
+    for (let n = 0; n < tripMembers.length; n++) {
+      if (friendsList[i]._id == tripMembers[n]._id) {
+        toBeAdded = false;
+      }
+    }
+    if (toBeAdded) dropdownItems.push(friendsList[i]);
+  }
+  return dropdownItems;
+}

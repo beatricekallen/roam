@@ -4,7 +4,7 @@ import { UPDATE_TRIP } from "../../utils/mutations";
 import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
 import { QUERY_ME_BASIC } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
-import { validateEmail } from "../../utils/helpers";
+import { validateEmail, populateDropdown } from "../../utils/helpers";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -61,9 +61,12 @@ const Itinerary = ({ trip }) => {
 
   useEffect(() => {
     if (data) {
+      const dropdownItems = populateDropdown(data.me.friends, trip.members);
+      // filter out logged in user
+      let currentTripFriends = trip.members.filter(member => member._id != data.me._id)
       setFriendDataState({
-        notAddedFriends: data.me.friends,
-        addedFriends: [],
+        notAddedFriends: dropdownItems,
+        addedFriends: currentTripFriends,
       });
     }
   }, [data]);
@@ -80,7 +83,7 @@ const Itinerary = ({ trip }) => {
       return false;
     });
 
-    if (formEmpty) return;
+    // if (formEmpty) return;
     if (addedFriends) console.log(addedFriends);
 
     // update db with trip info
@@ -392,7 +395,7 @@ const Itinerary = ({ trip }) => {
                 >
                   <TextField
                     fullWidth
-                    label="Optional"
+                    label={trip.location ? trip.location : 'Optional'}
                     name="location"
                     onBlur={handleChange}
                     defaultValue={location}
@@ -427,7 +430,7 @@ const Itinerary = ({ trip }) => {
                 <h3>Edit Transportation</h3>
                 <TextField
                   fullWidth
-                  label="Optional"
+                  label={trip.transportation ? trip.transportation : 'Optional'}
                   name="transportation"
                   onBlur={handleChange}
                   defaultValue={transportation}
@@ -438,7 +441,7 @@ const Itinerary = ({ trip }) => {
                 <h3>Edit Budget</h3>
                 <TextField
                   fullWidth
-                  label="Optional"
+                  label={trip.budget ? trip.budget : 'Optional'}
                   name="budget"
                   onBlur={handleChange}
                   defaultValue={budget}

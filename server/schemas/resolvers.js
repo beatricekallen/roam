@@ -1,6 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Trip, Expense } = require("../models");
 const { signToken } = require("../utils/auth");
+const populateRemoveList = require('../utils/populateRemoveList');
 const mongoose = require("mongoose");
 const getUrl = require("../utils/oauthHelper");
 
@@ -178,6 +179,20 @@ const resolvers = {
       if (context.user) {
         const _id = args._id;
 
+        const currentTripData = await Trip.findById({ _id })
+          .populate('members');
+
+        // remove members from trip if needed
+        const removeList = populateRemoveList(currentTripData.members, args.members);
+        if (removeList) {
+          removeList.forEach(async user => {
+            await User.findByIdAndUpdate(
+              user._id,
+              { $pull: { trips: currentTripData._id } }
+            )
+          })
+        }
+
         const trip = await Trip.findByIdAndUpdate(
           { _id },
           { $set:
@@ -190,11 +205,10 @@ const resolvers = {
               ...args.budget && {budget: args.budget}
             },
             // update members conditionally
-            ...args.members[0] && {$addToSet: { members: { $each: args.members.map(id => mongoose.Types.ObjectId(id)) } } }
+            ...args.members[0] && { members: args.members.map(id => mongoose.Types.ObjectId(id)) } 
           },
           { new: true }
         );
-
         return trip;
       }
 
