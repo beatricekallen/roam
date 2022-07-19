@@ -5,7 +5,6 @@ import { QUERY_TRIP_EXPENSES, QUERY_ME_BASIC  } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
 import { validateEmail } from "../../utils/helpers";
 
-import Container from '@mui/material/Container';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -47,7 +46,6 @@ const Itinerary = ({trip}) => {
             variables: {id: trip._id}
     });
 
-    if (!loading) console.log(expenses);
     const [toggleChoices, settoggleChoices] = useState('info');
     const [formState, setFormState] = useState({});
     const { name, location, transportation, budget } = formState;
@@ -83,9 +81,7 @@ const Itinerary = ({trip}) => {
         })
 
         if (formEmpty) return;
-        if (addedFriends) console.log(addedFriends);
         
-    
         // update db with trip info
         try {
           await updateTrip({
@@ -103,7 +99,6 @@ const Itinerary = ({trip}) => {
           console.error(e);
         }
 
-        console.log("Success!");
         setUpdateModal(true);
       };
 
