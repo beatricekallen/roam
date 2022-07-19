@@ -100,27 +100,27 @@ const Profile = (props) => {
           <TripList trips={user.trips} title={`${user.username}'s trips`} profileUsername={user.username} />
         </div>
 
-        <div>
-          <h1>Friends List</h1>
-          {user.friends.map((friend) => (
-            <List dense={false} key={friend.username}>
-              <Link to={`/profile/${friend.username}`}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <PersonIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={friend.username}
-                    secondary={null}
-                    className="friendLink"
-                  />
-                </ListItem>
-              </Link>
-            </List>
-          ))}
-        </div>
+      </div>
+      <div className="friend-list-container">
+        <h1 className="friend-list-h1">Friends List</h1>
+        {user.friends.map((friend, i) => (
+          <List dense={false} key={friend.username} sx={{ borderBottom: i != user.friends.length-1 && '1px gray solid' }}>
+            <Link to={`/profile/${friend.username}`}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={friend.username}
+                  secondary={null}
+                  className="friendLink"
+                />
+              </ListItem>
+            </Link>
+          </List>
+        ))}
       </div>
     </div>
   );

@@ -29,3 +29,18 @@ p {
   font-family: var(--ff-secondary);
   color: var(--clr-blue);
 }
+
+.friend-list-container {
+  position: absolute;
+  top: 262.5px;
+  right: 10vw;
+  border: 1px var(--clr-blue) solid;
+  background-color: var();
+  border-radius: 5px;
+}
+
+.friend-list-h1 {
+  padding-left: 16px;
+  color: white;
+  background-color: var(--clr-blue);
+}

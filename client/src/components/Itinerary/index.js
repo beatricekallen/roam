@@ -4,7 +4,7 @@ import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import { UPDATE_TRIP, DELETE_TRIP } from "../../utils/mutations";
 import { QUERY_TRIP_EXPENSES, QUERY_ME_BASIC } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
-import { validateEmail } from "../../utils/helpers";
+import { validateEmail, populateDropdown } from "../../utils/helpers";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -63,9 +63,14 @@ const Itinerary = ({ trip }) => {
 
   useEffect(() => {
     if (data) {
+      const dropdownItems = populateDropdown(data.me.friends, trip.members);
+      // filter out logged in user
+      let currentTripFriends = trip.members.filter(member => member._id != data.me._id)
       setFriendDataState({
         notAddedFriends: data.me.friends,
         addedFriends: [],
+        notAddedFriends: dropdownItems,
+        addedFriends: currentTripFriends,
       });
     }
   }, [data]);
@@ -82,7 +87,7 @@ const Itinerary = ({ trip }) => {
       return false;
     });
 
-    if (formEmpty) return;
+    //if (formEmpty) return;
 
     // update db with trip info
     try {
@@ -592,7 +597,7 @@ const Itinerary = ({ trip }) => {
                 >
                   <TextField
                     fullWidth
-                    label="Optional"
+                    label={trip.location ? trip.location : 'Optional'}
                     name="location"
                     onBlur={handleChange}
                     defaultValue={location}
@@ -619,7 +624,7 @@ const Itinerary = ({ trip }) => {
                 <h3>Edit Transportation</h3>
                 <TextField
                   fullWidth
-                  label="Optional"
+                  label={trip.transportation ? trip.transportation : 'Optional'}
                   name="transportation"
                   onBlur={handleChange}
                   defaultValue={transportation}
@@ -630,7 +635,7 @@ const Itinerary = ({ trip }) => {
                 <h3>Edit Budget</h3>
                 <TextField
                   fullWidth
-                  label="Optional"
+                  label={trip.budget ? trip.budget : 'Optional'}
                   name="budget"
                   onBlur={handleChange}
                   defaultValue={budget}
