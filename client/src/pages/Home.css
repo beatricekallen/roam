@@ -50,7 +50,7 @@ main {
   background-color: var(--clr-blue);
 }
 
-button {
+/* button {
   border: none;
   background: var(--clr-blue);
   border-radius: 4px;
@@ -61,7 +61,7 @@ button {
 
 button:hover {
   background: var(--clr-green);
-}
+} */
 
 /* hero styles */
 .home__hero-section {

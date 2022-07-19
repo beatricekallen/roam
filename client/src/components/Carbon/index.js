@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
 
 import StripeContainer from "../../components/StripeContainer";
 import axios from "axios";
@@ -63,9 +64,6 @@ const Carbon = () => {
     }
   };
 
-  //TODO: need to add functionality to take people to the Stripe page after selecting a charity
-  //TODO: add ability to calculate distance and carbon footprint with Google Matrix API?
-
   return (
     <>
       {showCheckout ? (
@@ -99,15 +97,16 @@ const Carbon = () => {
                       World Wildlife Fund
                     </h2>
                   </CardContent>
-                  <CardActions>
-                    <button
+                  <CardActions className="center">
+                    <Button
                       size="small"
                       href="https://www.worldwildlife.org/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="button"
                     >
                       Learn More
-                    </button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -124,15 +123,16 @@ const Carbon = () => {
                       Sierra Club
                     </h2>
                   </CardContent>
-                  <CardActions>
-                    <button
+                  <CardActions className="center">
+                    <Button
                       size="small"
                       href="https://www.sierraclub.org/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="button"
                     >
                       Learn More
-                    </button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -149,15 +149,16 @@ const Carbon = () => {
                       National Park Foundation
                     </h2>
                   </CardContent>
-                  <CardActions>
-                    <button
+                  <CardActions className="center">
+                    <Button
                       size="small"
                       href="https://www.nationalparks.org/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="button"
                     >
                       Learn More
-                    </button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>
@@ -175,15 +176,16 @@ const Carbon = () => {
                       Nature Conservancy
                     </h2>
                   </CardContent>
-                  <CardActions>
-                    <button
+                  <CardActions className="center">
+                    <Button
                       size="small"
                       href="https://www.nature.org/en-us/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="button"
                     >
                       Learn More
-                    </button>
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

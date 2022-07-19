@@ -1,22 +1,21 @@
-
 .navMenu {
-    display: flex;
-    justify-content: center;
-}  
+  display: flex;
+  justify-content: center;
+}
 .navMenu a {
-    font-family: var(--ff-secondary);
-    color: #87CEEB;
-    text-decoration: none;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    font-weight: var(--font-bold);
-    display: inline-block;
-    transition: all 0.2s ease-in-out;
-    margin: 8px 15px 15px 8px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
-  }
-  
-  .navMenu a:hover {
-    color: #fddb3a;
-  }
-  
+  font-family: var(--ff-secondary);
+  color: var(--clr-blue);
+  text-decoration: none;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: var(--font-bold);
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  margin: 8px 15px 15px 8px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.navMenu a:hover {
+  color: var(--clr-yellow);
+  text-shadow: 1px 1px 2px black;
+}

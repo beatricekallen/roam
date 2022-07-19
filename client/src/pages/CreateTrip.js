@@ -14,14 +14,14 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { validateEmail } from "../utils/helpers";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from '@mui/material/FormControl';
-import Card from '@mui/material/Card';
-import InputLabel from '@mui/material/InputLabel';
+import FormControl from "@mui/material/FormControl";
+import Card from "@mui/material/Card";
+import InputLabel from "@mui/material/InputLabel";
+import Button from "@mui/material/Button";
 
 import "./CreateTrip.css";
 
 const CreateTrip = () => {
-
   const [formState, setFormState] = useState({});
 
   const [addTrip] = useMutation(ADD_TRIP);
@@ -36,15 +36,18 @@ const CreateTrip = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [friendDataState, setFriendDataState] = useState({})
+  const [friendDataState, setFriendDataState] = useState({});
   const { addedFriends, notAddedFriends } = friendDataState;
 
   // set friend dropdown data after data loads
   useEffect(() => {
     if (data) {
-      setFriendDataState({notAddedFriends: data.me.friends, addedFriends: []});
+      setFriendDataState({
+        notAddedFriends: data.me.friends,
+        addedFriends: [],
+      });
     }
-  }, [data])
+  }, [data]);
 
   const [errorMessage, setErrorMessage] = useState("");
   const { name, location, transportation, budget } = formState;
@@ -64,11 +67,11 @@ const CreateTrip = () => {
         variables: {
           name: name,
           location: location,
-          ...startValue && {startDate: getFormattedDate(startValue)},
-          ...endValue && {endDate: getFormattedDate(endValue)},
+          ...(startValue && { startDate: getFormattedDate(startValue) }),
+          ...(endValue && { endDate: getFormattedDate(endValue) }),
           transportation: transportation,
           budget: budget,
-          members: addedFriends.map(friend => friend._id),
+          members: addedFriends.map((friend) => friend._id),
         },
       });
     } catch (e) {
@@ -88,7 +91,7 @@ const CreateTrip = () => {
       }
     } else {
       if (!e.target.value.length) {
-        setErrorMessage(`This information is required.`);
+        setErrorMessage("");
       } else {
         setErrorMessage("");
       }
@@ -98,23 +101,27 @@ const CreateTrip = () => {
     }
   };
 
-  const handleAddFriend = e => {
+  const handleAddFriend = (e) => {
     setFriendDataState({
-      notAddedFriends: notAddedFriends.filter(friend => friend !== e.target.value),
-      addedFriends: [...addedFriends, e.target.value]
-  });
-  }
+      notAddedFriends: notAddedFriends.filter(
+        (friend) => friend !== e.target.value
+      ),
+      addedFriends: [...addedFriends, e.target.value],
+    });
+  };
 
-  const handleRemoveFriend= e => {
+  const handleRemoveFriend = (e) => {
     // get index from ClearIcon
     e.preventDefault();
     const i = e.target.dataset.id;
-    const removedFriend = {...addedFriends[i]};
+    const removedFriend = { ...addedFriends[i] };
     setFriendDataState({
       notAddedFriends: [...notAddedFriends, removedFriend],
-      addedFriends: addedFriends.filter(friend => friend._id !== removedFriend._id)
+      addedFriends: addedFriends.filter(
+        (friend) => friend._id !== removedFriend._id
+      ),
     });
-  }
+  };
 
   function datePicker(type) {
     if (type === "startDate") {
@@ -160,6 +167,7 @@ const CreateTrip = () => {
           name="name"
           onBlur={handleChange}
           defaultValue={name}
+          required={true}
         />
         <h3>Where are you headed?</h3>
         <TextField
@@ -168,6 +176,7 @@ const CreateTrip = () => {
           name="location"
           onBlur={handleChange}
           defaultValue={location}
+          required={true}
         />
         <h3>Pick a start date for your trip:</h3>
         {datePicker("startDate")}
@@ -180,6 +189,7 @@ const CreateTrip = () => {
           name="transportation"
           onBlur={handleChange}
           defaultValue={transportation}
+          required={true}
         />
         <h3>What's your budget?</h3>
         <TextField
@@ -191,48 +201,63 @@ const CreateTrip = () => {
         />
         <h3>Are friends joining? If so, add them from the dropdown here.</h3>
         <FormControl sx={{ minWidth: 250 }}>
-        <InputLabel shrink={false}>Add friend</InputLabel>
-        <Select
-          name="friends"
-          id="friend-dropdown"
-          onChange={handleAddFriend}
-          defaultValue=""
-          value=""
-        >
-          {notAddedFriends &&
-            notAddedFriends.map((friend, i) => {
-              return <MenuItem value={friend} key={i}>{friend.username}</MenuItem>
-            })}
-        </Select>
+          <InputLabel shrink={false}>Add friend</InputLabel>
+          <Select
+            name="friends"
+            id="friend-dropdown"
+            onChange={handleAddFriend}
+            defaultValue=""
+            value=""
+          >
+            {notAddedFriends &&
+              notAddedFriends.map((friend, i) => {
+                return (
+                  <MenuItem value={friend} key={i}>
+                    {friend.username}
+                  </MenuItem>
+                );
+              })}
+          </Select>
         </FormControl>
-          {addedFriends &&
-            addedFriends.map((friend, i) => {
-              return (
-                <Card value={friend} key={i} sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    minWidth: 150, 
-                    maxWidth: 250, 
-                    p: 1, 
-                    m: 1, 
-                    border: 1, 
-                    borderColor: 'grey.300', 
-                    bgcolor: 'grey.50' }} >
-                  <h4>{friend.username}</h4>
-                  <button data-id={i} onClick={handleRemoveFriend} className="remove-friend-btn">X</button>
-                </Card>
-              )
-            })}
+        {addedFriends &&
+          addedFriends.map((friend, i) => {
+            return (
+              <Card
+                value={friend}
+                key={i}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  minWidth: 150,
+                  maxWidth: 250,
+                  p: 1,
+                  m: 1,
+                  border: 1,
+                  borderColor: "grey.300",
+                  bgcolor: "grey.50",
+                }}
+              >
+                <h4>{friend.username}</h4>
+                <button
+                  data-id={i}
+                  onClick={handleRemoveFriend}
+                  className="remove-friend-btn"
+                >
+                  X
+                </button>
+              </Card>
+            );
+          })}
         {errorMessage && (
           <div>
             <p className="error-text">{errorMessage}</p>
           </div>
         )}
         <div className="headings">
-          <button variant="contained" type="submit">
+          <Button type="submit" className="button">
             Submit
-          </button>
+          </Button>
         </div>
       </form>
     </div>
