@@ -53,6 +53,7 @@ export const ADD_TRIP = gql`
         _id
       }
       status
+      budget
     }
   }
 `;
