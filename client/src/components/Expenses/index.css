@@ -59,9 +59,35 @@
 
 .expense-content {
     background-color: var(--clr-green);
+    display: flex;
+    padding-right: 0 !important;
 }
 
 .expense-content h2 {
     color: white;
 }
 
+.payTo {
+    width: 100%;
+    right: 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.payTo h3 {
+    padding: 5px 10px 5px 15px;
+    width: 40%;
+    background-color: var(--clr-yellow);
+    color: var(--clr-blue);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    justify-content: right;
+}
+
+.venmo {
+    width: 15%;
+    height: 100%;
+    padding-left: 5px;
+}

@@ -129,6 +129,9 @@ const Expenses = ({ trip }) => {
             <Card key={expense._id} className="expense-card">
                 <CardContent className='expense-content'>
                     <h2>{expense.item}</h2>
+                    <div className='payTo'>
+                        <h3>Pay to: {expense.payer.username}<img alt='venmo link' src="../images/venmo.png" className='venmo' /></h3>
+                    </div>
                 </CardContent>
                 <CardContent>
                     <h3>Total Cost: ${expense.totalPrice}</h3>
