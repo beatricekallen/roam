@@ -51,7 +51,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column min-100-vh">
+        <div className="flex-column main justify-flex-start min-100-vh">
           <Navigation />
           <div className="container">
             <Routes>
@@ -81,7 +81,7 @@ function App() {
             </Routes>
             {/* <Splitwise /> */}
           </div>
-          {/* <Footer/> */}
+          <Footer/>
         </div>
       </Router>
     </ApolloProvider>
