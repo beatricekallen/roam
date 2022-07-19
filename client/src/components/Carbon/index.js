@@ -13,7 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import InputAdornment from '@mui/material/InputAdornment';
 
 import StripeContainer from "../../components/StripeContainer";
 import axios from "axios";
@@ -22,7 +24,7 @@ import "./index.css";
 const Carbon = () => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [formState, setFormState] = useState({
-    amount: "0",
+    amount: "",
     charity: "World WildLife Fund",
   });
   const [clientSecret, setClientSecret] = useState({ client_secret: "" });
@@ -213,11 +215,15 @@ const Carbon = () => {
             <label>
               <h3>Enter your donation amount:</h3>
             </label>
-            <Input
-              type="text"
+            <TextField
+              label="Amount"
               name="amount"
               value={amount}
-              onChange={handleFormChange}
+              onBlur={handleFormChange}
+              variant="standard"
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              }}
             />
 
             <button variant="contained" type="submit">
