@@ -23,6 +23,11 @@
   padding: 10px;
 }
 
+.center {
+  text-align: center !important;
+  justify-content: center !important;
+}
+
 h1 {
   font-family: var(--ff-primary);
   color: var(--clr-green);

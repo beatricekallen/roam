@@ -1,33 +1,35 @@
-
 .parent-container {
-    margin: 0 50px;
+  margin: 0 50px;
 }
 
 button[type="submit"] {
-    background-color: #00BFFF;
-    border: 1px solid #00BFFF;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-    color: white;
-    font-weight: 800;
-    cursor: pointer;
-    margin: 0 auto 0 30px;
+  background-color: #00bfff;
+  border: 1px solid #00bfff;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 0 auto 0 30px;
 }
 
 button[type="submit"]:hover,
 button[type="submit"]:active {
   transition-duration: 0.2s;
   background-color: initial;
-  color: #00BFFF !important;
+  color: #00bfff !important;
 }
 
 .card:hover {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 img:hover {
-    opacity: 0.7;
-    transition-duration: 0.4s;
-    transform: scale(1.05);
+  opacity: 0.7;
+  transition-duration: 0.4s;
+  transform: scale(1.05);
 }
 
+.font {
+  font-family: var(--ff-secondary) !important;
+}
