@@ -24,5 +24,20 @@
 
 .expenses-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
+
+.addButton {
+    width: 30%;
+    border-radius: 15px;
+}
+
+.expenses-list {
+    width: 80%;
+}
+
+.expense-card {
+    background-color: var(--clr-green);
+}
+

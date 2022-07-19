@@ -28,9 +28,11 @@ const style = {
 };
 
 const Expenses = ({trip}) => {
-    const {loading, data: expenses} = useQuery(trip && QUERY_TRIP_EXPENSES, {
+    const {loading, data} = useQuery(trip && QUERY_TRIP_EXPENSES, {
         variables: {id: trip._id}
     });
+
+    const expenses = data?.trip_expenses || {};
 
     const [addExpense] = useMutation(ADD_EXPENSE);
 
@@ -117,6 +119,21 @@ const Expenses = ({trip}) => {
                     </form>
                 </Box>
             </Modal>
+            <div className='expenses-list'>
+                {expenses.length ? (
+                    expenses.map((expense) => (
+                        <Card key={expense._id} className='expense-card'>
+                            <CardContent>
+                                <h2>{expense.item}</h2>
+                                <h3>{expense.totalPrice}</h3>
+                                <h3>{expense.pricePerPerson}</h3>
+                            </CardContent>
+                        </Card>
+                    ))
+                ) : (
+                    <h2>No current trip expenses!</h2>
+                )}
+            </div>
         </div>
     )
 
