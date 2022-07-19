@@ -122,11 +122,13 @@ const Expenses = ({trip}) => {
             <div className='expenses-list'>
                 {expenses.length ? (
                     expenses.map((expense) => (
-                        <Card key={expense._id} className='expense-card'>
-                            <CardContent>
+                        <Card key={expense._id}  className='expense-card'>
+                            <CardContent className='expense-content'>
                                 <h2>{expense.item}</h2>
-                                <h3>{expense.totalPrice}</h3>
-                                <h3>{expense.pricePerPerson}</h3>
+                            </CardContent>
+                            <CardContent>
+                                <h3>Total Cost: ${expense.totalPrice}</h3>
+                                <h3>Cost per member: ${expense.pricePerPerson}</h3>
                             </CardContent>
                         </Card>
                     ))

@@ -34,10 +34,21 @@
 }
 
 .expenses-list {
-    width: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .expense-card {
+    width: 60%;
+    border: 1px solid var(--clr-green);
+}
+
+.expense-content {
     background-color: var(--clr-green);
+}
+
+.expense-content h2 {
+    color: white;
 }
 
