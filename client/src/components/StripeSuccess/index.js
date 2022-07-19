@@ -1,5 +1,6 @@
 // import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
 import "./index.css";
 
 const StripeSuccess = () => {
@@ -13,9 +14,13 @@ const StripeSuccess = () => {
           Thanks for your donation. Travelling sustainably and mindfully is good
           for you and for the planet.
         </h2>
-        <button size="small" onClick={() => navigate("/profile")}>
+        <Button
+          className="button"
+          size="small"
+          onClick={() => navigate("/profile")}
+        >
           Return To Your Profile
-        </button>
+        </Button>
       </div>
     </div>
   );

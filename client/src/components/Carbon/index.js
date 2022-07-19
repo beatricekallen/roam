@@ -218,11 +218,12 @@ const Carbon = () => {
               name="amount"
               value={amount}
               onChange={handleFormChange}
+              className="margin"
             />
 
-            <button variant="contained" type="submit">
+            <Button variant="contained" type="submit" className="button">
               Submit
-            </button>
+            </Button>
           </FormControl>
         </div>
       )}

@@ -62,13 +62,17 @@ body {
 }
 
 .button:hover {
-  background: var(--clr-green) !important;
-  color: #fff !important;
+  background: var(--clr-yellow) !important;
+  color: var(--clr-blue) !important;
 }
 
 .center {
   text-align: center !important;
   justify-content: center !important;
+}
+
+.margin {
+  margin-bottom: 10px;
 }
 
 #root {

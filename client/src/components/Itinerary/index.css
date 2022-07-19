@@ -3,18 +3,21 @@
 }
 
 button[type="submit"].update {
-  background-color: #00bfff;
-  border: 1px solid #00bfff;
-  border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  color: white;
-  font-weight: 800;
-  cursor: pointer;
   position: absolute;
   right: 50%;
   bottom: 0;
-  padding: 5px 10px;
-  /* margin: auto 0 0 0; */
+  border: none;
+  background: var(--clr-blue) !important;
+  border-radius: 4px !important;
+  color: #fff !important;
+  padding: 10px !important;
+  font-family: var(--ff-secondary) !important;
+}
+
+button[type="submit"].update:hover {
+  background: var(--clr-yellow) !important;
+  color: var(--clr-blue) !important;
 }
 
 button.modal-btn {
@@ -27,21 +30,20 @@ button.modal-btn {
 }
 
 button.modal-btn.cancel {
-    background-color: #00bfff;
-    border: 1px solid #00bfff;
+  background-color: #00bfff;
+  border: 1px solid #00bfff;
 }
 
 button.modal-btn.delete {
-    background-color: #FF6347;
-    border: 1px solid #FF6347;;
+  background-color: #ff6347;
+  border: 1px solid #ff6347;
 }
 
 button.modal-btn.ok {
-    background-color: var(--clr-green);
-    border: 1px solid var(--clr-green);
-    padding: 5px 10px;
+  background-color: var(--clr-green);
+  border: 1px solid var(--clr-green);
+  padding: 5px 10px;
 }
-
 
 button[type="submit"]:hover,
 button.modal-btn:hover,

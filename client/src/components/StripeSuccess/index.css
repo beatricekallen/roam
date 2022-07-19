@@ -21,18 +21,3 @@ h1 {
 h2 {
   font-family: var(--ff-secondary);
 }
-
-/* button {
-  border: none;
-  background: var(--clr-blue);
-  border-radius: 4px;
-  color: #fff;
-  padding: 10px;
-  font-family: var(--ff-secondary);
-  margin: 20px;
-  font-size: 20px;
-}
-
-button:hover {
-  background: var(--clr-green);
-} */

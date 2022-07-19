@@ -31,8 +31,3 @@ p {
   background-color: #ff1d1d;
   color: white;
 }
-
-.button:hover {
-  background: var(--clr-green) !important;
-  color: #fff !important;
-}

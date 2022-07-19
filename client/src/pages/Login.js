@@ -4,6 +4,8 @@ import { LOGIN_USER } from "../utils/mutations";
 import { Navigate } from "react-router-dom";
 import Input from "@mui/material/Input";
 import Auth from "../utils/auth";
+import Button from "@mui/material/Button";
+
 import "./Login.css";
 
 const Login = (props) => {
@@ -65,7 +67,7 @@ const Login = (props) => {
               />
               <br></br>
               <Input
-                className="form-input padding"
+                className="form-input padding margin"
                 placeholder="******"
                 name="password"
                 type="password"
@@ -76,9 +78,9 @@ const Login = (props) => {
                 fullWidth={true}
               />
               <br></br>
-              <button className="btn d-block w-100" type="submit">
+              <Button className="button" type="submit">
                 Log In
-              </button>
+              </Button>
             </form>
 
             {error && (

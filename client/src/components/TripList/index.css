@@ -6,7 +6,3 @@
   padding: 10px !important;
   font-family: var(--ff-secondary) !important;
 }
-
-.button:hover {
-  background: var(--clr-green) !important;
-}
