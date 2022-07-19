@@ -97,7 +97,7 @@ const Profile = (props) => {
 
       <div>
         <div>
-          <TripList trips={user.trips} title={`${user.username}'s trips`} />
+          <TripList trips={user.trips} title={`${user.username}'s trips`} profileUsername={user.username} />
         </div>
 
         <div>
