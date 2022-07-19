@@ -221,14 +221,15 @@ const Carbon = () => {
               defaultValue={amount}
               onBlur={handleFormChange}
               variant="standard"
+              className='margin'
               InputProps={{
                 startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
             />
 
-            <button variant="contained" type="submit">
+            <Button variant="contained" type="submit" className="button">
               Submit
-            </button>
+            </Button>
           </FormControl>
         </div>
       )}

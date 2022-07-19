@@ -50,19 +50,6 @@ main {
   background-color: var(--clr-blue);
 }
 
-/* button {
-  border: none;
-  background: var(--clr-blue);
-  border-radius: 4px;
-  color: #fff;
-  padding: 10px;
-  font-family: var(--ff-secondary);
-}
-
-button:hover {
-  background: var(--clr-green);
-} */
-
 /* hero styles */
 .home__hero-section {
   color: #fff;

@@ -5,6 +5,7 @@ import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
 import "./Signup.css";
 
 const Signup = () => {
@@ -76,7 +77,7 @@ const Signup = () => {
               />
               <br></br>
               <Input
-                className="form-input padding"
+                className="form-input padding margin"
                 placeholder="******"
                 name="password"
                 type="password"
@@ -87,7 +88,9 @@ const Signup = () => {
                 fullWidth={true}
               />
               <br></br>
-              <button type="submit">Sign Up</button>
+              <Button type="submit" className="button">
+                Sign Up
+              </Button>
             </form>
 
             {error && (

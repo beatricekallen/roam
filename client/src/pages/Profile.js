@@ -50,9 +50,9 @@ const Profile = (props) => {
             You need to be logged in to view that page. Sign up or log in using
             the links above!
           </h2>
-          <button size="small" onClick={() => navigate("/")}>
+          <Button className="button" size="small" onClick={() => navigate("/")}>
             Return To The Homepage
-          </button>
+          </Button>
         </div>
       </div>
     );

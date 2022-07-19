@@ -2,21 +2,21 @@ import React from "react";
 
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
 import { useQuery } from "@apollo/client";
 
 import "./Home.css";
 
 const Home = () => {
-  let discoverLink = '';
+  let discoverLink = "";
 
   if (Auth.loggedIn()) {
-    discoverLink = 'profile';
+    discoverLink = "profile";
   } else {
-    discoverLink = 'login';
+    discoverLink = "login";
   }
 
   return (
-
     <main>
       <div className="home__hero-section hero__img">
         <div>
@@ -31,7 +31,7 @@ const Home = () => {
               <img className="home__hero-img" src="/" alt=""></img>
             </div>
             <Link to={`/${discoverLink}`}>
-              <button>Discover More</button>
+              <Button className="button">Discover More</Button>
             </Link>
           </div>
         </div>
