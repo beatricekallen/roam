@@ -50,3 +50,8 @@ html, body {
   scroll-behavior: smooth;
   display:block;
 }
+
+#root {
+  position: relative;
+  height: 100%;
+}
