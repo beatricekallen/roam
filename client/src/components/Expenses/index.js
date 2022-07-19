@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
 import "./index.css";
 

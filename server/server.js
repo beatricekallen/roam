@@ -52,15 +52,14 @@ app.post('/create_payment', cors(), async (req, res) => {
 });
 
 // Serve up static assets
-// TEMPORARILY COMMENTED OUT TO RUN SERVER
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-
+// TEMPORARILY COMMENTED OUT TO RUN APOLLO SANDBOX
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
