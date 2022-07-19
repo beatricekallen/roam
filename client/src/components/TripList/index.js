@@ -36,9 +36,23 @@ const TripList = ({ trips }) => {
         <Grid container spacing={2}>
           {currentTrip.length ? (
             currentTrip.map((trip) => (
-              <Grid item xs={6} md={3} key={trip._id}>
-                <Card key={trip._id} sx={{ maxWidth: 345 }}>
-                  <CardContent>
+              <Grid
+                item
+                xs={6}
+                md={3}
+                style={{ display: "flex" }}
+                key={trip._id}
+              >
+                <Card
+                  key={trip._id}
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CardContent style={{ whiteSpace: "pre-wrap" }}>
                     <h2>{trip.name}</h2>
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
@@ -70,9 +84,23 @@ const TripList = ({ trips }) => {
         <Grid container spacing={2}>
           {upcomingTrips.length ? (
             upcomingTrips.map((trip) => (
-              <Grid item xs={6} md={3} key={trip._id}>
-                <Card key={trip._id} sx={{ maxWidth: 345 }}>
-                  <CardContent>
+              <Grid
+                item
+                xs={6}
+                md={3}
+                style={{ display: "flex" }}
+                key={trip._id}
+              >
+                <Card
+                  key={trip._id}
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CardContent style={{ whiteSpace: "pre-wrap" }}>
                     <h2>{trip.name}</h2>
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
@@ -101,9 +129,23 @@ const TripList = ({ trips }) => {
         <Grid container spacing={2}>
           {previousTrips.length ? (
             previousTrips.map((trip) => (
-              <Grid item xs={6} md={3} key={trip._id}>
-                <Card key={trip._id} sx={{ maxWidth: 345 }}>
-                  <CardContent>
+              <Grid
+                item
+                xs={6}
+                md={3}
+                style={{ display: "flex" }}
+                key={trip._id}
+              >
+                <Card
+                  key={trip._id}
+                  style={{
+                    marginTop: 15,
+                    width: 345,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CardContent style={{ whiteSpace: "pre-wrap" }}>
                     <h2>{trip.name}</h2>
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
