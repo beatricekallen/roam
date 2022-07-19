@@ -149,9 +149,13 @@ export const QUERY_MY_EXPENSES = gql`
 export const QUERY_TRIP_EXPENSES = gql`
   query trip_expenses($id: ID!) {
     trip_expenses(_id: $id) {
+      _id
       item
       totalPrice
       pricePerPerson
+      payer {
+        username
+      }
       paidOff
       balance
       borrowers {

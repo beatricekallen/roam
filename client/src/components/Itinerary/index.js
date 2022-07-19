@@ -278,15 +278,13 @@ const Itinerary = ({trip}) => {
                                     <Typography gutterBottom variant="h5" component="div">
                                     {expenses && expenses.trip_expenses.length ? "Expenses" : "No Expenses Currently"}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                {expenses && expenses.trip_expenses.length && expenses.trip_expenses.map((expense, i) => (
-                                    <span key={i}>
-                                        <p>Item - {expense.item}</p>
-                                        <p>Price - ${expense.totalPrice}</p>
-                                    </span>
+                                    {expenses && expenses.trip_expenses.length && expenses.trip_expenses.map((expense, i) => (
+                                        <span key={i}>
+                                            <p>Item - {expense.item}</p>
+                                            <p>Price - ${expense.totalPrice}</p>
+                                        </span>
 
-                                ))}
-                                    </Typography>
+                                    ))}
                                 </CardContent>
                             </Card>
                             <Card style={{

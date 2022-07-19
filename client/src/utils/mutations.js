@@ -39,12 +39,13 @@ export const ADD_FRIEND = gql`
 `;
 
 export const ADD_TRIP = gql`
-  mutation addTrip($name: String!, $location: String, $startDate: String, $endDate: String, $transportation: String, $members: [ID]) {
-    addTrip(name: $name, location: $location, startDate: $startDate, endDate: $endDate transportation: $transportation, members: $members) {
+  mutation addTrip($name: String!, $location: String, $budget: String, $startDate: String, $endDate: String, $transportation: String, $members: [ID]) {
+    addTrip(name: $name, location: $location, budget: $budget, startDate: $startDate, endDate: $endDate transportation: $transportation, members: $members) {
       creator
       _id
       name
       location
+      budget
       transportation
       startDate
       endDate

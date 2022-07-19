@@ -79,9 +79,8 @@ function App() {
               <Route path="/stripe-test" element={<Carbon />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
-            {/* <Splitwise /> */}
           </div>
-          <Footer/>
+          {/* <Footer/> */}
         </div>
       </Router>
     </ApolloProvider>
