@@ -1,8 +1,7 @@
 import { useState, useEffect} from "react";
 import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
-import { UPDATE_TRIP } from "../../utils/mutations"
-import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
-import { QUERY_ME_BASIC } from "../../utils/queries";
+import { UPDATE_TRIP, DELETE_TRIP } from "../../utils/mutations"
+import { QUERY_TRIP_EXPENSES, QUERY_ME_BASIC  } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
 import { validateEmail } from "../../utils/helpers";
 
@@ -14,6 +13,7 @@ import CardMedia from "@mui/material/CardMedia";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from "@mui/material/Typography";
+import Modal from '@mui/material/Modal';
 import CardContent from "@mui/material/CardContent";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -31,21 +31,24 @@ import calendarImage from "./assets/calendarimage.jpg";
 import travelImage from "./assets/travelimage.jpg";
 import planImage from "./assets/planimage.png";
 import expensesImage from "./assets/expensesimage.jpg";
+import flightImage from "./assets/flight.png";
+import planningImage from "./assets/planning.png";
+import multipleExpenses from "./assets/multipleexpenses.png";
 
 import "./index.css";
 
 const Itinerary = ({trip}) => {
 
     const [updateTrip, { error }] = useMutation(UPDATE_TRIP);
+    const [deleteTrip, { error: deleteError }] = useMutation(DELETE_TRIP);
     const [loadMyData, { data }] = useLazyQuery(QUERY_ME_BASIC);
    
-
     const {loading, data: expenses} = useQuery(trip && QUERY_TRIP_EXPENSES, {
             variables: {id: trip._id}
     });
 
     if (!loading) console.log(expenses);
-    const [toggleEdit, setToggleEdit] = useState('info');
+    const [toggleChoices, settoggleChoices] = useState('info');
     const [formState, setFormState] = useState({});
     const { name, location, transportation, budget } = formState;
     const [errorMessage, setErrorMessage] = useState("");
@@ -68,7 +71,7 @@ const Itinerary = ({trip}) => {
     
 
     const editHandler = (event, editStatus) => {
-        setToggleEdit(editStatus);
+        settoggleChoices(editStatus);
     };
 
     const handleSubmit = async (e) => {
@@ -101,7 +104,7 @@ const Itinerary = ({trip}) => {
         }
 
         console.log("Success!");
-        return window.location.reload();
+        setUpdateModal(true);
       };
 
     const handleChange = (e) => {
@@ -130,6 +133,29 @@ const Itinerary = ({trip}) => {
           notAddedFriends: [...notAddedFriends, removedFriend],
           addedFriends: addedFriends.filter(friend => friend._id !== removedFriend._id)
         });
+    }
+
+    const [open, setOpen] = useState(false);
+    const [on, setOn] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
+
+    const handleReload = () => {
+        return window.location.reload();
+    }
+
+    const handleOpen = () => setOpen(true);
+   
+    const handleClose = () => {
+        if (toggleChoices == "delete") {
+            settoggleChoices("info");
+            setOpen(false);
+        }
+    }
+
+    const handleOn = () => setOn(true);
+
+    const handleRedirect = () => {
+        window.location.assign("/profile");
     }
 
     function datePicker(type) {
@@ -161,6 +187,22 @@ const Itinerary = ({trip}) => {
           );
         }
     }
+
+    const handleDelete = async e => {
+        e.preventDefault();
+
+        try {
+            await deleteTrip({
+                variables: {
+                    _id: trip._id
+                }
+            })
+        }
+        catch (e) {
+            console.log(e);
+        }
+        handleOn();
+    }
     
     return (
         <div className="parent-container">
@@ -179,7 +221,7 @@ const Itinerary = ({trip}) => {
                     <h3>Budget - {trip.budget && `$${trip.budget}` || "None"}</h3>
                 </div>
                 <ToggleButtonGroup
-                    value={toggleEdit}
+                    value={toggleChoices}
                     exclusive
                     onChange={editHandler}
                     aria-label="text alignment"
@@ -190,10 +232,144 @@ const Itinerary = ({trip}) => {
                     <ToggleButton value="edit" aria-label="edit toggle">
                        Edit
                     </ToggleButton>
-                </ToggleButtonGroup>
-                            
+                    <ToggleButton value="delete" aria-label="edit toggle" onClick={handleOpen}>
+                       Delete
+                    </ToggleButton>
+                </ToggleButtonGroup>                    
             </div>
-            {toggleEdit === "info" &&
+            <div>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: "30%",
+                        height: "350px",
+                        color: "#000",
+                        backgroundColor: "#fff",
+                        position: "absolute",
+                        top: "30%",
+                        left: "38%",
+                        borderRadius: "20px",
+                        padding: "10px 30px 70px",
+
+                    }}>
+                        <p onClick={handleClose} style={{
+                            alignSelf: "flex-end",
+                            fontSize: "1.2rem",
+                            cursor: "pointer"
+                        }}>x
+                        </p>
+                        <img src={flightImage} alt="illustration of an airplane" style={{
+                            width: "50%",
+                            height: "50%",
+                            backgroundColor: "white"
+                        }} />
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Delete Trip?
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            You'll have more opportunities to enjoy a trip with your friends!
+                        </Typography>
+                        <div>
+                        <button onClick={handleClose}>Cancel</button>
+                        <button onClick={handleDelete}>Delete</button>
+                        </div>
+                    </Box>
+                </Modal>
+                <Modal
+                    open={on}
+                    onClose={handleRedirect}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: "30%",
+                        height: "350px",
+                        color: "#000",
+                        backgroundColor: "#fff",
+                        position: "absolute",
+                        top: "30%",
+                        left: "38%",
+                        borderRadius: "20px",
+                        padding: "10px 30px 70px",
+
+                    }}>
+                        <p onClick={handleRedirect} style={{
+                            alignSelf: "flex-end",
+                            fontSize: "1.2rem",
+                            cursor: "pointer"
+                        }}>x
+                        </p>
+                        <img src={planningImage} alt="illustration of an airplane" style={{
+                            width: "50%",
+                            height: "50%",
+                            backgroundColor: "white"
+                        }} />
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Trip has been scrapped.
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Aww, maybe you'll try and attend another trip soon!
+                        </Typography>
+                        <div>
+                        <button onClick={handleRedirect}>Ok</button>
+                        </div>
+                    </Box>
+                </Modal>
+                <Modal
+                    open={updateModal}
+                    onClose={handleReload}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: "30%",
+                        height: "350px",
+                        color: "#000",
+                        backgroundColor: "#fff",
+                        position: "absolute",
+                        top: "30%",
+                        left: "38%",
+                        borderRadius: "20px",
+                        padding: "10px 30px 70px",
+
+                    }}>
+                        <p onClick={handleReload} style={{
+                            alignSelf: "flex-end",
+                            fontSize: "1.2rem",
+                            cursor: "pointer"
+                        }}>x
+                        </p>
+                        <img src={multipleExpenses} alt="illustration of an airplane" style={{
+                            width: "50%",
+                            height: "50%",
+                            backgroundColor: "white"
+                        }} />
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Trip has been updated.
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Now you can feel better attending it!
+                        </Typography>
+                        <div>
+                        <button onClick={handleReload}>Ok</button>
+                        </div>
+                    </Box>
+                </Modal>
+            </div>
+            {toggleChoices === "info" &&
             <Box sx={{flexGrow: 1, flexShrink: 1, marginTop: 1}}>
                     <Grid container>
                         <Grid item xs={6}>
@@ -313,7 +489,7 @@ const Itinerary = ({trip}) => {
                     </Grid>
                 </Box>
             }
-            {toggleEdit === "edit" && (
+            {toggleChoices === "edit" && (
                 <Box sx={{flexGrow: 1, flexShrink: 1, marginTop: 1}}>
                 <div className="headings">
                     <h2 style={{
@@ -340,8 +516,8 @@ const Itinerary = ({trip}) => {
                                 alignSelf: "flex-start"
                             }}
                             />
-                            <button type="submit" style={{
-                                color: "#FFFFFF"
+                            <button class="update" type="submit" style={{
+                                color: "#FFFFFF",
                             }}>Update</button>
                             </div>
                             <div style={{

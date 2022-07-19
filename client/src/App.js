@@ -17,6 +17,7 @@ import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 
+
 import ViewTrip from "./pages/ViewTrip"
 import CreateTrip from "./pages/CreateTrip";
 import StripeSuccess from "./components/StripeSuccess";
