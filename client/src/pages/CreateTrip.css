@@ -20,14 +20,20 @@ p {
   padding: 6px 10px;
   margin: 0px 4px;
   font-size: 17px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgb(206, 206, 206);
   color: black;
   font-family: "Verdana", sans-serif;
   border-radius: 5px;
+  border: none;
 }
 
 .remove-friend-btn:hover {
   cursor: pointer;
   background-color: #ff1d1d;
   color: white;
+}
+
+.added-friends-container {
+  display: flex;
+  flex-wrap: wrap;
 }
