@@ -8,7 +8,7 @@ import { useLazyQuery } from '@apollo/client';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-
+import './index.css'
 
 const SearchBar = () => {
     
@@ -21,12 +21,11 @@ const SearchBar = () => {
         {variables: { username: value }}
     );
 
-    // hides alert after 4 seconds
     useEffect(() => {
         if (alert) {
             const alertTimer = setTimeout(() => {
             setAlert(false)
-            }, 3000);
+            }, 5000);
             return () => clearTimeout(alertTimer);
         }
       }, [alert]);
@@ -44,17 +43,6 @@ const SearchBar = () => {
     if (called && !loading && data.user != null) {
         window.location.assign(`/profile/${data.user.username}`);
     }
-    /*
-    } else if (called && !loading && !alert) {
-        setAlert('error');
-        return (
-            <Alert severity="error">
-                <AlertTitle>Error</AlertTitle>
-                No user found with this username!
-            </Alert>
-        )
-    }
-    */
 
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -97,7 +85,7 @@ const SearchBar = () => {
     }));
 
     return (
-        <div>
+        <div className="search-container">
             <Search>
                 <SearchIconWrapper>
                     <SearchIcon />
@@ -115,12 +103,12 @@ const SearchBar = () => {
                     autoFocus={!!inputValue}
                 />
             </Search>
-            <div>
+            <div className="alert-container">
                 {alert &&
                     <Alert severity="error">
-                    <AlertTitle>Error</AlertTitle>
+                        <AlertTitle>Error</AlertTitle>
                     No user found with this username!
-                </Alert>
+                    </Alert>
                 }
             </div>
         </div>
