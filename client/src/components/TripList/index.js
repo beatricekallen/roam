@@ -26,6 +26,18 @@ const TripList = ({ trips }) => {
     return trip.status === "passed";
   });
 
+  const friendsOnTrip = (trip) => {
+    const friendsOnTripArray = trip.members;
+    let friendsUsernameArray = [];
+    if (friendsOnTripArray.length) {
+      for (let i = 1; i < friendsOnTripArray.length; i++) {
+        friendsUsernameArray.push(trip.members[i].username);
+        var friendsUsernamesFormatted = friendsUsernameArray.join(", ");
+      }
+    }
+    return friendsUsernamesFormatted;
+  };
+
   console.log(trips);
 
   return (
@@ -57,6 +69,12 @@ const TripList = ({ trips }) => {
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
+                    <h4>Friends attending:</h4>
+                    <h4>
+                      {trip.members.length > 1
+                        ? friendsOnTrip(trip)
+                        : "No friends joining"}
+                    </h4>
                   </CardContent>
                   <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
@@ -105,6 +123,12 @@ const TripList = ({ trips }) => {
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
+                    <h4>Friends attending:</h4>
+                    <h4>
+                      {trip.members.length > 1
+                        ? friendsOnTrip(trip)
+                        : "No friends joining"}
+                    </h4>
                   </CardContent>
                   <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
@@ -150,6 +174,12 @@ const TripList = ({ trips }) => {
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
+                    <h4>Friends who attended:</h4>
+                    <h4>
+                      {trip.members.length > 1
+                        ? friendsOnTrip(trip)
+                        : "No friends joined"}
+                    </h4>
                   </CardContent>
                   <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
