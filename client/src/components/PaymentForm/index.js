@@ -11,6 +11,8 @@ const PaymentForm = function({ amount, charity }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('hit');
+
     try {
       const payment = await stripe.confirmPayment({
         elements,

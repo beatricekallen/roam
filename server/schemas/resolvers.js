@@ -179,11 +179,18 @@ const resolvers = {
       if (context.user) {
         const _id = args._id;
 
+        console.log(args);
+
+        console.log(context.user)
+
+        // add user into members list
+        const updatedMembers = [...args.members, context.user._id]
+
         const currentTripData = await Trip.findById({ _id })
           .populate('members');
 
         // remove members from trip if needed
-        const removeList = populateRemoveList(currentTripData.members, args.members);
+        const removeList = populateRemoveList(currentTripData.members, updatedMembers);
         if (removeList) {
           removeList.forEach(async user => {
             await User.findByIdAndUpdate(
@@ -205,7 +212,7 @@ const resolvers = {
               ...args.budget && {budget: args.budget}
             },
             // update members conditionally
-            ...args.members[0] && { members: args.members.map(id => mongoose.Types.ObjectId(id)) } 
+            ...updatedMembers[0] && { members: updatedMembers.map(id => mongoose.Types.ObjectId(id)) } 
           },
           { new: true }
         );

@@ -23,7 +23,7 @@
   padding: 3px 4px;
   margin-left: 4px;
   border-radius: 5px;
-  display: flex;
+  display: inline-block;
 }
 
 .username {

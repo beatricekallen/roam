@@ -4,7 +4,7 @@ import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import { UPDATE_TRIP, DELETE_TRIP } from "../../utils/mutations";
 import { QUERY_TRIP_EXPENSES, QUERY_ME_BASIC } from "../../utils/queries";
 import { getFormattedDate } from "../../utils/dateFormat";
-import { validateEmail } from "../../utils/helpers";
+import { validateEmail, populateDropdown } from "../../utils/helpers";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -63,9 +63,16 @@ const Itinerary = ({ trip }) => {
 
   useEffect(() => {
     if (data) {
+      const dropdownItems = populateDropdown(data.me.friends, trip.members);
+      // filter out logged in user
+      let currentTripFriends = trip.members.filter(
+        (member) => member._id != data.me._id
+      );
       setFriendDataState({
         notAddedFriends: data.me.friends,
         addedFriends: [],
+        notAddedFriends: dropdownItems,
+        addedFriends: currentTripFriends,
       });
     }
   }, [data]);
@@ -82,7 +89,7 @@ const Itinerary = ({ trip }) => {
       return false;
     });
 
-    if (formEmpty) return;
+    //if (formEmpty) return;
 
     // update db with trip info
     try {
@@ -204,6 +211,18 @@ const Itinerary = ({ trip }) => {
     handleOn();
   };
 
+  const friendsOnTrip = (trip) => {
+    const friendsOnTripArray = trip.members;
+    let friendsUsernameArray = [];
+    if (friendsOnTripArray.length) {
+      for (let i = 1; i < friendsOnTripArray.length; i++) {
+        friendsUsernameArray.push(trip.members[i].username);
+        var friendsUsernamesFormatted = friendsUsernameArray.join(", ");
+      }
+    }
+    return friendsUsernamesFormatted;
+  };
+
   return (
     <div className="parent-container">
       <div
@@ -300,12 +319,12 @@ const Itinerary = ({ trip }) => {
                 backgroundColor: "white",
               }}
             />
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <h3 id="modal-modal-title" variant="h6" component="h2">
               Delete Trip?
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            </h3>
+            <h4 id="modal-modal-description" sx={{ mt: 2 }}>
               You'll have more opportunities to enjoy a trip with your friends!
-            </Typography>
+            </h4>
             <div>
               <Button class="modal-btn cancel" onClick={handleClose}>
                 Cancel
@@ -357,12 +376,12 @@ const Itinerary = ({ trip }) => {
                 backgroundColor: "white",
               }}
             />
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <h3 id="modal-modal-title" variant="h6" component="h2">
               Trip has been scrapped.
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            </h3>
+            <h4 id="modal-modal-description" sx={{ mt: 2 }}>
               Aww, maybe you'll try and attend another trip soon!
-            </Typography>
+            </h4>
             <div>
               <button class="modal-btn ok" onClick={handleRedirect}>
                 Ok
@@ -411,12 +430,12 @@ const Itinerary = ({ trip }) => {
                 backgroundColor: "white",
               }}
             />
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <h3 id="modal-modal-title" variant="h6" component="h2">
               Trip has been updated.
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            </h3>
+            <h4 id="modal-modal-description" sx={{ mt: 2 }}>
               Now you can feel better attending it!
-            </Typography>
+            </h4>
             <div>
               <button class="modal-btn ok" onClick={handleReload}>
                 Ok
@@ -457,20 +476,10 @@ const Itinerary = ({ trip }) => {
                   alt="Friends jumping on a beach at sunset"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
-                    {trip.members ? "Friends" : "No other attendees"}
+                  <h3 component="div">
+                    {trip.members.length > 1 ? "Friends" : "No other attendees"}
                   </h3>
-                  {trip.members &&
-                    trip.members.map((member, i) => (
-                      <span
-                        key={i}
-                        style={{
-                          marginLeft: 10,
-                        }}
-                      >
-                        <p>User: {member.username} </p>
-                      </span>
-                    ))}
+                  <p>{friendsOnTrip(trip)} </p>
                 </CardContent>
               </Card>
             </Grid>
@@ -490,9 +499,7 @@ const Itinerary = ({ trip }) => {
                   alt="Calendar"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
-                    Trip Dates
-                  </h3>
+                  <h3 component="div">Trip Dates</h3>
                   <span>
                     <p>Start Date: {trip.startDate}</p>
                     <p>End Date: {trip.endDate}</p>
@@ -517,7 +524,7 @@ const Itinerary = ({ trip }) => {
                   alt="Wall of small photos"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
+                  <h3 component="div">
                     {expenses && expenses.trip_expenses.length
                       ? "Expenses"
                       : "No Expenses Currently"}
@@ -550,9 +557,7 @@ const Itinerary = ({ trip }) => {
                   alt="Volkswagen vans on a beach"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
-                    Travel Method: {trip.transportation}
-                  </h3>
+                  <h3 component="div">Travel Method: {trip.transportation}</h3>
                   <p variant="body2" color="text.secondary"></p>
                 </CardContent>
               </Card>
@@ -592,7 +597,7 @@ const Itinerary = ({ trip }) => {
                 >
                   <TextField
                     fullWidth
-                    label="Optional"
+                    label={trip.location ? trip.location : "Optional"}
                     name="location"
                     onBlur={handleChange}
                     defaultValue={location}
@@ -619,7 +624,7 @@ const Itinerary = ({ trip }) => {
                 <h3>Edit Transportation</h3>
                 <TextField
                   fullWidth
-                  label="Optional"
+                  label={trip.transportation ? trip.transportation : "Optional"}
                   name="transportation"
                   onBlur={handleChange}
                   defaultValue={transportation}
@@ -630,7 +635,7 @@ const Itinerary = ({ trip }) => {
                 <h3>Edit Budget</h3>
                 <TextField
                   fullWidth
-                  label="Optional"
+                  label={trip.budget ? trip.budget : "Optional"}
                   name="budget"
                   onBlur={handleChange}
                   defaultValue={budget}
@@ -658,7 +663,7 @@ const Itinerary = ({ trip }) => {
                       })}
                   </Select>
                 </FormControl>
-                {addedFriends &&
+                {addedFriends && (
                   <div className="added-friends-container">
                     {addedFriends.map((friend, i) => {
                       return (
@@ -689,7 +694,7 @@ const Itinerary = ({ trip }) => {
                       );
                     })}
                   </div>
-                }
+                )}
                 {errorMessage && (
                   <div>
                     <p className="error-text">{errorMessage}</p>

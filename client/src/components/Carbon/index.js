@@ -25,7 +25,7 @@ const Carbon = () => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [formState, setFormState] = useState({
     amount: "",
-    charity: "World WildLife Fund",
+    charity: "",
   });
   const [clientSecret, setClientSecret] = useState({ client_secret: "" });
 
@@ -135,9 +135,7 @@ const Carbon = () => {
                     alt="Sierra Club logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
-                      Sierra Club
-                    </h2>
+                    <h2 component="div">Sierra Club</h2>
                   </CardContent>
                   <CardActions className="center">
                     <Button
@@ -168,9 +166,7 @@ const Carbon = () => {
                     alt="National Park Foundation logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
-                      National Park Foundation
-                    </h2>
+                    <h2 component="div">National Park Foundation</h2>
                   </CardContent>
                   <CardActions className="center">
                     <Button
@@ -202,7 +198,7 @@ const Carbon = () => {
                     alt="Nature Conservancy logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
+                    <h2 component="div">
                       Nature Conservancy
                     </h2>
                   </CardContent>
@@ -221,7 +217,7 @@ const Carbon = () => {
               </Grid>
             </Grid>
           </Box>
-
+          <form>
           <FormControl className="form" onSubmit={handleSubmit}>
             <label id="charity-label">
               <h3>Select your charity:</h3>
@@ -257,10 +253,11 @@ const Carbon = () => {
               }}
             />
 
-            <Button variant="contained" type="submit" className="button">
+            <Button variant="contained" type="submit" className="button" onClick={handleSubmit}>
               Submit
             </Button>
           </FormControl>
+          </form>
         </div>
       )}
     </>

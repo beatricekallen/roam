@@ -29,6 +29,18 @@ const TripList = ({ trips, profileUsername }) => {
 
   const loggedInUsername = Auth.getProfile().data.username;
 
+  const friendsOnTrip = (trip) => {
+    const friendsOnTripArray = trip.members;
+    let friendsUsernameArray = [];
+    if (friendsOnTripArray.length) {
+      for (let i = 1; i < friendsOnTripArray.length; i++) {
+        friendsUsernameArray.push(trip.members[i].username);
+        var friendsUsernamesFormatted = friendsUsernameArray.join(", ");
+      }
+    }
+    return friendsUsernamesFormatted;
+  };
+
   return (
     <div>
       <h1>Current Trip</h1>
@@ -58,6 +70,12 @@ const TripList = ({ trips, profileUsername }) => {
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
+                    <h4>Friends attending:</h4>
+                    <h4>
+                      {trip.members.length > 1
+                        ? friendsOnTrip(trip)
+                        : "No friends joining"}
+                    </h4>
                   </CardContent>
                   <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
@@ -71,7 +89,11 @@ const TripList = ({ trips, profileUsername }) => {
             ))
           ) : (
             <div className="padding">
-              {loggedInUsername == profileUsername ? <h2>You're not currently on a trip!</h2> : <h2>No current trips!</h2>}
+              {loggedInUsername == profileUsername ? (
+                <h2>You're not currently on a trip!</h2>
+              ) : (
+                <h2>No current trips!</h2>
+              )}
             </div>
           )}
         </Grid>
@@ -106,6 +128,12 @@ const TripList = ({ trips, profileUsername }) => {
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
+                    <h4>Friends attending:</h4>
+                    <h4>
+                      {trip.members.length > 1
+                        ? friendsOnTrip(trip)
+                        : "No friends joining"}
+                    </h4>
                   </CardContent>
                   <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>
@@ -151,6 +179,12 @@ const TripList = ({ trips, profileUsername }) => {
                     <h3>{trip.location}</h3>
                     <h4>Start date: {trip.startDate}</h4>
                     <h4>End date: {trip.endDate}</h4>
+                    <h4>Friends who attended:</h4>
+                    <h4>
+                      {trip.members.length > 1
+                        ? friendsOnTrip(trip)
+                        : "No friends joined"}
+                    </h4>
                   </CardContent>
                   <CardActions className="center">
                     <Link to={`/viewtrip/${trip._id}`}>

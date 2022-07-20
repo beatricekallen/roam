@@ -7,7 +7,7 @@ const CurrentTripNav = (props) => {
     <nav className="navMenu">
       {tabs.map((tab) => (
         <a
-          className="nav-item"
+          className={tab == props.currentTab && "nav-selected"}
           key={tab}
           href={"#" + tab.toLowerCase()}
           onClick={() => props.handleTabChange(tab)}

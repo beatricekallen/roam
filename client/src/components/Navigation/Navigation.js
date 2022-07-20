@@ -16,6 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Avatar from "@mui/material/Avatar";
 import SearchBar from "../SearchBar";
+import Badge from '@mui/material/Badge';
 
 import "./Navigation.css";
 
@@ -48,6 +49,18 @@ const Navigation = () => {
 
   let username;
   if (Auth.loggedIn()) username = Auth.getProfile().data.username;
+
+  const badgeStyle = {
+    "& .MuiBadge-badge": {
+      top: '30px',
+      right: `28px`,
+      color: '#1b4d89',
+      backgroundColor: '#fff',
+      fontSize: '16px',
+      fontFamily: 'Lobster, cursive',
+      height: '22px'
+    }
+  }
 
   return (
     <AppBar position="sticky" className="app-bar">
@@ -140,13 +153,19 @@ const Navigation = () => {
                   </Button>
                 </Link>
                 <Link to="/profile">                 
-                  <IconButton sx={{ py: 2, pr: 0 }}>
-                    <Avatar
-                      alt="Sea Turtle Avatar"
-                      src="/images/seaturtle.jpg"
-                      sx={{ width: 56, height: 56, border: `2px solid white` }}
-                    />
-                    <span className="username-container"><span className="username">{username}</span></span>
+                  <IconButton sx={{ p: 2 }}>
+                    <Badge
+                      overlap="circular"
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                      badgeContent={username}
+                      sx={badgeStyle}
+                    >
+                      <Avatar
+                        alt="Sea Turtle Avatar"
+                        src="/images/seaturtle.jpg"
+                        sx={{ width: 56, height: 56, border: `2px solid white` }}
+                      />
+                    </Badge>
                   </IconButton>
                 </Link>
               </>
