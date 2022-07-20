@@ -17,7 +17,7 @@ const PaymentForm = function({ amount, charity }) {
       const payment = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `http://localhost:3000/stripe-success`
+          return_url: `https://pacific-depths-60618.herokuapp.com/stripe-success`
         }
       });
       console.log(payment);
