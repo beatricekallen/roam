@@ -135,9 +135,7 @@ const Carbon = () => {
                     alt="Sierra Club logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
-                      Sierra Club
-                    </h2>
+                    <h2 component="div">Sierra Club</h2>
                   </CardContent>
                   <CardActions className="center">
                     <Button
@@ -168,9 +166,7 @@ const Carbon = () => {
                     alt="National Park Foundation logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
-                      National Park Foundation
-                    </h2>
+                    <h2 component="div">National Park Foundation</h2>
                   </CardContent>
                   <CardActions className="center">
                     <Button
@@ -202,7 +198,7 @@ const Carbon = () => {
                     alt="Nature Conservancy logo."
                   />
                   <CardContent>
-                    <h2 gutterBottom variant="h5" component="div">
+                    <h2 component="div">
                       Nature Conservancy
                     </h2>
                   </CardContent>
