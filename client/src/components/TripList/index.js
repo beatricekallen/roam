@@ -1,9 +1,7 @@
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useNavigate, Link } from "react-router-dom";
@@ -12,8 +10,6 @@ import "./index.css";
 
 const TripList = ({ trips, profileUsername }) => {
   const navigate = useNavigate();
-
-  // current past upcoming, trip.status
 
   const currentTrip = trips.filter((trip) => {
     return trip.status === "current";
@@ -44,7 +40,6 @@ const TripList = ({ trips, profileUsername }) => {
   return (
     <div>
       <h1>Current Trip</h1>
-      {/* NEED TO CHANGE TO UPCOMING TRIPS */}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {currentTrip.length ? (
@@ -89,7 +84,7 @@ const TripList = ({ trips, profileUsername }) => {
             ))
           ) : (
             <div className="padding">
-              {loggedInUsername == profileUsername ? (
+              {loggedInUsername === profileUsername ? (
                 <h2>You're not currently on a trip!</h2>
               ) : (
                 <h2>No current trips!</h2>
@@ -102,7 +97,6 @@ const TripList = ({ trips, profileUsername }) => {
       <div>
         <h1>Upcoming Trips</h1>
       </div>
-      {/* NEED TO CHANGE TO UPCOMING TRIPS */}
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {upcomingTrips.length ? (

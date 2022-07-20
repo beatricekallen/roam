@@ -4,10 +4,7 @@ import { QUERY_ME_BASIC } from "../utils/queries";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import { getFormattedDate } from "../utils/dateFormat";
 
-// import Input from "@mui/material/Input";
-// import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
-// import FormControl from "@mui/material/FormControl";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -219,7 +216,7 @@ const CreateTrip = () => {
               })}
           </Select>
         </FormControl>
-        {addedFriends &&
+        {addedFriends && (
           <div className="added-friends-container">
             {addedFriends.map((friend, i) => {
               return (
@@ -250,7 +247,7 @@ const CreateTrip = () => {
               );
             })}
           </div>
-        }
+        )}
         {errorMessage && (
           <div>
             <p className="error-text">{errorMessage}</p>

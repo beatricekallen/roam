@@ -1,5 +1,4 @@
 import React from "react";
-// import { useState } from "react";
 import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import { ADD_FRIEND } from "../utils/mutations";
@@ -8,10 +7,9 @@ import { QUERY_ME, QUERY_USER, QUERY_ME_BASIC } from "../utils/queries";
 import TripList from "../components/TripList";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 import List from "@mui/material/List";
-// import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
@@ -19,7 +17,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-// import Carbon from "../components/Carbon";
 import "./Profile.css";
 
 const Profile = (props) => {
@@ -45,8 +42,8 @@ const Profile = (props) => {
   // checks if friend has been added already
   let addedFriend;
   if (myData) {
-    const friendUserNames = myData.me.friends.map(friend => friend.username);
-    if(friendUserNames.includes(user.username)) {
+    const friendUserNames = myData.me.friends.map((friend) => friend.username);
+    if (friendUserNames.includes(user.username)) {
       addedFriend = true;
     }
   }
@@ -111,51 +108,68 @@ const Profile = (props) => {
         </div>
         {/* Only show "add friend" when viewing another user's profile */}
         {userParam && (
-          <Button className={addedFriend ? "disabled-button" : "button"} onClick={handleClick} disabled={addedFriend ? true  : false }>
-            {addedFriend ? 'Friend Added' : 'Add Friend'}
+          <Button
+            className={addedFriend ? "disabled-button" : "button"}
+            onClick={handleClick}
+            disabled={addedFriend ? true : false}
+          >
+            {addedFriend ? "Friend Added" : "Add Friend"}
           </Button>
         )}
       </div>
 
       <div>
         <div>
-          <TripList trips={user.trips} title={`${user.username}'s trips`} profileUsername={user.username} />
+          <TripList
+            trips={user.trips}
+            title={`${user.username}'s trips`}
+            profileUsername={user.username}
+          />
         </div>
-
       </div>
       <div className="friend-list-container">
-        <h1 className={user.friends.length ? "friend-list-h1" : "no-friends-h1"}>Friends List</h1>
-        {user.friends.length 
-          ?
-          <>{user.friends.map((friend, i) => (
-            <List dense={false} key={friend.username} sx={{ borderBottom: i != user.friends.length-1 && '1px gray solid' }}>
-              <Link to={`/profile/${friend.username}`}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <PersonIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={friend.username}
-                    secondary={null}
-                    className="friendLink"
-                  />
-                </ListItem>
-              </Link>
-            </List>
-          ))}
+        <h1
+          className={user.friends.length ? "friend-list-h1" : "no-friends-h1"}
+        >
+          Friends List
+        </h1>
+        {user.friends.length ? (
+          <>
+            {user.friends.map((friend, i) => (
+              <List
+                dense={false}
+                key={friend.username}
+                sx={{
+                  borderBottom:
+                    i != user.friends.length - 1 && "1px gray solid",
+                }}
+              >
+                <Link to={`/profile/${friend.username}`}>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <PersonIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={friend.username}
+                      secondary={null}
+                      className="friendLink"
+                    />
+                  </ListItem>
+                </Link>
+              </List>
+            ))}
           </>
-          :
+        ) : (
           <List dense={false}>
-                {<ListItem>
-                  <ListItemText
-                    primary="Friends list empty"
-                    secondary={null}
-                  />
-                </ListItem>}
-            </List>
-        }
+            {
+              <ListItem>
+                <ListItemText primary="Friends list empty" secondary={null} />
+              </ListItem>
+            }
+          </List>
+        )}
       </div>
     </div>
   );

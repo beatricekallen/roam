@@ -43,7 +43,6 @@ const Home = () => {
             <h3>
               Create a trip and invite friends to view the itinerary and budget.
             </h3>
-            {/* <img className="friends__img" src="/" alt=""></img> */}
           </div>
         </div>
       </div>

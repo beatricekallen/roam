@@ -12,7 +12,6 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CardContent from "@mui/material/CardContent";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -25,7 +24,6 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 
-import mapImage from "./assets/mapimage.png";
 import friendsImage from "./assets/friendsimage.jpg";
 import calendarImage from "./assets/calendarimage.jpg";
 import travelImage from "./assets/travelimage.jpg";
@@ -88,8 +86,6 @@ const Itinerary = ({ trip }) => {
       if (child === null) return true;
       return false;
     });
-
-    //if (formEmpty) return;
 
     // update db with trip info
     try {
@@ -448,18 +444,6 @@ const Itinerary = ({ trip }) => {
         <Box sx={{ flexGrow: 1, flexShrink: 1, marginTop: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={6} md={3} style={{ display: "flex" }}>
-              {/* <Card
-                style={{
-                  width: "80%",
-                  height: "35%",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  image={mapImage}
-                  alt="View of the US Embassy"
-                />
-              </Card> */}
               <Card
                 style={{
                   marginTop: 15,
@@ -470,7 +454,6 @@ const Itinerary = ({ trip }) => {
               >
                 <CardMedia
                   component="img"
-                  // height="50%"
                   height="140"
                   image={friendsImage}
                   alt="Friends jumping on a beach at sunset"
@@ -518,7 +501,6 @@ const Itinerary = ({ trip }) => {
               >
                 <CardMedia
                   component="img"
-                  // height="50%"
                   height="140"
                   image={expensesImage}
                   alt="Wall of small photos"
@@ -551,7 +533,6 @@ const Itinerary = ({ trip }) => {
               >
                 <CardMedia
                   component="img"
-                  // height="60%"
                   height="140"
                   image={travelImage}
                   alt="Volkswagen vans on a beach"

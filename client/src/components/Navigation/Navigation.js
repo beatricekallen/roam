@@ -9,14 +9,11 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-// import Avatar from '@mui/material/Avatar';
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import Avatar from "@mui/material/Avatar";
 import SearchBar from "../SearchBar";
-import Badge from '@mui/material/Badge';
+import Badge from "@mui/material/Badge";
 
 import "./Navigation.css";
 
@@ -52,15 +49,15 @@ const Navigation = () => {
 
   const badgeStyle = {
     "& .MuiBadge-badge": {
-      top: '30px',
+      top: "30px",
       right: `28px`,
-      color: '#1b4d89',
-      backgroundColor: '#fff',
-      fontSize: '16px',
-      fontFamily: 'Lobster, cursive',
-      height: '22px'
-    }
-  }
+      color: "#1b4d89",
+      backgroundColor: "#fff",
+      fontSize: "16px",
+      fontFamily: "Lobster, cursive",
+      height: "22px",
+    },
+  };
 
   return (
     <AppBar position="sticky" className="app-bar">
@@ -107,38 +104,10 @@ const Navigation = () => {
               ))}
             </Menu>
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography> */}
           <Box
             className="nav-links"
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
           >
-            {/* {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))} */}
             {Auth.loggedIn() ? (
               <>
                 <SearchBar />
@@ -152,18 +121,22 @@ const Navigation = () => {
                     Logout
                   </Button>
                 </Link>
-                <Link to="/profile">                 
+                <Link to="/profile">
                   <IconButton sx={{ p: 2 }}>
                     <Badge
                       overlap="circular"
-                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+                      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                       badgeContent={username}
                       sx={badgeStyle}
                     >
                       <Avatar
                         alt="Sea Turtle Avatar"
                         src="/images/seaturtle.jpg"
-                        sx={{ width: 56, height: 56, border: `2px solid white` }}
+                        sx={{
+                          width: 56,
+                          height: 56,
+                          border: `2px solid white`,
+                        }}
                       />
                     </Badge>
                   </IconButton>
@@ -194,36 +167,6 @@ const Navigation = () => {
               </>
             )}
           </Box>
-
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-          {/* </IconButton>
-            </Tooltip> */}
-          {/* <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
-          {/* </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
