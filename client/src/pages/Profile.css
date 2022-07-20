@@ -44,3 +44,8 @@ p {
   color: white;
   background-color: var(--clr-blue);
 }
+
+.disabled-button {
+  background-color: rgb(204, 204, 204) !important;
+  color: rgb(94, 94, 94) !important;
+}

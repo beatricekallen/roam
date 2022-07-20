@@ -1,13 +1,14 @@
 import React from "react";
 // import { useState } from "react";
 import { Navigate, useParams, useNavigate } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import { ADD_FRIEND } from "../utils/mutations";
-import { QUERY_ME, QUERY_USER } from "../utils/queries";
+import { QUERY_ME, QUERY_USER, QUERY_ME_BASIC } from "../utils/queries";
 
 import TripList from "../components/TripList";
 import Auth from "../utils/auth";
 import { Link } from "react-router-dom";
+import { useEffect } from 'react';
 
 import List from "@mui/material/List";
 // import Button from "@mui/material/Button";
@@ -26,12 +27,29 @@ const Profile = (props) => {
 
   const { username: userParam } = useParams();
   const [addFriend] = useMutation(ADD_FRIEND);
+  const [getMyData, { data: myData }] = useLazyQuery(QUERY_ME_BASIC);
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
 
   const user = data?.me || data?.user || {};
+
+  // load data if on another persons profile
+  useEffect(() => {
+    if (!loading && user && Auth.getProfile().data.username != user.username) {
+      getMyData();
+    }
+  }, [user]);
+
+  // checks if friend has been added already
+  let addedFriend;
+  if (myData) {
+    const friendUserNames = myData.me.friends.map(friend => friend.username);
+    if(friendUserNames.includes(user.username)) {
+      addedFriend = true;
+    }
+  }
 
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/profile" />;
@@ -89,8 +107,8 @@ const Profile = (props) => {
         </div>
         {/* Only show "add friend" when viewing another user's profile */}
         {userParam && (
-          <Button className="button" onClick={handleClick}>
-            Add Friend
+          <Button className={addedFriend ? "disabled-button" : "button"} onClick={handleClick} disabled={addedFriend ? 'true'  : 'false' }>
+            {addedFriend ? 'Friend Added' : 'Add Friend'}
           </Button>
         )}
       </div>
