@@ -1,16 +1,11 @@
 import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
-import { ADD_EXPENSE, DELETE_EXPENSE } from "../../utils/mutations";
+import { useQuery, useMutation } from "@apollo/client";
+import { useState } from "react";
+import { ADD_EXPENSE, DELETE_EXPENSE, PAY_OFF_EXPENSE } from "../../utils/mutations";
 
 import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -42,6 +37,7 @@ const Expenses = ({ trip }) => {
 
   const [addExpense] = useMutation(ADD_EXPENSE);
   const [deleteExpense] = useMutation(DELETE_EXPENSE);
+  const [payOffExpense] = useMutation(PAY_OFF_EXPENSE);
 
   const [formState, setFormState] = useState({});
   const [open, setOpen] = useState(false);
@@ -112,6 +108,41 @@ const Expenses = ({ trip }) => {
 
     return 
   };
+
+  const handlePay = async (e) => {
+    e.preventDefault();
+    const i = e.target.dataset.id;
+    const paidExpense = { ...expenses[i] };
+    const id = paidExpense._id;
+    console.log(id);
+
+    try {
+        await payOffExpense({
+            variables: {
+                id: id
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+
+    console.log(paidExpense);
+
+    const expensesList = expenses.map((item) => {
+        if (item._id === id) {
+            const updatedBorrowers = paidExpense.borrowers.filter((member) => member.username !== me);
+            const updatedExpense = {...paidExpense, borrowers: updatedBorrowers};
+            return updatedExpense
+        } else {
+            return item
+        }
+    });
+
+    setExpenses(expensesList);
+
+    return 
+
+  }
 
   return (
     <div className="expenses-container">
@@ -187,11 +218,17 @@ const Expenses = ({ trip }) => {
                         </div>
                         )
                     }
-                    {expense.payer.username !== me && (
-                        <div className="buttonContainer">
-                            <Button className='button expenseButton'>Mark as Paid</Button>
-                        </div>
-                    )}
+                    {expense.borrowers.map((member) =>{
+                        if (member.username === me) {
+                            return (
+                            <div key={expense._id.concat(member.username)} className="buttonContainer">
+                                <button data-id={i} className='button expenseButton' onClick={handlePay}>Mark as Paid</button>
+                            </div>
+                            )
+                        } else {
+                            return <></>
+                        }
+                    })}
                 </CardContent>
             </Card>
           ))
