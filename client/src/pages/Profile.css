@@ -33,7 +33,7 @@ p {
 .friend-list-container {
   position: absolute;
   top: 262.5px;
-  right: 10vw;
+  right: 2vw;
   border: 1px var(--clr-blue) solid;
   background-color: var();
   border-radius: 5px;
