@@ -25,13 +25,14 @@ const Carbon = () => {
   const [showCheckout, setShowCheckout] = useState(false);
   const [formState, setFormState] = useState({
     amount: "",
-    charity: "World WildLife Fund",
+    charity: "",
   });
   const [clientSecret, setClientSecret] = useState({ client_secret: "" });
 
   const { amount, charity } = formState;
 
   const handleFormChange = (e) => {
+    console.log('hit');
     if (e.target.name === "amount") {
       // only accept numbers as input
       const editedValue = e.target.value.replace(/\D/g, "");
@@ -48,6 +49,7 @@ const Carbon = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('hit');
     try {
       const response = await axios.post(
         "http://localhost:3000/create_payment",

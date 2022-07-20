@@ -107,7 +107,7 @@ const Profile = (props) => {
         </div>
         {/* Only show "add friend" when viewing another user's profile */}
         {userParam && (
-          <Button className={addedFriend ? "disabled-button" : "button"} onClick={handleClick} disabled={addedFriend ? 'true'  : 'false' }>
+          <Button className={addedFriend ? "disabled-button" : "button"} onClick={handleClick} disabled={addedFriend ? true  : false }>
             {addedFriend ? 'Friend Added' : 'Add Friend'}
           </Button>
         )}
