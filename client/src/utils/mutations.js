@@ -89,7 +89,15 @@ export const ADD_EXPENSE = gql`
   mutation addExpense($tripId: ID!, $item: String!, $price: String!) {
     addExpense(tripId: $tripId, item: $item, price: $price) {
       _id
+      balance
+      borrowers {
+        username
+      }
       item
+      paidOff
+      payer {
+        username
+      }
       totalPrice
       pricePerPerson
     }

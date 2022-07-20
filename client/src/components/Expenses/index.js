@@ -30,26 +30,15 @@ const style = {
 };
 
 const Expenses = ({ trip }) => {
-  const [ updateExpenses, {loading, data} ] = useLazyQuery(trip && QUERY_TRIP_EXPENSES, {
+  const {loading, data} = useQuery(trip && QUERY_TRIP_EXPENSES, {
     variables: { id: trip._id },
   });
 
   const me = Auth.getProfile().data.username;
-  console.log(me);
 
-  useEffect(() => {
-    updateExpenses()
-    console.log('runs')
-  }, []);
+  const expenseData = data?.trip_expenses;
 
-  const [expenses, setExpenses] = useState('');
-
-  useEffect(() => {
-    console.log(data);
-    if (data && !loading) {
-        setExpenses(data.trip_expenses);
-    }
-  }, [loading]);
+  const [expenses, setExpenses] = useState(expenseData);
 
   const [addExpense] = useMutation(ADD_EXPENSE);
   const [deleteExpense] = useMutation(DELETE_EXPENSE);
@@ -74,10 +63,11 @@ const Expenses = ({ trip }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let expenseData;
 
     if (!errorMessage) {
       try {
-        await addExpense({
+        expenseData = await addExpense({
           variables: {
             tripId: trip._id,
             item: item,
@@ -92,7 +82,10 @@ const Expenses = ({ trip }) => {
 
       handleClose();
 
-      return updateExpenses()
+      const newExpenses = [...expenses, expenseData.data.addExpense];
+      setExpenses(newExpenses);
+
+      return 
     }
   };
 
@@ -113,7 +106,11 @@ const Expenses = ({ trip }) => {
         console.log(e);
     }
 
-    return updateExpenses()
+    const newExpenses = expenses.filter((expense) => expense._id !== id);
+
+    setExpenses(newExpenses);
+
+    return 
   };
 
   return (
