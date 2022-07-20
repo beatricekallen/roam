@@ -8,7 +8,7 @@ Users can connect and plan trips with friends. Users can create and store itiner
 
 ## Technologies
 
-Built with JavaScript, HTML, CSS, Material UI, MongoDB, Mongoose, Express, React, Node.js, GraphQL, Apollo, and Stripe.
+Built with JavaScript, HTML, CSS, Material UI, MongoDB, Mongoose, Express, React, Node.js, GraphQL, Apollo, JWTs, and Stripe.
 
 Link to deployed application: https://pacific-depths-60618.herokuapp.com/
 
