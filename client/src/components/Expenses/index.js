@@ -1,7 +1,7 @@
 import { QUERY_TRIP_EXPENSES } from "../../utils/queries";
-import { useQuery, useMutation } from "@apollo/client";
-import { useState } from "react";
-import { ADD_EXPENSE } from "../../utils/mutations";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { useState, useEffect } from "react";
+import { ADD_EXPENSE, DELETE_EXPENSE } from "../../utils/mutations";
 
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -15,6 +15,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
+import Auth from '../../utils/auth.js'
 
 import "./index.css";
 
@@ -29,13 +30,29 @@ const style = {
 };
 
 const Expenses = ({ trip }) => {
-  const { loading, data } = useQuery(trip && QUERY_TRIP_EXPENSES, {
+  const [ updateExpenses, {loading, data} ] = useLazyQuery(trip && QUERY_TRIP_EXPENSES, {
     variables: { id: trip._id },
   });
 
-  const expenses = data?.trip_expenses || {};
+  const me = Auth.getProfile().data.username;
+  console.log(me);
+
+  useEffect(() => {
+    updateExpenses()
+    console.log('runs')
+  }, []);
+
+  const [expenses, setExpenses] = useState('');
+
+  useEffect(() => {
+    console.log(data);
+    if (data && !loading) {
+        setExpenses(data.trip_expenses);
+    }
+  }, [loading]);
 
   const [addExpense] = useMutation(ADD_EXPENSE);
+  const [deleteExpense] = useMutation(DELETE_EXPENSE);
 
   const [formState, setFormState] = useState({});
   const [open, setOpen] = useState(false);
@@ -73,8 +90,30 @@ const Expenses = ({ trip }) => {
 
       setFormState({});
 
-      return handleClose();
+      handleClose();
+
+      return updateExpenses()
     }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const i = e.target.dataset.id;
+    const removedExpense = { ...expenses[i] };
+    const id = removedExpense._id;
+    console.log(id);
+
+    try {
+        await deleteExpense({
+            variables: {
+                id: id
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+
+    return updateExpenses()
   };
 
   return (
@@ -125,7 +164,7 @@ const Expenses = ({ trip }) => {
       </Modal>
       <div className="expenses-list">
         {expenses.length ? (
-          expenses.map((expense) => (
+          expenses.map((expense, i) => (
             <Card key={expense._id} className="expense-card">
                 <CardContent className='expense-content'>
                     <h2>{expense.item}</h2>
@@ -136,6 +175,26 @@ const Expenses = ({ trip }) => {
                 <CardContent>
                     <h3>Total Cost: ${expense.totalPrice}</h3>
                     <h3>Cost per member: ${expense.pricePerPerson}</h3>
+                    <div className='borrowerContainer'>
+                        {expense.borrowers.map((member) => {
+                            return (
+                                <h4 key={expense._id.concat(member.username)} className='borrower'>
+                                    {member.username}
+                                </h4>
+                            )
+                        })}
+                    </div>
+                    {expense.payer.username === me && (
+                        <div className="buttonContainer">
+                            <button data-id={i} className='button expenseButton deleteBtn' onClick={handleDelete}>Delete</button>
+                        </div>
+                        )
+                    }
+                    {expense.payer.username !== me && (
+                        <div className="buttonContainer">
+                            <Button className='button expenseButton'>Mark as Paid</Button>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
           ))
