@@ -32,7 +32,6 @@ const Carbon = () => {
   const { amount, charity } = formState;
 
   const handleFormChange = (e) => {
-    console.log('hit');
     if (e.target.name === "amount") {
       // only accept numbers as input
       const editedValue = e.target.value.replace(/\D/g, "");
@@ -49,7 +48,6 @@ const Carbon = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('hit');
     try {
       const response = await axios.post(
         "http://localhost:3000/create_payment",
@@ -223,7 +221,7 @@ const Carbon = () => {
               </Grid>
             </Grid>
           </Box>
-
+          <form>
           <FormControl className="form" onSubmit={handleSubmit}>
             <label id="charity-label">
               <h3>Select your charity:</h3>
@@ -259,10 +257,11 @@ const Carbon = () => {
               }}
             />
 
-            <Button variant="contained" type="submit" className="button">
+            <Button variant="contained" type="submit" className="button" onClick={handleSubmit}>
               Submit
             </Button>
           </FormControl>
+          </form>
         </div>
       )}
     </>
