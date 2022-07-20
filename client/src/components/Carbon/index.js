@@ -12,7 +12,6 @@ import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Input from "@mui/material/Input";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -198,9 +197,7 @@ const Carbon = () => {
                     alt="Nature Conservancy logo."
                   />
                   <CardContent>
-                    <h2 component="div">
-                      Nature Conservancy
-                    </h2>
+                    <h2 component="div">Nature Conservancy</h2>
                   </CardContent>
                   <CardActions className="center">
                     <Button
@@ -218,45 +215,52 @@ const Carbon = () => {
             </Grid>
           </Box>
           <form>
-          <FormControl className="form" onSubmit={handleSubmit}>
-            <label id="charity-label">
-              <h3>Select your charity:</h3>
-            </label>
-            <Select
-              name="charity"
-              id="charity-dropdown"
-              value={charity}
-              onChange={handleFormChange}
-            >
-              <MenuItem value="wwf">World Wildlife Fund</MenuItem>
-              <MenuItem value="sierra-club">Sierra Club</MenuItem>
-              <MenuItem value="park-foundation">
-                National Park Foundation
-              </MenuItem>
-              <MenuItem value="nature-conservancy">Nature Conservancy</MenuItem>
-            </Select>
-            <br></br>
-            <label>
-              <h3>Enter your donation amount:</h3>
-            </label>
-            <TextField
-              label="Amount"
-              name="amount"
-              defaultValue={amount}
-              onBlur={handleFormChange}
-              variant="standard"
-              className="margin"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">$</InputAdornment>
-                ),
-              }}
-            />
+            <FormControl className="form" onSubmit={handleSubmit}>
+              <label id="charity-label">
+                <h3>Select your charity:</h3>
+              </label>
+              <Select
+                name="charity"
+                id="charity-dropdown"
+                value={charity}
+                onChange={handleFormChange}
+              >
+                <MenuItem value="wwf">World Wildlife Fund</MenuItem>
+                <MenuItem value="sierra-club">Sierra Club</MenuItem>
+                <MenuItem value="park-foundation">
+                  National Park Foundation
+                </MenuItem>
+                <MenuItem value="nature-conservancy">
+                  Nature Conservancy
+                </MenuItem>
+              </Select>
+              <br></br>
+              <label>
+                <h3>Enter your donation amount:</h3>
+              </label>
+              <TextField
+                label="Amount"
+                name="amount"
+                defaultValue={amount}
+                onBlur={handleFormChange}
+                variant="standard"
+                className="margin"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+              />
 
-            <Button variant="contained" type="submit" className="button" onClick={handleSubmit}>
-              Submit
-            </Button>
-          </FormControl>
+              <Button
+                variant="contained"
+                type="submit"
+                className="button"
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </FormControl>
           </form>
         </div>
       )}
