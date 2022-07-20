@@ -28,6 +28,7 @@ const TripList = ({ trips, profileUsername }) => {
   });
 
   const loggedInUsername = Auth.getProfile().data.username;
+
   const friendsOnTrip = (trip) => {
     const friendsOnTripArray = trip.members;
     let friendsUsernameArray = [];
