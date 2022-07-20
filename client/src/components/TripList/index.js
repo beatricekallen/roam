@@ -40,8 +40,6 @@ const TripList = ({ trips, profileUsername }) => {
     return friendsUsernamesFormatted;
   };
 
-  console.log(trips);
-
   return (
     <div>
       <h1>Current Trip</h1>

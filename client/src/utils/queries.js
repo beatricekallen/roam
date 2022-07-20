@@ -10,12 +10,21 @@ export const QUERY_USER = gql`
   query user ($username: String!) {
     user(username: $username) {
       _id
-      username
       email
+      username
       trips {
         _id
         name
         location
+        createdAt
+        status
+        members {
+          _id
+          username
+          email
+        }
+        budget
+        creator
         startDate
         endDate
       }
