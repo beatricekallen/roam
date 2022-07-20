@@ -462,7 +462,7 @@ const Itinerary = ({ trip }) => {
                   alt="Friends jumping on a beach at sunset"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
+                  <h3 component="div">
                     {trip.members ? "Friends" : "No other attendees"}
                   </h3>
                   {trip.members &&
@@ -495,9 +495,7 @@ const Itinerary = ({ trip }) => {
                   alt="Calendar"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
-                    Trip Dates
-                  </h3>
+                  <h3 component="div">Trip Dates</h3>
                   <span>
                     <p>Start Date: {trip.startDate}</p>
                     <p>End Date: {trip.endDate}</p>
@@ -522,7 +520,7 @@ const Itinerary = ({ trip }) => {
                   alt="Wall of small photos"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
+                  <h3 component="div">
                     {expenses && expenses.trip_expenses.length
                       ? "Expenses"
                       : "No Expenses Currently"}
@@ -555,9 +553,7 @@ const Itinerary = ({ trip }) => {
                   alt="Volkswagen vans on a beach"
                 />
                 <CardContent>
-                  <h3 gutterBottom variant="h5" component="div">
-                    Travel Method: {trip.transportation}
-                  </h3>
+                  <h3 component="div">Travel Method: {trip.transportation}</h3>
                   <p variant="body2" color="text.secondary"></p>
                 </CardContent>
               </Card>
