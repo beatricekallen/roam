@@ -251,7 +251,11 @@ const resolvers = {
           borrowers: memberData.map(member => member._id),
         });
 
-        return expenseData;
+        const populatedExpenseData = await Expense.findById(expenseData._id)
+          .populate('borrowers')
+          .populate('payer');
+
+        return populatedExpenseData;
       }
 
       throw new AuthenticationError("You need to be logged in");

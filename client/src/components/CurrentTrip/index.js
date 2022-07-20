@@ -13,7 +13,7 @@ const CurrentTrip = ({data}) => {
       case "Itinerary": 
        return <Itinerary trip={data.trip} />;
       case "Expenses":
-        return <Expenses trip={data.trip}/>;
+        return <Expenses trip={data.trip} />;
       case "Carbon-offsetting":
         return <Carbon />;
     }
