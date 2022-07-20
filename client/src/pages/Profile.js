@@ -124,25 +124,38 @@ const Profile = (props) => {
 
       </div>
       <div className="friend-list-container">
-        <h1 className="friend-list-h1">Friends List</h1>
-        {user.friends.map((friend, i) => (
-          <List dense={false} key={friend.username} sx={{ borderBottom: i != user.friends.length-1 && '1px gray solid' }}>
-            <Link to={`/profile/${friend.username}`}>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={friend.username}
-                  secondary={null}
-                  className="friendLink"
-                />
-              </ListItem>
-            </Link>
-          </List>
-        ))}
+        <h1 className={user.friends.length ? "friend-list-h1" : "no-friends-h1"}>Friends List</h1>
+        {user.friends.length 
+          ?
+          <>{user.friends.map((friend, i) => (
+            <List dense={false} key={friend.username} sx={{ borderBottom: i != user.friends.length-1 && '1px gray solid' }}>
+              <Link to={`/profile/${friend.username}`}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <PersonIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={friend.username}
+                    secondary={null}
+                    className="friendLink"
+                  />
+                </ListItem>
+              </Link>
+            </List>
+          ))}
+          </>
+          :
+          <List dense={false}>
+                {<ListItem>
+                  <ListItemText
+                    primary="Friends list empty"
+                    secondary={null}
+                  />
+                </ListItem>}
+            </List>
+        }
       </div>
     </div>
   );
