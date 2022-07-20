@@ -10,8 +10,8 @@ Users can connect and plan trips with friends. Users can create and store itiner
 
 Built with JavaScript, HTML, CSS, Material UI, MongoDB, Mongoose, Express, React, Node.js, GraphQL, Apollo, and Stripe.
 
-Link to deployed application:
+Link to deployed application: https://pacific-depths-60618.herokuapp.com/
 
-Link to GitHub repository:
+Link to GitHub repository: https://github.com/beatricekallen/roam
 
 Contributors: Alex Glaubitz, Beatrice Allen, Brittany Young, Lauren Lattanzi, and Malik Spruill
